@@ -1,0 +1,800 @@
+{
+  "meta": {
+    "title": "Meal Planner",
+    "subtitle": "User manual: plan the family's meals and shopping",
+    "version": "Version 1.2",
+    "date": "4 October 2026",
+    "project": "Meal Planner",
+    "author": "Hans Tandt",
+    "tocTitle": "Contents",
+    "mascot": {
+      "cover": "figures/mascot/cover.png",
+      "coverWidth": 190,
+      "tip": "figures/mascot/tip.png",
+      "note": "figures/mascot/note.png",
+      "trap": "figures/mascot/trap.png",
+      "width": 46
+    }
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "1. How to use this manual"
+    },
+    {
+      "type": "p",
+      "text": "This manual shows you how to plan the family's meals with Meal Planner. Each chapter is one task. Follow the numbered steps in order."
+    },
+    {
+      "type": "p",
+      "text": "Numbers in the pictures match the numbers in the text. Coloured boxes give extra help:"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Box",
+        "Means"
+      ],
+      "widths": [
+        1,
+        5
+      ],
+      "rows": [
+        [
+          "TIP",
+          "A better way. Helpful, but you can skip it."
+        ],
+        [
+          "NOTE",
+          "Something to know, so nothing surprises you."
+        ],
+        [
+          "TRAP",
+          "A mistake to avoid, and what to do instead."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Is the app not on your phone yet? Start with Appendix A, Set up the app on a new phone. Is the app not online yet? Start with Appendix B, Put the app online with Netlify."
+    },
+    {
+      "type": "h2",
+      "text": "The app at a glance"
+    },
+    {
+      "type": "figure",
+      "path": "figures/fig_week.png",
+      "width": 230,
+      "caption": "Figure 1. The week screen: everything starts here.",
+      "alt": "The week screen with the week arrows, a day card, the Quick label, the tabs and the menu button marked."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Part",
+        "What it does"
+      ],
+      "widths": [
+        1,
+        3,
+        9
+      ],
+      "rows": [
+        [
+          "1",
+          "Week arrows",
+          "Go to the previous or the next week."
+        ],
+        [
+          "2",
+          "Day card",
+          "Tap it to see and change that day's meals. Today has an orange border."
+        ],
+        [
+          "3",
+          "Quick label",
+          "The day is busy. The AI chef suggests fast meals for it."
+        ],
+        [
+          "4",
+          "Tabs",
+          "Switch between Week, Shopping and AI Chef."
+        ],
+        [
+          "5",
+          "Menu ⋮",
+          "Backup, language, family name, PIN and API key."
+        ]
+      ]
+    },
+    {
+      "type": "h1",
+      "text": "2. Quick start: plan tonight's dinner"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: add one meal to today in two minutes."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open Meal Planner on your phone.",
+        "Enter your 4-digit PIN.",
+        "Tap today's card. It has an orange border and the label Today.",
+        "Tap Add next to Dinner (1).",
+        "Type the name of the meal (2), for example Chicken curry.",
+        "Tap Save meal (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fig_add_meal.png",
+      "width": 470,
+      "caption": "Figure 2. Tap Add, type the meal name, then tap Save meal.",
+      "alt": "Left: Tuesday with an Add button beside Dinner. Right: the meal editor with the name field, the photo area and the Save meal button marked."
+    },
+    {
+      "type": "p",
+      "text": "Success: the meal now shows on today's card in the week screen."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Add a photo",
+      "text": "Tap the photo area (3) to take a picture of the dish or choose one. The photo then shows on the day card."
+    },
+    {
+      "type": "h1",
+      "text": "3. Plan your week"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: fill the week, change meals and mark busy days."
+    },
+    {
+      "type": "h2",
+      "text": "Go to another week"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tap › to see the next week.",
+        "Tap ‹ to go back one week.",
+        "Tap This week to return to the current week. The button shows only when you look at another week."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Mark a busy day as quick"
+    },
+    {
+      "type": "p",
+      "text": "On busy days there is little time to cook. Mark those days as quick. The AI chef then suggests meals that are ready in 20 minutes or less."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tap the day's card.",
+        "Tap the Quick meal day switch (1). It turns orange.",
+        "Tap × or anywhere outside the window to close it."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fig_day.png",
+      "width": 250,
+      "caption": "Figure 3. One day: switch Quick meal day on, and change, remove or add meals.",
+      "alt": "Wednesday with the quick switch on, and the pencil, bin and Add buttons marked."
+    },
+    {
+      "type": "p",
+      "text": "Success: the day card shows the Quick label and an orange stripe on the left."
+    },
+    {
+      "type": "h2",
+      "text": "Change or remove a meal"
+    },
+    {
+      "type": "table",
+      "header": [
+        "To",
+        "Tap"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Change a meal",
+          "The pencil (2), or the meal itself"
+        ],
+        [
+          "Remove a meal",
+          "The bin (3)"
+        ],
+        [
+          "Add a meal",
+          "Add (4)"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "The bin has no undo",
+      "text": "The bin removes the meal and its photo at once. If you tap it by mistake, add the meal again."
+    },
+    {
+      "type": "h1",
+      "text": "4. Let the AI chef plan your week"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: get a full week of meals in one tap."
+    },
+    {
+      "type": "p",
+      "text": "What you need: an internet connection and an API key in the menu. Appendix A shows how to add the key."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Mark the busy days as quick (chapter 3).",
+        "Tap the AI Chef tab.",
+        "Tap Suggest meals.",
+        "Wait while the chef plans. This takes a moment.",
+        "Read the suggested plan (1). Scroll down to see all 7 days.",
+        "Tap Apply to calendar (2).",
+        "If the app asks Replace planned meals?, tap Replace (3) or Cancel (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fig_plan.png",
+      "width": 440,
+      "caption": "Figure 4. Check the plan, then apply it. Replace only if you want to lose the meals already planned.",
+      "alt": "Left: the suggested plan with one day and the Apply to calendar button marked. Right: the Replace planned meals question with Replace and Cancel marked."
+    },
+    {
+      "type": "p",
+      "text": "Success: the happy chef appears, and the week screen shows the new meals."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Replace overwrites the whole week",
+      "text": "Replace removes every meal and photo already planned in that week. Tap Cancel to keep them."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Not happy with the plan?",
+      "text": "Tap Suggest meals again for a new plan. Nothing changes until you tap Apply to calendar."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Meal names follow the app language",
+      "text": "The chef writes in the language of the app. Chapter 7 shows how to change it."
+    },
+    {
+      "type": "h1",
+      "text": "5. Use the shopping list"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: keep one list per shop and tick items off in the store."
+    },
+    {
+      "type": "figure",
+      "path": "figures/fig_shop.png",
+      "width": 230,
+      "caption": "Figure 5. One list per shop: add, tick and delete items.",
+      "alt": "The Delhaize list with the shop buttons, the add field, a tick box, a bin and the AI list button marked."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "To",
+        "Do this"
+      ],
+      "widths": [
+        1,
+        4,
+        8
+      ],
+      "rows": [
+        [
+          "1",
+          "Choose a shop",
+          "Tap Delhaize, Lidl, Aldi, Massen or Other. The number shows the items still to buy."
+        ],
+        [
+          "2",
+          "Add an item",
+          "Type the item, then tap +."
+        ],
+        [
+          "3",
+          "Tick an item",
+          "Tap the box. Tap it again to untick."
+        ],
+        [
+          "4",
+          "Delete an item",
+          "Tap the bin."
+        ],
+        [
+          "5",
+          "Let the AI write the list",
+          "Tap AI list. See the steps below."
+        ]
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Let the AI write the list"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Plan the week first (chapter 3 or 4).",
+        "Tap the Shopping tab.",
+        "Tap AI list (5).",
+        "Wait while the chef writes the list."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Success: new items appear under each shop. Items that are already on a list are not added twice."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Which week?",
+      "text": "The AI list uses the week you looked at last in the week screen."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Make the list right after planning",
+      "text": "Apply the AI plan, then tap AI list. The whole week's shopping is ready in two taps."
+    },
+    {
+      "type": "h1",
+      "text": "6. Recognise a dish and shop for it"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: find out the name of a dish from a photo, and put its ingredients on the shopping list."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tap the AI Chef tab.",
+        "Scroll down to Identify a meal.",
+        "Tap the photo area, then take or choose a photo.",
+        "Tap Identify this meal (1).",
+        "Read the name (2) and the description.",
+        "Tap Add ingredients to shopping list (3)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fig_identify.png",
+      "width": 320,
+      "caption": "Figure 6. The chef names the dish; one more tap puts its ingredients on the shopping list.",
+      "alt": "The Identify this meal button, the dish name and the Add ingredients to shopping list button marked."
+    },
+    {
+      "type": "p",
+      "text": "Success: the happy chef shows how many ingredients were added. Each ingredient is on the list of the shop where you usually buy it."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Basics are left out",
+      "text": "Salt, pepper, cooking oil and water are not added. Items already on a list are not added twice."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Use it while you add a meal",
+      "text": "The meal editor has an Identify with AI button too. It fills in the name and the notes for you."
+    },
+    {
+      "type": "h1",
+      "text": "7. Change language, family name and PIN"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: make the app yours. All settings are in the menu ⋮ at the top right."
+    },
+    {
+      "type": "figure",
+      "path": "figures/fig_menu.png",
+      "width": 250,
+      "caption": "Figure 7. The menu holds the backup, language and family settings.",
+      "alt": "The menu with Export, Import, the language buttons and the family name field marked."
+    },
+    {
+      "type": "h2",
+      "text": "Change the language"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tap ⋮.",
+        "Tap English, Français, Nederlands or Deutsch (3)."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "The app changes language at once. Each phone keeps its own language."
+    },
+    {
+      "type": "h2",
+      "text": "Change the family name"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tap ⋮.",
+        "Type the name in the Family field (4).",
+        "Tap Save family name."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "The name shows on the lock screen, at the top of the app and in reports."
+    },
+    {
+      "type": "h2",
+      "text": "Change the PIN"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tap ⋮.",
+        "Scroll down to Security.",
+        "Type your current PIN.",
+        "Type a new 4-digit PIN.",
+        "Tap Change PIN."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Write your PIN down",
+      "text": "The app cannot show or reset a forgotten PIN. Keep it somewhere safe. Chapter 9 shows what to do if it is lost."
+    },
+    {
+      "type": "h1",
+      "text": "8. Back up your data and move it to another phone"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: keep a copy of your meals, photos and lists, and move them to another phone."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Your data lives on the phone",
+      "text": "Meals and lists are saved on each phone, not online. Two phones do not share changes on their own."
+    },
+    {
+      "type": "h2",
+      "text": "Make a backup"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tap ⋮.",
+        "Tap Export data (backup) (1).",
+        "Save the file, for example on Google Drive."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "The file name looks like tandt-meal-data-2026-10-04.json. It holds the meals, photos, shopping lists and family name."
+    },
+    {
+      "type": "h2",
+      "text": "Restore a backup or move to another phone"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open the app on the phone that should receive the data.",
+        "Tap ⋮.",
+        "Tap Import data (2).",
+        "Choose the backup file."
+      ]
+    },
+    {
+      "type": "table",
+      "header": [
+        "If",
+        "Then"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "A day is in the file and on this phone",
+          "The day from the file replaces the day on this phone."
+        ],
+        [
+          "A day is only on this phone",
+          "It stays as it is."
+        ],
+        [
+          "A shopping item is in the file and on this phone",
+          "It appears once."
+        ],
+        [
+          "Items were ticked on the other phone",
+          "Ticks are not copied. Tick them again."
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Clearing browser data deletes everything",
+      "text": "Clearing Brave's site data erases all meals, photos and lists on this phone. Make a backup first."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Back up every week",
+      "text": "Export a backup once a week, for example after the big shopping trip."
+    },
+    {
+      "type": "h1",
+      "text": "9. Fix common problems"
+    },
+    {
+      "type": "table",
+      "header": [
+        "If you see",
+        "Then"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Add your API key first",
+          "Tap ⋮ and paste the API key under AI settings. See Appendix A."
+        ],
+        [
+          "API key not accepted",
+          "The key is wrong or no longer valid. Paste a new key."
+        ],
+        [
+          "AI unavailable — check your connection",
+          "Check Wi-Fi or mobile data, then try again."
+        ],
+        [
+          "Unexpected answer — please try again",
+          "Tap the same button again."
+        ],
+        [
+          "The AI declined this request",
+          "Try again later, or with another photo."
+        ],
+        [
+          "Storage full — changes not saved",
+          "Free up space on the phone, then save again."
+        ],
+        [
+          "Wrong PIN — try again",
+          "Check the PIN and type it again."
+        ],
+        [
+          "You forgot the PIN",
+          "Clear Brave's site data for the app. This removes the PIN and all data on this phone. Then choose a new PIN and import your backup (chapter 8)."
+        ],
+        [
+          "The app looks old after an update",
+          "Close the app and open it again. In Brave, pull the page down to reload."
+        ]
+      ]
+    },
+    {
+      "type": "h1",
+      "text": "Appendix A. Set up the app on a new phone"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: put Meal Planner on a phone for the first time. Do this once per phone."
+    },
+    {
+      "type": "p",
+      "text": "What you need: the app's web address and an API key (a secret code that lets the app use the AI)."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open Brave or Chrome on the phone.",
+        "Go to the app's web address.",
+        "Choose a 4-digit PIN (Figure 8).",
+        "Enter the same PIN again.",
+        "Tap ⋮, choose your language and save your family name.",
+        "Paste the API key under AI settings, then tap Save API key.",
+        "Open the Brave menu and tap Install app or Add to Home screen."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fig_lock.png",
+      "width": 200,
+      "caption": "Figure 8. On a new phone you choose your own PIN. After that, the app asks for it each time you open it.",
+      "alt": "The lock screen asking to choose a 4-digit PIN, with the keypad marked."
+    },
+    {
+      "type": "p",
+      "text": "Success: the chef icon is on your home screen. The app opens full screen from there."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "The API key stays on this phone",
+      "text": "Each phone needs the key once. Backups never contain the key."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Keep the API key private",
+      "text": "Anyone with the key can use the AI at your cost. Do not send it by chat or e-mail."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Where to get an API key",
+      "text": "Create one at console.anthropic.com, under API keys. You need an Anthropic account with credit."
+    },
+    {
+      "type": "pagebreak"
+    },
+    {
+      "type": "h1",
+      "text": "Appendix B. Put the app online with Netlify"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: publish the app on the internet, so every phone can open it. Do this on a computer."
+    },
+    {
+      "type": "p",
+      "text": "What you need: a free Netlify account (a service that hosts websites) and the folder named app."
+    },
+    {
+      "type": "figure",
+      "path": "figures/fig_deploy.png",
+      "width": 470,
+      "caption": "Figure 9. Drag the app folder to Netlify; phones then open the web address.",
+      "alt": "Three boxes: the app folder on the PC, Netlify, and the phones, joined by arrows labelled drag and address."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Who does this?",
+      "text": "Only the person who manages the app. Family members only need Appendix A."
+    },
+    {
+      "type": "h2",
+      "text": "Publish the app for the first time"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Sign in at app.netlify.com.",
+        "Open the Projects page of your team.",
+        "Drag the app folder onto the drop area at the bottom of the page.",
+        "Wait until the deploy is finished.",
+        "Copy the web address that Netlify shows. It ends in .netlify.app."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Success: the web address opens the lock screen in a browser. Now set up each phone with Appendix A."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Sign in before you drop the folder",
+      "text": "A folder dropped without signing in stays online for about one hour only. Sign in first, so the app stays online."
+    },
+    {
+      "type": "h2",
+      "text": "Publish an update"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Sign in at app.netlify.com.",
+        "Open your project.",
+        "Open the Deploys page.",
+        "Drag the whole app folder onto the drop area at the bottom of the page.",
+        "Wait until the new deploy is finished.",
+        "On the phone, close the app and open it again."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Success: the web address stays the same. Meals, photos and settings stay on each phone."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Drag the folder, not the files inside it",
+      "text": "The app folder holds the page, the pictures and the icons together. Without them, the chef pictures and the app icon are missing."
+    },
+    {
+      "type": "h1",
+      "text": "Glossary"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Term",
+        "Meaning"
+      ],
+      "widths": [
+        1,
+        3
+      ],
+      "rows": [
+        [
+          "AI chef",
+          "The part of the app that suggests meals and recognises dishes."
+        ],
+        [
+          "API key",
+          "A secret code that lets the app use the AI chef."
+        ],
+        [
+          "Backup file",
+          "A file with all your meals, photos and lists."
+        ],
+        [
+          "Day card",
+          "The box for one day in the week screen."
+        ],
+        [
+          "Deploy",
+          "Putting a new version of the app online."
+        ],
+        [
+          "Export / Import",
+          "Save a backup file / load a backup file."
+        ],
+        [
+          "Netlify",
+          "The service that keeps the app online at one web address."
+        ],
+        [
+          "PIN",
+          "The 4-digit code you choose to open the app."
+        ],
+        [
+          "Quick day",
+          "A busy day that gets fast meals."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Revision history: Version 1.0, 4 October 2026, first edition for Meal Planner v2.0.0. Version 1.1, 4 October 2026, chapter 6 adds the ingredients button (Meal Planner v2.1.0) and Appendix B, Put the app online with Netlify. Version 1.2, 4 October 2026, you choose your own PIN on a new phone (Meal Planner v2.2.0)."
+    }
+  ]
+}

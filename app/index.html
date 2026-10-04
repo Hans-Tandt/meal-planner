@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Meal Planner">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#221B16" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Family meal planner with shopping lists and an AI chef.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>Meal Planner</title>
+<style>
+/* ── TOKENS ── */
+:root{
+  --bg:#FBF6EF; --sf:#FFFFFF; --sf2:#F7F0E7; --bd:#EADFD0; --bd2:#DED0BD;
+  --t1:#1F1812; --t2:#5E5045; --t3:#8F8174;
+  --pr:#C4622D; --acc:#B4561F; --pr-s:#F8E6DA;
+  --gn:#2C5F2E; --gn-t:#2C5F2E; --gn-s:#E3EEE3;
+  --am:#D4900A; --am-t:#A86F00; --am-s:#FCF0D6;
+  --danger:#B83A2B; --danger-s:#FBE5E1;
+  --shadow:0 1px 2px rgba(60,40,20,.05),0 4px 14px rgba(60,40,20,.06);
+  --shadow-lg:0 18px 50px rgba(40,25,10,.22);
+  --r:18px; --r-sm:12px;
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16110D; --sf:#221B16; --sf2:#2A221C; --bd:#3A2F27; --bd2:#4A3D33;
+    --t1:#F5EDE4; --t2:#D2C4B7; --t3:#9C8E81;
+    --acc:#EE8C55; --pr-s:#3D2618;
+    --gn-t:#7DBB80; --gn-s:#1F2F20;
+    --am-t:#EDB54B; --am-s:#3A2C12;
+    --danger:#F07A6A; --danger-s:#3A1D19;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+    --shadow-lg:0 18px 50px rgba(0,0,0,.55);
+    color-scheme:dark;
+  }
+}
+
+/* ── BASE ── */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--t1);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%;overflow:hidden}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none}
+:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+img{max-width:100%}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* ── APP SHELL: phone = top / content / bottom nav; tablet = side rail ── */
+#app{display:grid;grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"top" "main" "nav";height:100vh;height:100dvh}
+#topbar{grid-area:top;display:flex;align-items:center;gap:12px;padding:calc(var(--safe-t) + 10px) 16px 10px;background:var(--sf);border-bottom:1px solid var(--bd);z-index:10}
+.brand{display:flex;align-items:center;gap:11px;min-width:0;flex:1}
+.brand img{width:42px;height:42px;border-radius:12px;flex-shrink:0;box-shadow:var(--shadow)}
+.brand-name{font-weight:800;font-size:18px;letter-spacing:-.2px;line-height:1.15}
+.brand-sub{font-size:12.5px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#scroller{grid-area:main;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+#nav{grid-area:nav;display:flex;background:var(--sf);border-top:1px solid var(--bd);padding-bottom:var(--safe-b);z-index:10}
+.nbt{flex:1;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12px;font-weight:700;color:var(--t3)}
+.nbt .pill{width:58px;height:30px;border-radius:15px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.nbt.on{color:var(--acc)}
+.nbt.on .pill{background:var(--pr-s)}
+@media (min-width:768px){
+  #app{grid-template-columns:96px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);grid-template-areas:"nav top" "nav main"}
+  #nav{flex-direction:column;justify-content:flex-start;gap:4px;padding:calc(var(--safe-t) + 84px) 0 16px;border-top:none;border-right:1px solid var(--bd)}
+  .nbt{flex:0 0 auto;height:76px}
+  #topbar{padding-left:24px;padding-right:24px}
+}
+
+/* ── COMMON ── */
+.view{display:none;padding:18px 16px 32px;max-width:1240px;margin:0 auto;animation:fadeIn .2s ease}
+.view.on{display:block}
+.view.narrow{max-width:780px}
+@media (min-width:768px){.view{padding:28px 32px 40px}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.view-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.h1{font-size:24px;font-weight:800;letter-spacing:-.4px;line-height:1.2}
+.sub{font-size:13.5px;color:var(--t3);margin-top:2px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);box-shadow:var(--shadow)}
+.icon-btn{width:42px;height:42px;border-radius:13px;border:1px solid var(--bd);background:var(--sf);color:var(--t2);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.icon-btn:active{background:var(--sf2)}
+.icon-btn.sm{width:36px;height:36px;border-radius:11px}
+.icon-btn.sm svg.i{width:18px;height:18px}
+.icon-btn.ghost{border-color:transparent;background:transparent;color:var(--t3)}
+.icon-btn.danger{color:var(--danger)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 20px;border-radius:14px;font-weight:700;font-size:15.5px;transition:transform .1s,opacity .2s;text-align:center}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.45;cursor:default;transform:none}
+.btn-block{width:100%}
+.btn-sm{min-height:40px;padding:0 15px;font-size:14px;border-radius:12px}
+.btn-pr{background:var(--pr);color:#fff}
+.btn-gn{background:var(--gn);color:#fff}
+.btn-soft{background:var(--pr-s);color:var(--acc)}
+.btn-ghost{background:transparent;border:1.5px solid var(--bd2);color:var(--t2)}
+.lbl{display:block;font-size:12px;font-weight:700;color:var(--t3);letter-spacing:.5px;text-transform:uppercase;margin:0 0 7px}
+.inp{display:block;width:100%;min-height:50px;padding:0 15px;border:1.5px solid var(--bd);border-radius:13px;background:var(--sf);color:var(--t1);font-size:16px;outline:none;-webkit-appearance:none;appearance:none}
+.inp:focus{border-color:var(--pr);box-shadow:0 0 0 3px var(--pr-s)}
+.inp::placeholder{color:var(--t3)}
+.field{margin-bottom:16px}
+.spin{width:18px;height:18px;border:2.5px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .8s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.mchip{width:30px;height:30px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;object-fit:cover}
+.mchip svg.i{width:16px;height:16px}
+.mchip-breakfast{background:var(--am-s);color:var(--am-t)}
+.mchip-lunch{background:var(--pr-s);color:var(--acc)}
+.mchip-dinner{background:var(--gn-s);color:var(--gn-t)}
+.tag{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.tag svg.i{width:12px;height:12px}
+.tag-today{background:var(--pr);color:#fff}
+.tag-quick{background:var(--am-s);color:var(--am-t)}
+#js-banner{background:#B83A2B;color:#fff;padding:12px 16px;font-size:13px;font-weight:700;text-align:center}
+#err-banner{background:#D4900A;color:#fff;padding:10px 16px;font-size:12px;word-break:break-word}
+
+/* ── WEEK ── */
+.wk-ctrl{display:flex;align-items:center;gap:8px}
+.wk-today{min-height:42px;padding:0 14px;border-radius:13px;border:1px solid var(--bd);background:var(--sf);font-weight:700;font-size:14px;color:var(--acc)}
+.week-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:620px){.week-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1080px){.week-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1380px){.week-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.daycard{display:block;width:100%;text-align:left;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px 12px;box-shadow:var(--shadow);transition:transform .12s,box-shadow .12s;position:relative;overflow:hidden}
+.daycard:active{transform:scale(.99)}
+@media (hover:hover){.daycard:hover{box-shadow:0 2px 4px rgba(60,40,20,.06),0 10px 26px rgba(60,40,20,.1)}}
+.daycard.today{border-color:var(--pr);box-shadow:0 0 0 1px var(--pr),var(--shadow)}
+.daycard.quick::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--am)}
+.dc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.dc-title{display:block;min-width:0}
+.dc-name{display:block;font-size:17px;font-weight:800;letter-spacing:-.2px}
+.dc-date{display:block;font-size:12.5px;color:var(--t3);margin-top:1px}
+.dc-tags{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.dc-meal{display:flex;align-items:center;gap:10px;padding:4px 0;font-size:14.5px;min-width:0}
+.dc-mname{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--t1);font-weight:500}
+.dc-mname.empty{color:var(--t3);font-style:italic;font-weight:400}
+
+/* ── SHEETS: bottom sheet on phones, centred dialog on tablets ── */
+#overlay{position:fixed;inset:0;background:rgba(25,16,8,.42);z-index:50;opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s .25s}
+#overlay.on{opacity:1;visibility:visible;transition:opacity .25s}
+.sheet{position:fixed;left:0;right:0;bottom:0;margin:0 auto;width:100%;max-width:640px;max-height:92vh;max-height:92dvh;background:var(--sf);border-radius:24px 24px 0 0;z-index:60;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);transform:translateY(105%);visibility:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),visibility 0s .3s;padding-bottom:var(--safe-b)}
+.sheet.open{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+#mealSheet,#menuSheet{z-index:70}
+#confirmSheet{z-index:80}
+.handle{width:40px;height:5px;background:var(--bd2);border-radius:3px;margin:10px auto 4px;flex-shrink:0}
+.sh-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 20px 14px;border-bottom:1px solid var(--bd);flex-shrink:0}
+.sh-title{font-size:21px;font-weight:800;letter-spacing:-.3px}
+.sh-sub{font-size:13px;color:var(--t3);margin-top:2px}
+.sh-body{overflow-y:auto;flex:1;padding:18px 20px 22px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.sh-foot{padding:12px 20px 16px;border-top:1px solid var(--bd);flex-shrink:0;background:var(--sf)}
+@media (min-width:768px){
+  .sheet{top:50%;left:50%;right:auto;bottom:auto;width:min(580px,calc(100vw - 64px));max-height:86vh;border-radius:24px;padding-bottom:0;transform:translate(-50%,-47%) scale(.97);opacity:0;transition:transform .22s ease,opacity .22s ease,visibility 0s .22s}
+  .sheet.open{transform:translate(-50%,-50%);opacity:1;transition:transform .22s ease,opacity .22s ease}
+  .sheet .handle{display:none}
+  .sh-head{padding-top:20px}
+  #confirmSheet{width:min(440px,calc(100vw - 64px))}
+}
+
+/* Day sheet */
+.qt-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 14px;background:var(--sf2);border:1px solid var(--bd);border-radius:14px;margin-bottom:16px}
+.qt-ico{width:36px;height:36px;border-radius:11px;background:var(--am-s);color:var(--am-t);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qt-text{flex:1;min-width:0}
+.qt-title{display:block;font-weight:700;font-size:15px}
+.qt-hint{display:block;font-size:12.5px;color:var(--t3)}
+.trk{width:48px;height:28px;background:var(--bd2);border-radius:14px;position:relative;transition:background .2s;flex-shrink:0}
+.trk::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.qt-row[aria-checked="true"] .trk{background:var(--am)}
+.qt-row[aria-checked="true"] .trk::after{transform:translateX(20px)}
+.slot{border:1px solid var(--bd);border-radius:16px;margin-bottom:12px;overflow:hidden;background:var(--sf)}
+.slot-head{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 12px;min-height:58px}
+.slot-type{flex:1;font-weight:700;font-size:15px}
+.slot-acts{display:flex;gap:6px}
+.slot-add{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border-radius:12px;background:var(--pr);color:#fff;font-weight:700;font-size:14px}
+.slot-add svg.i{width:17px;height:17px}
+.slot-body{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:4px 14px 14px}
+.slot-thumb{width:56px;height:56px;border-radius:12px;flex-shrink:0;object-fit:cover;background:var(--sf2);color:var(--t3);display:flex;align-items:center;justify-content:center}
+.slot-info{flex:1;min-width:0}
+.slot-name{display:block;font-weight:700;font-size:16px}
+.slot-note{display:block;font-size:13px;color:var(--t3);margin-top:2px}
+
+/* Meal editor */
+.pzone{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:170px;border:2px dashed var(--bd2);border-radius:16px;background:var(--sf2);overflow:hidden;color:var(--t3)}
+.pzone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pzone-ph{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:13.5px;padding:0 16px;text-align:center}
+.pzone-ph svg.i{width:30px;height:30px}
+
+/* Menu */
+.menu-group{display:grid;gap:8px;margin-bottom:8px}
+.menu-item{display:flex;align-items:center;gap:13px;width:100%;min-height:54px;padding:0 16px;border:1px solid var(--bd);border-radius:14px;background:var(--sf);font-weight:600;font-size:15px;text-align:left}
+.menu-item svg.i{color:var(--acc)}
+.menu-item:active{background:var(--sf2)}
+.msec{border-top:1px solid var(--bd);padding-top:18px;margin-top:18px}
+.msec-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.msec-title svg.i{width:17px;height:17px;color:var(--acc)}
+.msec-hint{font-size:13px;color:var(--t3);margin-bottom:12px;line-height:1.5}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--sf2);padding:5px;border-radius:14px;border:1px solid var(--bd)}
+.seg button{min-height:42px;border-radius:10px;font-weight:700;font-size:13.5px;color:var(--t2)}
+.seg button.on{background:var(--sf);color:var(--acc);box-shadow:var(--shadow)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.pin-inp{letter-spacing:6px;text-align:center}
+.status{font-size:13px;margin-top:8px;text-align:center;color:var(--t3);min-height:18px}
+.status.ok{color:var(--gn-t)}
+.status.err{color:var(--danger)}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+.menu-foot{text-align:center;font-size:12px;color:var(--t3);margin-top:22px}
+
+/* Confirm */
+.cf{padding-top:20px}
+.cf p{color:var(--t2);margin:8px 0 20px;line-height:1.5}
+.cf-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ── SHOPPING ── */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;margin:0 -2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 15px;border-radius:20px;border:1px solid var(--bd);background:var(--sf);font-weight:700;font-size:14px;color:var(--t2);white-space:nowrap;flex-shrink:0}
+.chip.on{background:var(--pr);border-color:var(--pr);color:#fff}
+.chip-count{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--pr-s);color:var(--acc);font-size:11.5px;display:inline-flex;align-items:center;justify-content:center}
+.chip.on .chip-count{background:rgba(255,255,255,.25);color:#fff}
+.add-row{display:flex;gap:8px;margin-bottom:14px}
+.add-row .btn{min-width:50px;padding:0}
+.list-card{overflow:hidden}
+.sitem{display:flex;align-items:center;gap:12px;padding:6px 8px 6px 14px;border-bottom:1px solid var(--bd);min-height:56px}
+.sitem:last-child{border-bottom:none}
+.schk{width:26px;height:26px;border:2px solid var(--bd2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;transition:background .15s,border-color .15s}
+.schk svg.i{width:16px;height:16px;stroke-width:3}
+.sitem.done .schk{background:var(--gn);border-color:var(--gn)}
+.snm{flex:1;min-width:0;font-size:15.5px;cursor:pointer;word-break:break-word}
+.sitem.done .snm{text-decoration:line-through;color:var(--t3)}
+.empty{text-align:center;padding:26px 20px 30px}
+.empty-chef{width:84px;height:auto;margin-bottom:8px}
+.empty-title{font-weight:800;font-size:17px;margin-bottom:4px}
+.empty-text{color:var(--t3);font-size:14px;max-width:340px;margin:0 auto;line-height:1.5}
+
+/* ── AI CHEF ── */
+.hero{display:flex;align-items:center;gap:16px;padding:18px 20px;margin-bottom:16px;background:linear-gradient(135deg,var(--pr-s),var(--sf) 70%)}
+.hero img{width:88px;height:auto;flex-shrink:0}
+.hero p{color:var(--t2);font-size:14.5px;margin-top:4px;line-height:1.5}
+.ai-card{padding:20px;margin-bottom:16px}
+.ai-card h2{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:800;margin-bottom:6px}
+.ai-card h2 svg.i{color:var(--acc)}
+.ai-card > p{font-size:14px;color:var(--t2);line-height:1.5;margin-bottom:16px}
+.sug{border-top:1px solid var(--bd);margin-top:18px;padding-top:16px}
+.sug-head{font-weight:800;font-size:12.5px;color:var(--t3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.sug-day{padding:10px 0;border-bottom:1px solid var(--bd)}
+.sug-day:last-of-type{border-bottom:none}
+.sug-name{font-weight:800;font-size:15px;margin-bottom:6px}
+.sug-line{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2);padding:2px 0}
+.sug-line .mchip{width:24px;height:24px;border-radius:8px}
+.sug-line .mchip svg.i{width:13px;height:13px}
+.id-res{margin-top:14px;padding:14px 16px;background:var(--gn-s);border-radius:14px}
+.id-res-name{font-weight:800;font-size:16px;color:var(--gn-t)}
+.id-res-desc{font-size:14px;color:var(--t2);margin-top:3px;line-height:1.5}
+@media (min-width:1080px){
+  #v-ai.view{max-width:1240px}
+  .ai-cols{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:start}
+}
+
+/* ── LOCK SCREEN ── */
+#pinScreen{position:fixed;inset:0;z-index:500;background:radial-gradient(120% 70% at 50% 0%,var(--pr-s),var(--bg) 60%);overflow-y:auto;display:flex}
+.lock-inner{margin:auto;display:flex;flex-direction:column;align-items:center;padding:calc(var(--safe-t) + 24px) 24px calc(var(--safe-b) + 24px);width:100%;max-width:420px}
+.lock-chef{height:clamp(120px,26vh,210px);width:auto;margin-bottom:10px;animation:bob 3s ease-in-out infinite}
+.lock-title{font-size:28px;font-weight:800;letter-spacing:-.5px;color:var(--t1)}
+.lock-fam{font-size:15px;font-weight:700;color:var(--acc);margin-bottom:22px}
+.lock-label{font-size:14px;color:var(--t2);font-weight:600;margin-bottom:14px}
+.pin-dots{display:flex;gap:14px;margin-bottom:10px}
+.pin-dots span{width:15px;height:15px;border-radius:50%;border:2px solid var(--bd2);background:var(--sf);transition:background .15s,border-color .15s}
+.pin-dots span.on{background:var(--pr);border-color:var(--pr)}
+.pin-dots.shake{animation:shake .4s}
+.pin-err{font-size:13px;color:var(--danger);font-weight:700;min-height:20px;margin-bottom:10px}
+.keypad{display:grid;grid-template-columns:repeat(3,74px);gap:14px}
+.pin-key{width:74px;height:74px;border-radius:50%;border:1px solid var(--bd);background:var(--sf);font-size:25px;font-weight:600;color:var(--t1);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;transition:background .1s,transform .1s}
+.pin-key:active{background:var(--sf2);transform:scale(.95)}
+.pin-key.ok{background:var(--gn);border-color:var(--gn);color:#fff;font-size:18px;font-weight:800}
+.lock-foot{margin-top:26px;font-size:12px;color:var(--t3)}
+@media (max-height:560px){.lock-chef{display:none}.lock-fam{margin-bottom:12px}}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@keyframes bob{50%{transform:translateY(-6px)}}
+
+/* ── BUSY (thinking chef) & CELEBRATE (happy chef) ── */
+.overlay-center{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s .25s}
+.overlay-center.on{opacity:1;visibility:visible;transition:opacity .25s}
+#busy{z-index:90;background:rgba(25,16,8,.45)}
+#celebrate{z-index:95;pointer-events:none}
+#celebrate.on{pointer-events:auto}
+.pop-card{background:var(--sf);border-radius:26px;padding:24px 28px 26px;text-align:center;box-shadow:var(--shadow-lg);max-width:320px;width:100%;transform:scale(.9);transition:transform .3s cubic-bezier(.2,1.4,.4,1)}
+.overlay-center.on .pop-card{transform:scale(1)}
+.chef-wrap{position:relative;width:140px;margin:0 auto 12px}
+.chef-wrap img{display:block;width:100%;height:auto;animation:bob 2.4s ease-in-out infinite}
+.spark{position:absolute;color:var(--am);animation:twinkle 1.6s ease-in-out infinite}
+.spark.s1{top:0;right:6%;width:22px;height:22px}
+.spark.s2{top:16%;right:-12%;width:15px;height:15px;animation-delay:.5s}
+.spark.s3{top:-6%;right:30%;width:13px;height:13px;animation-delay:1s}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.5) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(25deg)}}
+.pop-text{font-weight:800;font-size:17px;line-height:1.35}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:12px}
+.dots span{width:8px;height:8px;border-radius:50%;background:var(--pr);animation:dot 1.2s ease-in-out infinite}
+.dots span:nth-child(2){animation-delay:.2s}
+.dots span:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+
+/* ── TOAST ── */
+#toast{position:fixed;left:50%;bottom:calc(var(--safe-b) + 84px);transform:translateX(-50%) translateY(12px);background:#2A211B;color:#fff;padding:11px 18px;border-radius:14px;font-size:14px;font-weight:600;opacity:0;transition:opacity .25s,transform .25s;z-index:999;pointer-events:none;max-width:calc(100vw - 32px);text-align:center;box-shadow:var(--shadow-lg)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (min-width:768px){#toast{bottom:28px}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- Icons: simple line icons, shapes adapted from Lucide (ISC licence) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.7 1.8 1.8.7-1.8.7L19 20l-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></symbol>
+  <symbol id="i-sunrise" viewBox="0 0 24 24"><path d="M12 2v8M4.93 10.93l1.41 1.41M2 18h2M20 18h2M19.07 10.93l-1.41 1.41M22 22H2M8 6l4-4 4 4M16 18a4 4 0 0 0-8 0"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></symbol>
+  <symbol id="i-backspace" viewBox="0 0 24 24"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><path d="M18 9l-6 6M12 9l6 6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></symbol>
+</svg>
+
+<div id="app">
+  <header id="topbar">
+    <div class="brand">
+      <img src="icons/icon-192.png" alt="">
+      <div style="min-width:0">
+        <div class="brand-name">Meal Planner</div>
+        <div class="brand-sub" id="brandSub"></div>
+      </div>
+    </div>
+    <button class="icon-btn" id="btnMenu" type="button" data-i18n-aria="menu" aria-label="Menu"><svg class="i"><use href="#i-more"/></svg></button>
+  </header>
+
+  <nav id="nav">
+    <button class="nbt on" id="t-week" type="button"><span class="pill"><svg class="i"><use href="#i-calendar"/></svg></span><span data-i18n="navWeek">Week</span></button>
+    <button class="nbt" id="t-shop" type="button"><span class="pill"><svg class="i"><use href="#i-cart"/></svg></span><span data-i18n="navShop">Shopping</span></button>
+    <button class="nbt" id="t-ai" type="button"><span class="pill"><svg class="i"><use href="#i-sparkles"/></svg></span><span data-i18n="navAi">AI Chef</span></button>
+  </nav>
+
+  <main id="scroller">
+    <div id="js-banner">JavaScript is not running — open the app in Brave or Chrome, not in the Google Drive viewer.</div>
+    <div id="err-banner" hidden></div>
+
+    <!-- WEEK -->
+    <section class="view on" id="v-week">
+      <div class="view-head">
+        <div>
+          <h1 class="h1" id="wkTitle"></h1>
+          <div class="sub" id="wkRange"></div>
+        </div>
+        <div class="wk-ctrl">
+          <button class="icon-btn" id="btnPrevWk" type="button" data-i18n-aria="prevWeek"><svg class="i"><use href="#i-left"/></svg></button>
+          <button class="wk-today" id="btnToday" type="button" data-i18n="thisWeek">This week</button>
+          <button class="icon-btn" id="btnNextWk" type="button" data-i18n-aria="nextWeek"><svg class="i"><use href="#i-right"/></svg></button>
+        </div>
+      </div>
+      <div class="week-grid" id="weekgrid"></div>
+    </section>
+
+    <!-- SHOPPING -->
+    <section class="view narrow" id="v-shop">
+      <div class="view-head">
+        <div>
+          <h1 class="h1" data-i18n="shopTitle">Shopping list</h1>
+          <div class="sub" id="shopProg"></div>
+        </div>
+        <button class="btn btn-soft btn-sm" id="btnAiShop" type="button"><svg class="i"><use href="#i-sparkles"/></svg><span data-i18n="aiList">AI list</span></button>
+      </div>
+      <div class="chips" id="storeRow"></div>
+      <div class="add-row">
+        <input class="inp" id="shopInp" data-i18n-ph="addItemPh" placeholder="Add an item…" enterkeyhint="done" autocomplete="off">
+        <button class="btn btn-pr" id="btnAddItem" type="button" data-i18n-aria="addItem"><svg class="i"><use href="#i-plus"/></svg></button>
+      </div>
+      <div class="card list-card" id="shopList"></div>
+    </section>
+
+    <!-- AI CHEF -->
+    <section class="view narrow" id="v-ai">
+      <div class="card hero">
+        <img src="img/chef-main-256.webp" alt="">
+        <div>
+          <h1 class="h1" data-i18n="aiHeroTitle">Your AI chef</h1>
+          <p data-i18n="aiHeroText"></p>
+        </div>
+      </div>
+      <div class="ai-cols">
+        <div class="card ai-card">
+          <h2><svg class="i"><use href="#i-calendar"/></svg><span data-i18n="planTitle">Plan this week</span></h2>
+          <p data-i18n="planDesc"></p>
+          <button class="btn btn-pr btn-block" id="planBtn" type="button"><svg class="i"><use href="#i-sparkles"/></svg><span data-i18n="planBtn">Suggest meals</span></button>
+          <div id="planRes"></div>
+        </div>
+        <div class="card ai-card">
+          <h2><svg class="i"><use href="#i-camera"/></svg><span data-i18n="idTitle">Identify a meal</span></h2>
+          <p data-i18n="idDesc"></p>
+          <button class="pzone" id="aiPZ" type="button">
+            <img id="aiPhPrev" alt="" hidden>
+            <span class="pzone-ph" id="aiPhPH"><svg class="i"><use href="#i-camera"/></svg><span data-i18n="photoTap">Tap to take or choose a photo</span></span>
+          </button>
+          <input type="file" id="aiPhInp" accept="image/*" hidden>
+          <button class="btn btn-gn btn-block" id="idBtn" type="button" disabled style="margin-top:14px"><svg class="i"><use href="#i-search"/></svg><span data-i18n="idBtn">Identify this meal</span></button>
+          <div class="id-res" id="idRes" hidden>
+            <div class="id-res-name" id="idName"></div>
+            <div class="id-res-desc" id="idDesc"></div>
+            <button class="btn btn-pr btn-block" id="btnIdShop" type="button" style="margin-top:14px"><svg class="i"><use href="#i-cart"/></svg><span data-i18n="addIngredients">Add ingredients to shopping list</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="overlay"></div>
+
+<!-- DAY SHEET -->
+<div class="sheet" id="daySheet" role="dialog" aria-modal="true" aria-labelledby="dsTitle">
+  <div class="handle"></div>
+  <div class="sh-head">
+    <div>
+      <div class="sh-title" id="dsTitle"></div>
+      <div class="sh-sub" id="dsSub"></div>
+    </div>
+    <button class="icon-btn" id="btnCloseDay" type="button" data-i18n-aria="close"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="sh-body">
+    <button class="qt-row" id="qtRow" type="button" role="switch" aria-checked="false">
+      <span class="qt-ico"><svg class="i"><use href="#i-bolt"/></svg></span>
+      <span class="qt-text"><span class="qt-title" data-i18n="quickDay">Quick meal day</span><span class="qt-hint" data-i18n="quickDayHint"></span></span>
+      <span class="trk"></span>
+    </button>
+    <div id="daySlots"></div>
+  </div>
+</div>
+
+<!-- MEAL EDITOR -->
+<div class="sheet" id="mealSheet" role="dialog" aria-modal="true" aria-labelledby="msTitle">
+  <div class="handle"></div>
+  <div class="sh-head">
+    <div class="sh-title" id="msTitle"></div>
+    <button class="icon-btn" id="btnCloseMeal" type="button" data-i18n-aria="close"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="sh-body">
+    <div class="field">
+      <label class="lbl" for="mName" data-i18n="mealName">Meal name</label>
+      <input class="inp" id="mName" data-i18n-ph="mealNamePh" autocomplete="off" enterkeyhint="done">
+    </div>
+    <div class="field">
+      <div class="lbl" data-i18n="photoOpt">Photo (optional)</div>
+      <button class="pzone" id="mPZ" type="button">
+        <img id="mPhPrev" alt="" hidden>
+        <span class="pzone-ph" id="mPhPH"><svg class="i"><use href="#i-camera"/></svg><span data-i18n="photoTap">Tap to take or choose a photo</span></span>
+      </button>
+      <input type="file" id="mPhInp" accept="image/*" hidden>
+      <button class="btn btn-soft btn-block" id="aiIdBtn" type="button" disabled style="margin-top:10px"><svg class="i"><use href="#i-sparkles"/></svg><span data-i18n="aiIdentify">Identify with AI</span></button>
+    </div>
+    <div class="field">
+      <label class="lbl" for="mNotes" data-i18n="notesOpt">Notes (optional)</label>
+      <input class="inp" id="mNotes" data-i18n-ph="notesPh" autocomplete="off" enterkeyhint="done">
+    </div>
+  </div>
+  <div class="sh-foot">
+    <button class="btn btn-gn btn-block" id="btnSaveMeal" type="button"><svg class="i"><use href="#i-check"/></svg><span data-i18n="saveMeal">Save meal</span></button>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="sheet" id="menuSheet" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
+  <div class="handle"></div>
+  <div class="sh-head">
+    <div class="sh-title" id="menuTitle" data-i18n="menu">Menu</div>
+    <button class="icon-btn" id="btnCloseMenu" type="button" data-i18n-aria="close"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="sh-body">
+    <div class="menu-group">
+      <button class="menu-item" id="btnReport" type="button"><svg class="i"><use href="#i-report"/></svg><span data-i18n="menuReport">Download analysis report</span></button>
+      <button class="menu-item" id="btnExport" type="button"><svg class="i"><use href="#i-download"/></svg><span data-i18n="menuExport">Export data (backup)</span></button>
+      <button class="menu-item" id="btnImportTrigger" type="button"><svg class="i"><use href="#i-upload"/></svg><span data-i18n="menuImport">Import data</span></button>
+      <input type="file" id="importInp" accept=".json,application/json" hidden>
+    </div>
+
+    <section class="msec">
+      <h3 class="msec-title"><svg class="i"><use href="#i-globe"/></svg><span data-i18n="secLang">Language</span></h3>
+      <div class="seg" id="langSeg"></div>
+    </section>
+
+    <section class="msec">
+      <h3 class="msec-title"><svg class="i"><use href="#i-users"/></svg><span data-i18n="secFamily">Family</span></h3>
+      <p class="msec-hint" data-i18n="familyHint"></p>
+      <input class="inp" id="famInp" data-i18n-ph="familyPh" maxlength="30" autocomplete="off" style="margin-bottom:10px">
+      <button class="btn btn-pr btn-block" id="btnSaveFamily" type="button" data-i18n="saveFamily">Save family name</button>
+    </section>
+
+    <section class="msec">
+      <h3 class="msec-title"><svg class="i"><use href="#i-lock"/></svg><span data-i18n="secSecurity">Security</span></h3>
+      <p class="msec-hint" data-i18n="pinHint"></p>
+      <div class="row2">
+        <input class="inp pin-inp" id="pinCurrentInp" type="password" data-i18n-ph="pinCurrent" maxlength="4" inputmode="numeric" autocomplete="off">
+        <input class="inp pin-inp" id="pinNewInp" type="password" data-i18n-ph="pinNew" maxlength="4" inputmode="numeric" autocomplete="off">
+      </div>
+      <button class="btn btn-pr btn-block" id="btnChangePin" type="button" data-i18n="changePin">Change PIN</button>
+      <div class="status" id="pinChangeStatus"></div>
+    </section>
+
+    <section class="msec">
+      <h3 class="msec-title"><svg class="i"><use href="#i-key"/></svg><span data-i18n="secAi">AI settings</span></h3>
+      <p class="msec-hint" data-i18n="aiHint"></p>
+      <input class="inp mono" id="apiKeyInp" type="password" placeholder="sk-ant-api03-…" autocomplete="off" style="margin-bottom:10px">
+      <button class="btn btn-gn btn-block" id="btnSaveKey" type="button" data-i18n="saveKey">Save API key</button>
+      <div class="status" id="keyStatus"></div>
+    </section>
+
+    <div class="menu-foot" id="menuVer"></div>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div class="sheet" id="confirmSheet" role="alertdialog" aria-modal="true" aria-labelledby="cfTitle">
+  <div class="handle"></div>
+  <div class="sh-body cf">
+    <div class="sh-title" id="cfTitle"></div>
+    <p id="cfText"></p>
+    <div class="cf-btns">
+      <button class="btn btn-ghost" id="cfCancel" type="button" data-i18n="cancel">Cancel</button>
+      <button class="btn btn-pr" id="cfOk" type="button"></button>
+    </div>
+  </div>
+</div>
+
+<!-- LOCK SCREEN -->
+<div id="pinScreen">
+  <div class="lock-inner">
+    <img class="lock-chef" src="img/chef-wave-512.webp" alt="">
+    <div class="lock-title">Meal Planner</div>
+    <div class="lock-fam" id="pinFamily"></div>
+    <div class="lock-label" id="pinLabel">Enter your PIN</div>
+    <div class="pin-dots" id="pinDots"><span></span><span></span><span></span><span></span></div>
+    <div class="pin-err" id="pinError" role="alert"></div>
+    <div class="keypad">
+      <button class="pin-key" type="button" data-v="1">1</button>
+      <button class="pin-key" type="button" data-v="2">2</button>
+      <button class="pin-key" type="button" data-v="3">3</button>
+      <button class="pin-key" type="button" data-v="4">4</button>
+      <button class="pin-key" type="button" data-v="5">5</button>
+      <button class="pin-key" type="button" data-v="6">6</button>
+      <button class="pin-key" type="button" data-v="7">7</button>
+      <button class="pin-key" type="button" data-v="8">8</button>
+      <button class="pin-key" type="button" data-v="9">9</button>
+      <button class="pin-key" type="button" data-v="del" data-i18n-aria="pinDelete"><svg class="i"><use href="#i-backspace"/></svg></button>
+      <button class="pin-key" type="button" data-v="0">0</button>
+      <button class="pin-key ok" type="button" data-v="ok">OK</button>
+    </div>
+    <div class="lock-foot" id="lockFoot"></div>
+  </div>
+</div>
+
+<!-- THINKING CHEF -->
+<div class="overlay-center" id="busy" role="status" aria-live="polite">
+  <div class="pop-card">
+    <div class="chef-wrap">
+      <img src="img/chef-thinking-512.webp" alt="">
+      <svg class="spark s1"><use href="#i-star"/></svg>
+      <svg class="spark s2"><use href="#i-star"/></svg>
+      <svg class="spark s3"><use href="#i-star"/></svg>
+    </div>
+    <div class="pop-text" id="busyText"></div>
+    <div class="dots"><span></span><span></span><span></span></div>
+  </div>
+</div>
+
+<!-- HAPPY CHEF -->
+<div class="overlay-center" id="celebrate" role="status" aria-live="polite">
+  <div class="pop-card">
+    <div class="chef-wrap"><img src="img/chef-happy-512.webp" alt=""></div>
+    <div class="pop-text" id="celeText"></div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function() {
+
+var APP_VERSION = '2.2.0';
+
+var API_URL = 'https://api.anthropic.com/v1/messages';
+var MDL = 'claude-opus-5-5';
+
+var MT = [{k:'breakfast'}, {k:'lunch'}, {k:'dinner'}];
+var MEAL_ICON = {breakfast:'sunrise', lunch:'sun', dinner:'moon'};
+var DAYS_EN = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+var STORES = ['delhaize','lidl','aldi','massen','other'];
+var STORE_NAMES = {delhaize:'Delhaize', lidl:'Lidl', aldi:'Aldi', massen:'Massen', other:'Other'};
+
+// ── LANGUAGES ──
+var LANGS = ['en','fr','nl','de'];
+var LANG_NAMES = {en:'English', fr:'Français', nl:'Nederlands', de:'Deutsch'};
+var LANG_AI = {en:'English', fr:'French', nl:'Dutch', de:'German'};
+var LOCALES = {en:'en-GB', fr:'fr-BE', nl:'nl-BE', de:'de-BE'};
+
+var I18N = {
+  en: {
+    family:'Family {name}', navWeek:'Week', navShop:'Shopping', navAi:'AI Chef', menu:'Menu', close:'Close',
+    prevWeek:'Previous week', nextWeek:'Next week', thisWeek:'This week', weekNo:'Week {n}',
+    today:'Today', quick:'Quick', notPlanned:'Not planned',
+    breakfast:'Breakfast', lunch:'Lunch', dinner:'Dinner',
+    quickDay:'Quick meal day', quickDayHint:'Busy day — simple meals only',
+    edit:'Edit', remove:'Remove', add:'Add', removed:'Removed',
+    mealName:'Meal name', mealNamePh:'e.g. Spaghetti Bolognese', photoOpt:'Photo (optional)', photoTap:'Tap to take or choose a photo',
+    aiIdentify:'Identify with AI', identifying:'Looking at your dish…', notesOpt:'Notes (optional)', notesPh:'e.g. The kids loved it!',
+    saveMeal:'Save meal', enterName:'Please enter a meal name', saved:'{name} saved', identified:'Dish recognised!',
+    identifyFail:'Could not recognise it — please type the name',
+    shopTitle:'Shopping list', aiList:'AI list', addItemPh:'Add an item…', addItem:'Add item', delItem:'Delete item',
+    shopEmpty:'Nothing on this list yet', shopEmptyHint:'Add an item above, or let the AI build a list from this week’s meals.',
+    checked:'{done} of {total} ticked', generating:'Writing your shopping list…', shopUpdated:'Shopping list updated!',
+    noMealsWeek:'Plan some meals for this week first', storeOther:'Other',
+    aiHeroTitle:'Your AI chef', aiHeroText:'Let the chef plan your week, or recognise a dish from a photo.',
+    planTitle:'Plan this week', planDesc:'The AI suggests breakfast, lunch and dinner for all 7 days. Mark busy days as “quick” in the week view first.',
+    planBtn:'Suggest meals', planning:'The chef is planning your week…', suggested:'Suggested plan', applyPlan:'Apply to calendar',
+    planApplied:'Your week is planned!',
+    overwriteTitle:'Replace planned meals?', overwriteText:'{n} day(s) this week already have meals. The suggestion will replace them.',
+    overwriteOk:'Replace', cancel:'Cancel',
+    idTitle:'Identify a meal', idDesc:'Take a photo of any dish and the AI will tell you what it is.', idBtn:'Identify this meal',
+    idFailPhoto:'Could not recognise it — try a clearer photo',
+    addIngredients:'Add ingredients to shopping list', ingredientsAdding:'The chef is writing down the ingredients…',
+    ingredientsAdded:'{n} ingredients added to the shopping list', ingredientsNone:'Everything is already on your list',
+    noKey:'Add your API key first — tap ⋮', keyInvalid:'API key not accepted — check it in the menu',
+    aiFail:'AI unavailable — check your connection', aiRefused:'The AI declined this request', badResponse:'Unexpected answer — please try again',
+    menuReport:'Download analysis report', menuExport:'Export data (backup)', menuImport:'Import data',
+    exporting:'Preparing export…', exported:'Data exported — save it to Google Drive', imported:'Data imported',
+    importFail:'Import failed — invalid file', reportDone:'Report downloaded',
+    secFamily:'Family', familyHint:'Shown on the lock screen, title bar and reports', familyPh:'Family name',
+    saveFamily:'Save family name', familySaved:'Family name saved', familyEmpty:'Enter a family name first',
+    secLang:'Language',
+    secSecurity:'Security', pinHint:'Change your 4-digit PIN', pinCurrent:'Current PIN', pinNew:'New PIN', changePin:'Change PIN',
+    pinWrongCurrent:'Current PIN is wrong', pinFormat:'New PIN must be exactly 4 digits', pinChanged:'PIN changed',
+    secAi:'AI settings', aiHint:'Needed for meal planning and photo recognition. Get a key at console.anthropic.com. It is stored on this device only.',
+    saveKey:'Save API key', keySet:'API key is set', keyMissing:'No API key — AI features are off',
+    keySaved:'API key saved — AI is ready', keyEmpty:'Paste your API key first',
+    createdBy:'Created by Hans Tandt', pinEnter:'Enter your PIN', pinWrong:'Wrong PIN — try again', pinDelete:'Delete digit', familyNone:'Your family meal planner',
+    pinCreate:'Choose a 4-digit PIN', pinConfirm:'Enter the same PIN again', pinMismatch:'The PINs do not match — start again', pinCreated:'PIN saved. Write it down somewhere safe.',
+    storageFull:'Storage full — changes not saved', saveError:'Save error: {msg}'
+  },
+  fr: {
+    family:'Famille {name}', navWeek:'Semaine', navShop:'Courses', navAi:'Chef IA', menu:'Menu', close:'Fermer',
+    prevWeek:'Semaine précédente', nextWeek:'Semaine suivante', thisWeek:'Cette semaine', weekNo:'Semaine {n}',
+    today:'Aujourd’hui', quick:'Rapide', notPlanned:'Pas prévu',
+    breakfast:'Déjeuner', lunch:'Dîner', dinner:'Souper',
+    quickDay:'Journée rapide', quickDayHint:'Journée chargée — repas simples uniquement',
+    edit:'Modifier', remove:'Supprimer', add:'Ajouter', removed:'Supprimé',
+    mealName:'Nom du plat', mealNamePh:'ex. Spaghetti bolognaise', photoOpt:'Photo (facultatif)', photoTap:'Touchez pour prendre ou choisir une photo',
+    aiIdentify:'Reconnaître avec l’IA', identifying:'Le chef examine votre plat…', notesOpt:'Notes (facultatif)', notesPh:'ex. Les enfants ont adoré !',
+    saveMeal:'Enregistrer', enterName:'Indiquez le nom du plat', saved:'{name} enregistré', identified:'Plat reconnu !',
+    identifyFail:'Non reconnu — tapez le nom vous-même',
+    shopTitle:'Liste de courses', aiList:'Liste IA', addItemPh:'Ajouter un article…', addItem:'Ajouter un article', delItem:'Supprimer l’article',
+    shopEmpty:'Rien sur cette liste', shopEmptyHint:'Ajoutez un article ci-dessus, ou laissez l’IA créer une liste à partir des repas de la semaine.',
+    checked:'{done} sur {total} cochés', generating:'Création de la liste de courses…', shopUpdated:'Liste de courses mise à jour !',
+    noMealsWeek:'Planifiez d’abord des repas pour cette semaine', storeOther:'Autre',
+    aiHeroTitle:'Votre chef IA', aiHeroText:'Laissez le chef planifier votre semaine, ou reconnaître un plat en photo.',
+    planTitle:'Planifier cette semaine', planDesc:'L’IA propose un déjeuner, un dîner et un souper pour les 7 jours. Marquez d’abord les journées chargées comme « rapides » dans la vue semaine.',
+    planBtn:'Proposer des repas', planning:'Le chef planifie votre semaine…', suggested:'Proposition', applyPlan:'Appliquer au calendrier',
+    planApplied:'Votre semaine est planifiée !',
+    overwriteTitle:'Remplacer les repas prévus ?', overwriteText:'{n} jour(s) de cette semaine ont déjà des repas. La proposition les remplacera.',
+    overwriteOk:'Remplacer', cancel:'Annuler',
+    idTitle:'Reconnaître un plat', idDesc:'Prenez n’importe quel plat en photo et l’IA vous dira ce que c’est.', idBtn:'Reconnaître ce plat',
+    idFailPhoto:'Non reconnu — essayez une photo plus nette',
+    addIngredients:'Ajouter les ingrédients aux courses', ingredientsAdding:'Le chef note les ingrédients…',
+    ingredientsAdded:'{n} ingrédients ajoutés à la liste de courses', ingredientsNone:'Tout est déjà sur votre liste',
+    noKey:'Ajoutez d’abord votre clé API — touchez ⋮', keyInvalid:'Clé API refusée — vérifiez-la dans le menu',
+    aiFail:'IA indisponible — vérifiez votre connexion', aiRefused:'L’IA a refusé cette demande', badResponse:'Réponse inattendue — réessayez',
+    menuReport:'Télécharger le rapport d’analyse', menuExport:'Exporter les données (sauvegarde)', menuImport:'Importer des données',
+    exporting:'Préparation de l’export…', exported:'Données exportées — enregistrez-les sur Google Drive', imported:'Données importées',
+    importFail:'Import échoué — fichier non valide', reportDone:'Rapport téléchargé',
+    secFamily:'Famille', familyHint:'Affiché sur l’écran de verrouillage, la barre de titre et les rapports', familyPh:'Nom de famille',
+    saveFamily:'Enregistrer le nom', familySaved:'Nom de famille enregistré', familyEmpty:'Indiquez d’abord un nom de famille',
+    secLang:'Langue',
+    secSecurity:'Sécurité', pinHint:'Modifier votre code PIN à 4 chiffres', pinCurrent:'PIN actuel', pinNew:'Nouveau PIN', changePin:'Modifier le PIN',
+    pinWrongCurrent:'Le PIN actuel est incorrect', pinFormat:'Le nouveau PIN doit comporter 4 chiffres', pinChanged:'PIN modifié',
+    secAi:'Paramètres IA', aiHint:'Nécessaire pour la planification et la reconnaissance photo. Obtenez une clé sur console.anthropic.com. Elle reste uniquement sur cet appareil.',
+    saveKey:'Enregistrer la clé API', keySet:'La clé API est configurée', keyMissing:'Pas de clé API — fonctions IA désactivées',
+    keySaved:'Clé API enregistrée — l’IA est prête', keyEmpty:'Collez d’abord votre clé API',
+    createdBy:'Créé par Hans Tandt', pinEnter:'Entrez votre code PIN', pinWrong:'PIN incorrect — réessayez', pinDelete:'Effacer un chiffre', familyNone:'Le planificateur de repas de la famille',
+    pinCreate:'Choisissez un code PIN à 4 chiffres', pinConfirm:'Entrez le même code PIN encore une fois', pinMismatch:'Les codes ne correspondent pas — recommencez', pinCreated:'PIN enregistré. Notez-le en lieu sûr.',
+    storageFull:'Mémoire pleine — modifications non enregistrées', saveError:'Erreur d’enregistrement : {msg}'
+  },
+  nl: {
+    family:'Familie {name}', navWeek:'Week', navShop:'Boodschappen', navAi:'AI-chef', menu:'Menu', close:'Sluiten',
+    prevWeek:'Vorige week', nextWeek:'Volgende week', thisWeek:'Deze week', weekNo:'Week {n}',
+    today:'Vandaag', quick:'Snel', notPlanned:'Niet gepland',
+    breakfast:'Ontbijt', lunch:'Lunch', dinner:'Avondeten',
+    quickDay:'Snelle dag', quickDayHint:'Drukke dag — alleen eenvoudige maaltijden',
+    edit:'Bewerken', remove:'Verwijderen', add:'Toevoegen', removed:'Verwijderd',
+    mealName:'Naam van het gerecht', mealNamePh:'bv. Spaghetti bolognese', photoOpt:'Foto (optioneel)', photoTap:'Tik om een foto te nemen of te kiezen',
+    aiIdentify:'Herkennen met AI', identifying:'De chef bekijkt je gerecht…', notesOpt:'Notities (optioneel)', notesPh:'bv. De kinderen vonden het heerlijk!',
+    saveMeal:'Opslaan', enterName:'Vul de naam van het gerecht in', saved:'{name} opgeslagen', identified:'Gerecht herkend!',
+    identifyFail:'Niet herkend — typ de naam zelf',
+    shopTitle:'Boodschappenlijst', aiList:'AI-lijst', addItemPh:'Artikel toevoegen…', addItem:'Artikel toevoegen', delItem:'Artikel verwijderen',
+    shopEmpty:'Nog niets op deze lijst', shopEmptyHint:'Voeg hierboven een artikel toe, of laat de AI een lijst maken op basis van de maaltijden van deze week.',
+    checked:'{done} van {total} afgevinkt', generating:'Je boodschappenlijst wordt gemaakt…', shopUpdated:'Boodschappenlijst bijgewerkt!',
+    noMealsWeek:'Plan eerst maaltijden voor deze week', storeOther:'Overig',
+    aiHeroTitle:'Je AI-chef', aiHeroText:'Laat de chef je week plannen, of een gerecht herkennen op een foto.',
+    planTitle:'Deze week plannen', planDesc:'De AI stelt ontbijt, lunch en avondeten voor alle 7 dagen voor. Markeer drukke dagen eerst als “snel” in het weekoverzicht.',
+    planBtn:'Maaltijden voorstellen', planning:'De chef plant je week…', suggested:'Voorstel', applyPlan:'In de kalender zetten',
+    planApplied:'Je week is gepland!',
+    overwriteTitle:'Geplande maaltijden vervangen?', overwriteText:'{n} dag(en) van deze week hebben al maaltijden. Het voorstel vervangt ze.',
+    overwriteOk:'Vervangen', cancel:'Annuleren',
+    idTitle:'Gerecht herkennen', idDesc:'Maak een foto van een gerecht en de AI vertelt je wat het is.', idBtn:'Dit gerecht herkennen',
+    idFailPhoto:'Niet herkend — probeer een scherpere foto',
+    addIngredients:'Ingrediënten op de boodschappenlijst', ingredientsAdding:'De chef schrijft de ingrediënten op…',
+    ingredientsAdded:'{n} ingrediënten op de boodschappenlijst gezet', ingredientsNone:'Alles staat al op je lijst',
+    noKey:'Voeg eerst je API-sleutel toe — tik op ⋮', keyInvalid:'API-sleutel geweigerd — controleer hem in het menu',
+    aiFail:'AI niet beschikbaar — controleer je verbinding', aiRefused:'De AI heeft dit verzoek geweigerd', badResponse:'Onverwacht antwoord — probeer opnieuw',
+    menuReport:'Analyserapport downloaden', menuExport:'Gegevens exporteren (back-up)', menuImport:'Gegevens importeren',
+    exporting:'Export wordt voorbereid…', exported:'Gegevens geëxporteerd — bewaar ze op Google Drive', imported:'Gegevens geïmporteerd',
+    importFail:'Importeren mislukt — ongeldig bestand', reportDone:'Rapport gedownload',
+    secFamily:'Familie', familyHint:'Zichtbaar op het vergrendelscherm, in de titelbalk en in rapporten', familyPh:'Familienaam',
+    saveFamily:'Familienaam opslaan', familySaved:'Familienaam opgeslagen', familyEmpty:'Vul eerst een familienaam in',
+    secLang:'Taal',
+    secSecurity:'Beveiliging', pinHint:'Wijzig je pincode van 4 cijfers', pinCurrent:'Huidige pin', pinNew:'Nieuwe pin', changePin:'Pin wijzigen',
+    pinWrongCurrent:'De huidige pin is fout', pinFormat:'De nieuwe pin moet uit 4 cijfers bestaan', pinChanged:'Pin gewijzigd',
+    secAi:'AI-instellingen', aiHint:'Nodig voor maaltijdplanning en fotoherkenning. Vraag een sleutel aan op console.anthropic.com. Hij blijft alleen op dit toestel.',
+    saveKey:'API-sleutel opslaan', keySet:'API-sleutel is ingesteld', keyMissing:'Geen API-sleutel — AI-functies staan uit',
+    keySaved:'API-sleutel opgeslagen — AI is klaar', keyEmpty:'Plak eerst je API-sleutel',
+    createdBy:'Gemaakt door Hans Tandt', pinEnter:'Voer je pincode in', pinWrong:'Verkeerde pin — probeer opnieuw', pinDelete:'Cijfer wissen', familyNone:'De maaltijdplanner van je gezin',
+    pinCreate:'Kies een pincode van 4 cijfers', pinConfirm:'Voer dezelfde pincode nog eens in', pinMismatch:'De pincodes zijn niet gelijk — begin opnieuw', pinCreated:'Pincode opgeslagen. Schrijf hem ergens veilig op.',
+    storageFull:'Opslag vol — wijzigingen niet opgeslagen', saveError:'Fout bij opslaan: {msg}'
+  },
+  de: {
+    family:'Familie {name}', navWeek:'Woche', navShop:'Einkauf', navAi:'KI-Koch', menu:'Menü', close:'Schließen',
+    prevWeek:'Vorherige Woche', nextWeek:'Nächste Woche', thisWeek:'Diese Woche', weekNo:'Woche {n}',
+    today:'Heute', quick:'Schnell', notPlanned:'Nicht geplant',
+    breakfast:'Frühstück', lunch:'Mittagessen', dinner:'Abendessen',
+    quickDay:'Schneller Tag', quickDayHint:'Voller Tag — nur einfache Gerichte',
+    edit:'Bearbeiten', remove:'Entfernen', add:'Hinzufügen', removed:'Entfernt',
+    mealName:'Name des Gerichts', mealNamePh:'z. B. Spaghetti Bolognese', photoOpt:'Foto (optional)', photoTap:'Tippen, um ein Foto aufzunehmen oder auszuwählen',
+    aiIdentify:'Mit KI erkennen', identifying:'Der Koch schaut sich dein Gericht an…', notesOpt:'Notizen (optional)', notesPh:'z. B. Die Kinder waren begeistert!',
+    saveMeal:'Speichern', enterName:'Bitte den Namen des Gerichts eingeben', saved:'{name} gespeichert', identified:'Gericht erkannt!',
+    identifyFail:'Nicht erkannt — bitte Namen selbst eingeben',
+    shopTitle:'Einkaufsliste', aiList:'KI-Liste', addItemPh:'Artikel hinzufügen…', addItem:'Artikel hinzufügen', delItem:'Artikel löschen',
+    shopEmpty:'Noch nichts auf dieser Liste', shopEmptyHint:'Füge oben einen Artikel hinzu oder lass die KI eine Liste aus den Gerichten der Woche erstellen.',
+    checked:'{done} von {total} abgehakt', generating:'Deine Einkaufsliste wird erstellt…', shopUpdated:'Einkaufsliste aktualisiert!',
+    noMealsWeek:'Plane zuerst Gerichte für diese Woche', storeOther:'Sonstiges',
+    aiHeroTitle:'Dein KI-Koch', aiHeroText:'Lass den Koch deine Woche planen oder ein Gericht auf einem Foto erkennen.',
+    planTitle:'Diese Woche planen', planDesc:'Die KI schlägt Frühstück, Mittag- und Abendessen für alle 7 Tage vor. Markiere volle Tage zuerst als „schnell“ in der Wochenansicht.',
+    planBtn:'Gerichte vorschlagen', planning:'Der Koch plant deine Woche…', suggested:'Vorschlag', applyPlan:'In den Kalender übernehmen',
+    planApplied:'Deine Woche ist geplant!',
+    overwriteTitle:'Geplante Gerichte ersetzen?', overwriteText:'{n} Tag(e) dieser Woche haben schon Gerichte. Der Vorschlag ersetzt sie.',
+    overwriteOk:'Ersetzen', cancel:'Abbrechen',
+    idTitle:'Gericht erkennen', idDesc:'Fotografiere ein Gericht und die KI sagt dir, was es ist.', idBtn:'Dieses Gericht erkennen',
+    idFailPhoto:'Nicht erkannt — versuche ein schärferes Foto',
+    addIngredients:'Zutaten auf die Einkaufsliste', ingredientsAdding:'Der Koch schreibt die Zutaten auf…',
+    ingredientsAdded:'{n} Zutaten auf die Einkaufsliste gesetzt', ingredientsNone:'Alles steht schon auf deiner Liste',
+    noKey:'Füge zuerst deinen API-Schlüssel hinzu — tippe auf ⋮', keyInvalid:'API-Schlüssel abgelehnt — prüfe ihn im Menü',
+    aiFail:'KI nicht erreichbar — prüfe deine Verbindung', aiRefused:'Die KI hat diese Anfrage abgelehnt', badResponse:'Unerwartete Antwort — bitte erneut versuchen',
+    menuReport:'Analysebericht herunterladen', menuExport:'Daten exportieren (Sicherung)', menuImport:'Daten importieren',
+    exporting:'Export wird vorbereitet…', exported:'Daten exportiert — speichere sie in Google Drive', imported:'Daten importiert',
+    importFail:'Import fehlgeschlagen — ungültige Datei', reportDone:'Bericht heruntergeladen',
+    secFamily:'Familie', familyHint:'Wird auf dem Sperrbildschirm, in der Titelleiste und in Berichten angezeigt', familyPh:'Familienname',
+    saveFamily:'Familiennamen speichern', familySaved:'Familienname gespeichert', familyEmpty:'Bitte zuerst einen Familiennamen eingeben',
+    secLang:'Sprache',
+    secSecurity:'Sicherheit', pinHint:'Ändere deine 4-stellige PIN', pinCurrent:'Aktuelle PIN', pinNew:'Neue PIN', changePin:'PIN ändern',
+    pinWrongCurrent:'Die aktuelle PIN ist falsch', pinFormat:'Die neue PIN muss genau 4 Ziffern haben', pinChanged:'PIN geändert',
+    secAi:'KI-Einstellungen', aiHint:'Nötig für die Essensplanung und die Fotoerkennung. Einen Schlüssel gibt es auf console.anthropic.com. Er bleibt nur auf diesem Gerät.',
+    saveKey:'API-Schlüssel speichern', keySet:'API-Schlüssel ist eingerichtet', keyMissing:'Kein API-Schlüssel — KI-Funktionen sind aus',
+    keySaved:'API-Schlüssel gespeichert — die KI ist bereit', keyEmpty:'Füge zuerst deinen API-Schlüssel ein',
+    createdBy:'Erstellt von Hans Tandt', pinEnter:'Gib deine PIN ein', pinWrong:'Falsche PIN — bitte erneut versuchen', pinDelete:'Ziffer löschen', familyNone:'Der Essensplaner deiner Familie',
+    pinCreate:'Wähle eine 4-stellige PIN', pinConfirm:'Gib dieselbe PIN noch einmal ein', pinMismatch:'Die PINs stimmen nicht überein — fang neu an', pinCreated:'PIN gespeichert. Schreib sie dir an einem sicheren Ort auf.',
+    storageFull:'Speicher voll — Änderungen nicht gespeichert', saveError:'Fehler beim Speichern: {msg}'
+  }
+};
+
+function detectLang() {
+  try { var s = localStorage.getItem('mp_lang'); if (LANGS.indexOf(s) !== -1) return s; } catch(e) {}
+  var n = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  return LANGS.indexOf(n) !== -1 ? n : 'en';
+}
+var lang = detectLang();
+
+function t(key, vars) {
+  var s = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
+  if (vars) Object.keys(vars).forEach(function(k){ s = s.split('{' + k + '}').join(vars[k]); });
+  return s;
+}
+
+// ── DOM HELPERS ──
+var SVGNS = 'http://www.w3.org/2000/svg';
+function $(id) { return document.getElementById(id); }
+function el(tag, cls, text) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function icon(name) {
+  var s = document.createElementNS(SVGNS, 'svg');
+  s.setAttribute('class', 'i');
+  s.setAttribute('aria-hidden', 'true');
+  var u = document.createElementNS(SVGNS, 'use');
+  u.setAttribute('href', '#i-' + name);
+  u.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#i-' + name);
+  s.appendChild(u);
+  return s;
+}
+function mealChip(k) {
+  var c = el('span', 'mchip mchip-' + k);
+  c.appendChild(icon(MEAL_ICON[k]));
+  return c;
+}
+function iconBtn(name, label, cls) {
+  var b = el('button', 'icon-btn sm' + (cls ? ' ' + cls : ''));
+  b.type = 'button';
+  b.setAttribute('aria-label', label);
+  b.appendChild(icon(name));
+  return b;
+}
+
+// ── STATE ──
+var wkOff = 0;
+var selDate = null;
+var editMT = null;
+var mPhoto = null;
+var aiPhoto = null;
+var idDish = null;         // name of the dish last recognised on the AI Chef tab
+var aiSug = null;          // {off: week offset, days: [{breakfast,lunch,dinner} x7]}
+var curStore = 'delhaize';
+var mPhotoRef = null;      // stored photo of the meal being edited (before any change)
+var mPhotoChanged = false; // true once a new photo is picked in the editor
+var meToken = 0;           // guards async photo loads against a re-opened editor
+var locked = true;
+
+function defD() {
+  return {days:{}, shop:{delhaize:[],lidl:[],aldi:[],massen:[],other:[]}, done:{}};
+}
+var D;
+try {
+  var saved = localStorage.getItem('mptandt');
+  D = saved ? JSON.parse(saved) : defD();
+} catch(e) {
+  D = defD();
+}
+if (!D.days) D.days = {};
+if (!D.shop) D.shop = defD().shop;
+STORES.forEach(function(s){ if (!D.shop[s]) D.shop[s] = []; });
+if (!D.done) D.done = {};
+
+// Returns false (and warns) when the save fails, e.g. storage full
+function sv() {
+  try {
+    localStorage.setItem('mptandt', JSON.stringify(D));
+    return true;
+  } catch(e) {
+    toast(t('storageFull'));
+    return false;
+  }
+}
+
+// Ticks are keyed by store + item name, so deleting or reordering items never moves a tick
+function doneKey(store, item) { return store + '|' + item; }
+
+// One-time migration from old position-based keys ('lidl_3') to name-based keys ('lidl|Milk')
+(function migrateDone() {
+  var changed = false;
+  Object.keys(D.done).forEach(function(k) {
+    var m = k.match(/^([a-z]+)_(\d+)$/);
+    if (!m || STORES.indexOf(m[1]) === -1) return;
+    var item = (D.shop[m[1]] || [])[+m[2]];
+    if (item !== undefined && D.done[k]) D.done[doneKey(m[1], item)] = true;
+    delete D.done[k];
+    changed = true;
+  });
+  if (changed) sv();
+})();
+
+// ── FAMILY NAME ──
+// No family name is built into the code; until one is saved in the menu a neutral line shows.
+function familyName() { return D.family || ''; }
+function fileSlug() {
+  return familyName().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') || 'family';
+}
+function applyFamily() {
+  var name = familyName();
+  var label = name ? t('family', {name: name}) : t('familyNone');
+  $('brandSub').textContent = label;
+  $('pinFamily').textContent = label;
+  document.title = name ? name + ' · Meal Planner' : 'Meal Planner';
+}
+
+// ── PHOTO STORAGE (IndexedDB) ──
+// Photos live in IndexedDB (hundreds of MB) instead of localStorage (~5 MB).
+// A meal's photo field holds 'idb:<id>'; a plain data URL is still accepted (old data / fallback).
+var PHOTO_REF = 'idb:';
+var photoDbP = null;
+function photoDb() {
+  if (!photoDbP) {
+    photoDbP = new Promise(function(resolve, reject) {
+      if (!window.indexedDB) { reject(new Error('NO_IDB')); return; }
+      var req = indexedDB.open('mptandt_photos', 1);
+      req.onupgradeneeded = function() { req.result.createObjectStore('photos'); };
+      req.onsuccess = function() { resolve(req.result); };
+      req.onerror = function() { reject(req.error); };
+    });
+    photoDbP.catch(function() { photoDbP = null; });
+  }
+  return photoDbP;
+}
+function photoTx(mode, fn) {
+  return photoDb().then(function(db) {
+    return new Promise(function(resolve, reject) {
+      var tx = db.transaction('photos', mode);
+      var req = fn(tx.objectStore('photos'));
+      tx.oncomplete = function() { resolve(req.result); };
+      tx.onerror = function() { reject(tx.error); };
+      tx.onabort = function() { reject(tx.error); };
+    });
+  });
+}
+function photoPut(id, dataUrl) { return photoTx('readwrite', function(s){ return s.put(dataUrl, id); }); }
+function photoGet(id) { return photoTx('readonly', function(s){ return s.get(id); }); }
+function photoDel(id) { return photoTx('readwrite', function(s){ return s.delete(id); }); }
+
+function isPhotoRef(p) { return typeof p === 'string' && p.indexOf(PHOTO_REF) === 0; }
+function newPhotoId() { return 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+// Resolves to a displayable data URL (or null)
+function photoSrc(p) {
+  if (!p) return Promise.resolve(null);
+  if (!isPhotoRef(p)) return Promise.resolve(p);
+  return photoGet(p.slice(PHOTO_REF.length)).then(function(v){ return v || null; }, function(){ return null; });
+}
+// Stores a data URL, resolves to its ref; falls back to the data URL itself if IndexedDB is unavailable
+function storePhoto(dataUrl) {
+  var id = newPhotoId();
+  return photoPut(id, dataUrl).then(function(){ return PHOTO_REF + id; }, function(){ return dataUrl; });
+}
+function dropPhoto(p) {
+  if (isPhotoRef(p)) photoDel(p.slice(PHOTO_REF.length)).catch(function(){});
+}
+
+// Moves any photos still embedded in the data (old versions, old export files) into IndexedDB
+function migratePhotos() {
+  var jobs = [];
+  Object.keys(D.days).forEach(function(k) {
+    var meals = (D.days[k] && D.days[k].meals) || {};
+    Object.keys(meals).forEach(function(mt) {
+      var ml = meals[mt];
+      if (!ml || !ml.photo || isPhotoRef(ml.photo)) return;
+      var data = ml.photo;
+      jobs.push(storePhoto(data).then(function(ref) {
+        if (ml.photo === data && isPhotoRef(ref)) ml.photo = ref;
+      }));
+    });
+  });
+  if (!jobs.length) return Promise.resolve();
+  return Promise.all(jobs).then(function(){ sv(); });
+}
+
+// ── DATES ──
+function dk(d) {
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function todayKey() { return dk(new Date()); }
+function wkDates(off) {
+  var t0 = new Date(); t0.setHours(0,0,0,0);
+  var dow = (t0.getDay() || 7) - 1;
+  var mon = new Date(t0); mon.setDate(t0.getDate() - dow + off*7);
+  var arr = [];
+  for (var i=0; i<7; i++) { var d = new Date(mon); d.setDate(mon.getDate()+i); arr.push(d); }
+  return arr;
+}
+function isoWeek(d) {
+  var u = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  var day = u.getUTCDay() || 7;
+  u.setUTCDate(u.getUTCDate() + 4 - day);
+  var y0 = new Date(Date.UTC(u.getUTCFullYear(), 0, 1));
+  return Math.ceil(((u - y0) / 86400000 + 1) / 7);
+}
+function fmt(d, opts) {
+  try { return d.toLocaleDateString(LOCALES[lang], opts); } catch(e) { return d.toDateString(); }
+}
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+function dayName(d) { return cap(fmt(d, {weekday:'long'})); }
+
+// ── TRANSLATION OF STATIC TEXT ──
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(e){ e.textContent = t(e.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(e){ e.setAttribute('placeholder', t(e.getAttribute('data-i18n-ph'))); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(function(e){ e.setAttribute('aria-label', t(e.getAttribute('data-i18n-aria'))); });
+  var foot = 'Meal Planner v' + APP_VERSION + ' · ' + t('createdBy');
+  $('menuVer').textContent = foot;
+  $('lockFoot').textContent = foot;
+  applyFamily();
+  renderPinLabel();
+  renderWk();
+  renderShop();
+  renderSug();
+  renderLangSeg();
+  updateKeyStatus();
+}
+function setLang(code) {
+  lang = code;
+  try { localStorage.setItem('mp_lang', code); } catch(e) {}
+  applyLang();
+}
+function renderLangSeg() {
+  var seg = $('langSeg');
+  seg.textContent = '';
+  LANGS.forEach(function(code) {
+    var b = el('button', code === lang ? 'on' : '', LANG_NAMES[code]);
+    b.type = 'button';
+    b.setAttribute('aria-pressed', String(code === lang));
+    b.addEventListener('click', function(){ setLang(code); });
+    seg.appendChild(b);
+  });
+}
+
+// ── PIN LOCK ──
+// No PIN is built into the code: the first time the app opens on a phone, the user chooses one.
+// Modes: 'enter' (a PIN exists), 'create' (choose a PIN), 'confirm' (type the new PIN again).
+var pinEntry = '';
+var pinMode = 'enter';
+var pinFirst = '';
+function getCorrectPin() {
+  try { return localStorage.getItem('mp_pin') || null; } catch(e) { return null; }
+}
+function renderPinLabel() {
+  $('pinLabel').textContent = t(pinMode === 'create' ? 'pinCreate' : pinMode === 'confirm' ? 'pinConfirm' : 'pinEnter');
+}
+function pinError(msg) {
+  $('pinError').textContent = msg;
+  var dots = $('pinDots');
+  dots.classList.remove('shake'); void dots.offsetWidth; dots.classList.add('shake');
+  pinEntry = '';
+  updatePinDots();
+  setTimeout(function(){ $('pinError').textContent = ''; }, 2200);
+}
+function updatePinDots() {
+  var dots = $('pinDots').children;
+  for (var i=0; i<dots.length; i++) dots[i].className = i < pinEntry.length ? 'on' : '';
+}
+function unlock() {
+  locked = false;
+  $('pinScreen').hidden = true;
+  try { sessionStorage.setItem('mp_auth','1'); } catch(e) {}
+}
+function checkPin() {
+  if (pinMode === 'enter') {
+    if (pinEntry === getCorrectPin()) unlock(); else pinError(t('pinWrong'));
+    return;
+  }
+  if (pinEntry.length !== 4) return;
+  if (pinMode === 'create') {
+    pinFirst = pinEntry;
+    pinEntry = '';
+    pinMode = 'confirm';
+    updatePinDots();
+    renderPinLabel();
+    return;
+  }
+  // confirm
+  if (pinEntry !== pinFirst) {
+    pinMode = 'create';
+    pinFirst = '';
+    renderPinLabel();
+    pinError(t('pinMismatch'));
+    return;
+  }
+  try { localStorage.setItem('mp_pin', pinEntry); } catch(e) {}
+  pinMode = 'enter';
+  unlock();
+  toast(t('pinCreated'));
+}
+function pressPin(v) {
+  if (v === 'del') pinEntry = pinEntry.slice(0, -1);
+  else if (v === 'ok') { checkPin(); return; }
+  else if (pinEntry.length < 4) pinEntry += v;
+  updatePinDots();
+  if (pinEntry.length === 4 && v !== 'del') checkPin();
+}
+function initPin() {
+  var authed = false;
+  try { authed = sessionStorage.getItem('mp_auth') === '1'; } catch(e) {}
+  if (authed && getCorrectPin()) { unlock(); return; }
+  pinMode = getCorrectPin() ? 'enter' : 'create';
+  renderPinLabel();
+  document.querySelectorAll('.pin-key').forEach(function(btn) {
+    btn.addEventListener('click', function(){ pressPin(btn.getAttribute('data-v')); });
+  });
+}
+
+// ── VIEWS ──
+function showV(v) {
+  document.querySelectorAll('.view').forEach(function(e){ e.classList.remove('on'); });
+  document.querySelectorAll('.nbt').forEach(function(e){ e.classList.remove('on'); e.removeAttribute('aria-current'); });
+  $('v-' + v).classList.add('on');
+  $('t-' + v).classList.add('on');
+  $('t-' + v).setAttribute('aria-current', 'page');
+  $('scroller').scrollTop = 0;
+  if (v === 'week') renderWk();
+  if (v === 'shop') renderShop();
+}
+
+// ── WEEK ──
+function renderWk() {
+  var dates = wkDates(wkOff);
+  $('wkTitle').textContent = t('weekNo', {n: isoWeek(dates[0])});
+  $('wkRange').textContent = fmt(dates[0], {day:'numeric', month:'short'}) + ' – ' + fmt(dates[6], {day:'numeric', month:'short', year:'numeric'});
+  $('btnToday').hidden = wkOff === 0;
+  var g = $('weekgrid');
+  g.textContent = '';
+  dates.forEach(function(d) {
+    var key = dk(d);
+    var dd = D.days[key] || {};
+    var meals = dd.meals || {};
+    var isToday = key === todayKey();
+    var card = el('button', 'daycard' + (isToday ? ' today' : '') + (dd.isQuick ? ' quick' : ''));
+    card.type = 'button';
+    card.addEventListener('click', function(){ openDay(d); });
+
+    var top = el('span', 'dc-top');
+    var title = el('span', 'dc-title');
+    title.appendChild(el('span', 'dc-name', dayName(d)));
+    title.appendChild(el('span', 'dc-date', fmt(d, {day:'numeric', month:'long'})));
+    var tags = el('span', 'dc-tags');
+    if (isToday) tags.appendChild(el('span', 'tag tag-today', t('today')));
+    if (dd.isQuick) {
+      var q = el('span', 'tag tag-quick');
+      q.appendChild(icon('bolt'));
+      q.appendChild(document.createTextNode(t('quick')));
+      tags.appendChild(q);
+    }
+    top.appendChild(title);
+    top.appendChild(tags);
+    card.appendChild(top);
+
+    MT.forEach(function(m) {
+      var ml = meals[m.k];
+      var row = el('span', 'dc-meal');
+      var chip = mealChip(m.k);
+      row.appendChild(chip);
+      row.appendChild(el('span', ml ? 'dc-mname' : 'dc-mname empty', ml ? ml.name : t('notPlanned')));
+      card.appendChild(row);
+      if (ml && ml.photo) {
+        photoSrc(ml.photo).then(function(src) {
+          if (!src || !chip.parentNode) return;
+          var img = el('img', 'mchip');
+          img.src = src; img.alt = '';
+          chip.parentNode.replaceChild(img, chip);
+        });
+      }
+    });
+    g.appendChild(card);
+  });
+}
+
+// ── DAY SHEET ──
+function openDay(d) {
+  selDate = d;
+  var dd = D.days[dk(d)] || {};
+  $('dsTitle').textContent = dayName(d);
+  $('dsSub').textContent = fmt(d, {day:'numeric', month:'long', year:'numeric'});
+  $('qtRow').setAttribute('aria-checked', String(!!dd.isQuick));
+  renderSlots();
+  openSh('daySheet');
+}
+
+function renderSlots() {
+  var dd = D.days[dk(selDate)] || {};
+  var meals = dd.meals || {};
+  var c = $('daySlots');
+  c.textContent = '';
+  MT.forEach(function(m) {
+    var ml = meals[m.k];
+    var slot = el('div', 'slot');
+    var head = el('div', 'slot-head');
+    head.appendChild(mealChip(m.k));
+    head.appendChild(el('span', 'slot-type', t(m.k)));
+    slot.appendChild(head);
+
+    if (!ml) {
+      var add = el('button', 'slot-add');
+      add.type = 'button';
+      add.appendChild(icon('plus'));
+      add.appendChild(document.createTextNode(t('add')));
+      add.addEventListener('click', function(){ openME(m.k); });
+      head.appendChild(add);
+      c.appendChild(slot);
+      return;
+    }
+
+    var acts = el('span', 'slot-acts');
+    var eb = iconBtn('pencil', t('edit'));
+    eb.addEventListener('click', function(){ openME(m.k); });
+    var db = iconBtn('trash', t('remove'), 'danger');
+    db.addEventListener('click', function(){ delMeal(m.k); });
+    acts.appendChild(eb);
+    acts.appendChild(db);
+    head.appendChild(acts);
+
+    var body = el('button', 'slot-body');
+    body.type = 'button';
+    body.addEventListener('click', function(){ openME(m.k); });
+    var thumb = el('span', 'slot-thumb');
+    thumb.appendChild(icon(MEAL_ICON[m.k]));
+    body.appendChild(thumb);
+    var info = el('span', 'slot-info');
+    info.appendChild(el('span', 'slot-name', ml.name));
+    if (ml.notes) info.appendChild(el('span', 'slot-note', ml.notes));
+    body.appendChild(info);
+    slot.appendChild(body);
+    if (ml.photo) {
+      photoSrc(ml.photo).then(function(src) {
+        if (!src || !thumb.parentNode) return;
+        var img = el('img', 'slot-thumb');
+        img.src = src; img.alt = '';
+        thumb.parentNode.replaceChild(img, thumb);
+      });
+    }
+    c.appendChild(slot);
+  });
+}
+
+function toggleQuick() {
+  var key = dk(selDate);
+  if (!D.days[key]) D.days[key] = {meals:{}, isQuick:false};
+  D.days[key].isQuick = !D.days[key].isQuick;
+  if (!sv()) { D.days[key].isQuick = !D.days[key].isQuick; return; }
+  $('qtRow').setAttribute('aria-checked', String(D.days[key].isQuick));
+  renderWk();
+}
+
+function delMeal(mt) {
+  var key = dk(selDate);
+  if (D.days[key] && D.days[key].meals && D.days[key].meals[mt]) {
+    dropPhoto(D.days[key].meals[mt].photo);
+    delete D.days[key].meals[mt];
+  }
+  sv();
+  renderSlots();
+  renderWk();
+  toast(t('removed'));
+}
+
+// ── MEAL EDITOR ──
+function setPreview(imgId, phId, src) {
+  var img = $(imgId);
+  if (src) { img.src = src; img.hidden = false; $(phId).hidden = true; }
+  else { img.removeAttribute('src'); img.hidden = true; $(phId).hidden = false; }
+}
+
+function openME(mt) {
+  editMT = mt;
+  mPhoto = null;
+  $('msTitle').textContent = t(mt);
+  var key = dk(selDate);
+  var ex = D.days[key] && D.days[key].meals && D.days[key].meals[mt];
+  $('mName').value = ex ? (ex.name || '') : '';
+  $('mNotes').value = ex ? (ex.notes || '') : '';
+  mPhotoRef = (ex && ex.photo) || null;
+  mPhotoChanged = false;
+  var token = ++meToken;
+  setPreview('mPhPrev', 'mPhPH', null);
+  $('aiIdBtn').disabled = true;
+  if (mPhotoRef) {
+    photoSrc(mPhotoRef).then(function(src) {
+      if (!src || token !== meToken || mPhotoChanged) return;
+      mPhoto = src;
+      setPreview('mPhPrev', 'mPhPH', src);
+      $('aiIdBtn').disabled = false;
+    });
+  }
+  openSh('mealSheet');
+}
+
+function handleMealPhoto(e) {
+  var f = e.target.files[0]; if (!f) return;
+  e.target.value = ''; // so picking the same file again still triggers a change
+  compress(f, 450, 0.75).then(function(b) {
+    mPhoto = b;
+    mPhotoChanged = true;
+    setPreview('mPhPrev', 'mPhPH', b);
+    $('aiIdBtn').disabled = false;
+  });
+}
+
+function identifyInEditor() {
+  if (!mPhoto) return;
+  showBusy(t('identifying'));
+  identifyPhoto(mPhoto)
+    .then(function(r) {
+      $('mName').value = r.name || '';
+      $('mNotes').value = r.description || '';
+      toast(t('identified'));
+    })
+    .catch(function(e) { toast(e.message === 'NO_KEY' ? t('noKey') : t('identifyFail')); })
+    .finally(hideBusy);
+}
+
+function saveMeal() {
+  var name = $('mName').value.trim();
+  if (!name) { toast(t('enterName')); $('mName').focus(); return; }
+  if (!selDate || !editMT) return;
+  var key = dk(selDate);
+  var mt = editMT;
+  var notes = $('mNotes').value.trim();
+  var oldRef = mPhotoRef;
+  var changed = mPhotoChanged;
+  var btn = $('btnSaveMeal');
+  btn.disabled = true;
+  var photoP = (changed && mPhoto) ? storePhoto(mPhoto) : Promise.resolve(oldRef);
+  photoP.then(function(photo) {
+    if (!D.days[key]) D.days[key] = {meals:{}, isQuick:false};
+    if (!D.days[key].meals) D.days[key].meals = {};
+    var before = D.days[key].meals[mt];
+    D.days[key].meals[mt] = { name: name, notes: notes, photo: photo || null };
+    if (!sv()) {
+      // Not saved: undo in memory and discard the new photo, keep the editor open
+      if (before) D.days[key].meals[mt] = before; else delete D.days[key].meals[mt];
+      if (changed) dropPhoto(photo);
+      return;
+    }
+    if (changed && oldRef && oldRef !== photo) dropPhoto(oldRef);
+    closeSh('mealSheet');
+    renderSlots();
+    renderWk();
+    toast(t('saved', {name: name}));
+  }).catch(function(e) {
+    toast(t('saveError', {msg: e.message}));
+  }).finally(function() {
+    btn.disabled = false;
+  });
+}
+
+// ── SHOPPING ──
+function storeLabel(s) { return s === 'other' ? t('storeOther') : STORE_NAMES[s]; }
+
+function buildStoreChips() {
+  var row = $('storeRow');
+  row.textContent = '';
+  STORES.forEach(function(s) {
+    var open = (D.shop[s] || []).filter(function(it){ return !D.done[doneKey(s, it)]; }).length;
+    var b = el('button', 'chip' + (s === curStore ? ' on' : ''));
+    b.type = 'button';
+    b.setAttribute('aria-pressed', String(s === curStore));
+    b.appendChild(document.createTextNode(storeLabel(s)));
+    if (open) b.appendChild(el('span', 'chip-count', String(open)));
+    b.addEventListener('click', function(){ curStore = s; renderShop(); });
+    row.appendChild(b);
+  });
+}
+
+function renderShop() {
+  buildStoreChips();
+  var items = D.shop[curStore] || [];
+  var list = $('shopList');
+  var prog = $('shopProg');
+  list.textContent = '';
+  if (!items.length) {
+    prog.textContent = '';
+    var e = el('div', 'empty');
+    var img = el('img', 'empty-chef');
+    img.src = 'img/chef-main-256.webp'; img.alt = '';
+    e.appendChild(img);
+    e.appendChild(el('div', 'empty-title', t('shopEmpty')));
+    e.appendChild(el('div', 'empty-text', t('shopEmptyHint')));
+    list.appendChild(e);
+    return;
+  }
+  var n = 0;
+  items.forEach(function(it){ if (D.done[doneKey(curStore, it)]) n++; });
+  prog.textContent = t('checked', {done: n, total: items.length});
+  items.forEach(function(item, idx) {
+    var k = doneKey(curStore, item);
+    var chk = !!D.done[k];
+    var row = el('div', 'sitem' + (chk ? ' done' : ''));
+    var cb = el('button', 'schk');
+    cb.type = 'button';
+    cb.setAttribute('role', 'checkbox');
+    cb.setAttribute('aria-checked', String(chk));
+    cb.setAttribute('aria-label', item);
+    if (chk) cb.appendChild(icon('check'));
+    cb.addEventListener('click', function() {
+      if (D.done[k]) delete D.done[k]; else D.done[k] = true;
+      sv(); renderShop();
+    });
+    var nm = el('span', 'snm', item);
+    nm.addEventListener('click', function(){ cb.click(); });
+    var del = iconBtn('trash', t('delItem'), 'ghost');
+    del.addEventListener('click', function() {
+      D.shop[curStore].splice(idx, 1);
+      // Forget the tick so a re-added item starts unticked (unless a duplicate is still listed)
+      if (D.shop[curStore].indexOf(item) === -1) delete D.done[k];
+      sv(); renderShop();
+    });
+    row.appendChild(cb); row.appendChild(nm); row.appendChild(del);
+    list.appendChild(row);
+  });
+}
+
+function addItem() {
+  var inp = $('shopInp');
+  var v = inp.value.trim(); if (!v) return;
+  D.shop[curStore].push(v);
+  if (!sv()) { D.shop[curStore].pop(); return; }
+  inp.value = '';
+  renderShop();
+}
+
+function weekMealsText(off) {
+  var dates = wkDates(off), out = '', any = false;
+  dates.forEach(function(d, i) {
+    var dd = D.days[dk(d)] || {}, mls = [];
+    MT.forEach(function(m){ if (dd.meals && dd.meals[m.k] && dd.meals[m.k].name) mls.push(dd.meals[m.k].name); });
+    if (mls.length) any = true;
+    out += DAYS_EN[i] + ': ' + (mls.length ? mls.join(', ') : 'nothing planned') + '\n';
+  });
+  return any ? out : null;
+}
+
+var SHOP_SCHEMA = {
+  type: 'object',
+  properties: {
+    delhaize: {type:'array', items:{type:'string'}},
+    lidl: {type:'array', items:{type:'string'}},
+    aldi: {type:'array', items:{type:'string'}},
+    massen: {type:'array', items:{type:'string'}},
+    other: {type:'array', items:{type:'string'}}
+  },
+  required: ['delhaize','lidl','aldi','massen','other'],
+  additionalProperties: false
+};
+
+// Where the family buys what — shared by the week list and the ingredients of one dish
+function storeRules() {
+  return 'Put fresh produce, meat and dairy under delhaize; dry goods, tins and drinks under aldi or lidl; ' +
+    'use massen only for special or bulk items; anything else under other. Leave a store empty when nothing fits. ' +
+    'Keep each item short with an approximate quantity, and write every item in ' + LANG_AI[lang] + '.';
+}
+
+// Adds AI items to the store lists, skipping ones already listed.
+// Returns how many were added, or -1 when saving failed (lists are then left unchanged).
+function mergeShop(res) {
+  var before = JSON.stringify(D.shop);
+  var added = 0;
+  STORES.forEach(function(s) {
+    if (!Array.isArray(res[s])) return;
+    res[s].forEach(function(item) {
+      item = String(item).trim();
+      if (item && D.shop[s].indexOf(item) === -1) { D.shop[s].push(item); added++; }
+    });
+  });
+  if (!sv()) { D.shop = JSON.parse(before); return -1; }
+  renderShop();
+  return added;
+}
+
+function aiShop() {
+  var meals = weekMealsText(wkOff);
+  if (!meals) { toast(t('noMealsWeek')); return; }
+  showBusy(t('generating'));
+  callClaude(
+    'Write a shopping list for this week\'s family meals (2 adults and children, living in the Belgian Ardennes, shopping at Delhaize, Lidl, Aldi and Massen in Luxembourg).\n\n' +
+    'Meals:\n' + meals + '\n' + storeRules(),
+    SHOP_SCHEMA
+  ).then(function(res) {
+    if (mergeShop(res) >= 0) celebrate(t('shopUpdated'));
+  }).catch(function(e) {
+    toast(aiErrMsg(e));
+  }).finally(hideBusy);
+}
+
+// The dish recognised from a photo → its ingredients on the shopping lists
+function addIngredients() {
+  if (!idDish) return;
+  showBusy(t('ingredientsAdding'));
+  callClaude(
+    'List the ingredients needed to cook "' + idDish + '" at home for a family of 2 adults and children ' +
+    '(Belgian Ardennes, shopping at Delhaize, Lidl, Aldi and Massen in Luxembourg). ' +
+    'Leave out basics most kitchens already have, such as salt, pepper, cooking oil and water.\n' + storeRules(),
+    SHOP_SCHEMA
+  ).then(function(res) {
+    var n = mergeShop(res);
+    if (n < 0) return;
+    celebrate(n ? t('ingredientsAdded', {n: n}) : t('ingredientsNone'));
+  }).catch(function(e) {
+    toast(aiErrMsg(e));
+  }).finally(hideBusy);
+}
+
+// ── AI CHEF ──
+var PLAN_SCHEMA = {
+  type: 'object',
+  properties: {
+    days: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: { breakfast:{type:'string'}, lunch:{type:'string'}, dinner:{type:'string'} },
+        required: ['breakfast','lunch','dinner'],
+        additionalProperties: false
+      }
+    }
+  },
+  required: ['days'],
+  additionalProperties: false
+};
+
+function planWeek() {
+  var off = wkOff;
+  var dates = wkDates(off);
+  var sched = '';
+  dates.forEach(function(d, i) {
+    var dd = D.days[dk(d)] || {};
+    sched += DAYS_EN[i] + ': ' + (dd.isQuick ? 'BUSY — quick meals only' : 'normal cooking day') + '\n';
+  });
+  showBusy(t('planning'));
+  callClaude(
+    'Plan 7 days of family meals (breakfast, lunch and dinner) for 2 adults and children living in the Belgian Ardennes. ' +
+    'French, Belgian and German home cooking are all welcome.\n\nSchedule:\n' + sched + '\n' +
+    'On busy days, choose simple meals that are ready in 20 minutes or less (pasta, soup, eggs, wraps). ' +
+    'On normal days, choose proper home-cooked meals. Do not repeat a dinner during the week. ' +
+    'Write every meal name in ' + LANG_AI[lang] + '. Return exactly 7 days in order, Monday first.',
+    PLAN_SCHEMA
+  ).then(function(res) {
+    var days = res && Array.isArray(res.days) ? res.days.slice(0, 7) : [];
+    if (days.length < 7) throw new Error('BAD');
+    aiSug = {off: off, days: days};
+    renderSug();
+  }).catch(function(e) {
+    toast(aiErrMsg(e));
+  }).finally(hideBusy);
+}
+
+function renderSug() {
+  var c = $('planRes');
+  c.textContent = '';
+  if (!aiSug) return;
+  var dates = wkDates(aiSug.off);
+  var box = el('div', 'sug');
+  box.appendChild(el('div', 'sug-head', t('suggested') + ' · ' + t('weekNo', {n: isoWeek(dates[0])})));
+  aiSug.days.forEach(function(s, i) {
+    var day = el('div', 'sug-day');
+    day.appendChild(el('div', 'sug-name', dayName(dates[i])));
+    MT.forEach(function(m) {
+      var line = el('div', 'sug-line');
+      line.appendChild(mealChip(m.k));
+      line.appendChild(el('span', '', s[m.k] || '—'));
+      day.appendChild(line);
+    });
+    box.appendChild(day);
+  });
+  var apply = el('button', 'btn btn-gn btn-block');
+  apply.type = 'button';
+  apply.style.marginTop = '14px';
+  apply.appendChild(icon('check'));
+  apply.appendChild(document.createTextNode(t('applyPlan')));
+  apply.addEventListener('click', applySug);
+  box.appendChild(apply);
+  c.appendChild(box);
+}
+
+function applySug() {
+  if (!aiSug) return;
+  var off = aiSug.off;
+  var dates = wkDates(off);
+  var filled = dates.filter(function(d) {
+    var dd = D.days[dk(d)];
+    return dd && dd.meals && Object.keys(dd.meals).length;
+  }).length;
+  var go = filled ? confirmDialog(t('overwriteTitle'), t('overwriteText', {n: filled}), t('overwriteOk')) : Promise.resolve(true);
+  go.then(function(ok) {
+    if (!ok || !aiSug) return;
+    var before = JSON.stringify(D.days);
+    var oldPhotos = [];
+    aiSug.days.forEach(function(s, i) {
+      var key = dk(dates[i]);
+      if (!D.days[key]) D.days[key] = {meals:{}, isQuick:false};
+      var oldMeals = D.days[key].meals || {};
+      Object.keys(oldMeals).forEach(function(mt){ if (oldMeals[mt] && oldMeals[mt].photo) oldPhotos.push(oldMeals[mt].photo); });
+      var meals = {};
+      MT.forEach(function(m){ if (s[m.k]) meals[m.k] = {name: String(s[m.k]), notes:'', photo:null}; });
+      D.days[key].meals = meals;
+    });
+    if (!sv()) { D.days = JSON.parse(before); return; }
+    oldPhotos.forEach(dropPhoto);
+    aiSug = null;
+    renderSug();
+    wkOff = off;
+    showV('week');
+    celebrate(t('planApplied'));
+  });
+}
+
+function handleAIPhoto(e) {
+  var f = e.target.files[0]; if (!f) return;
+  e.target.value = '';
+  compress(f, 450, 0.75).then(function(b) {
+    aiPhoto = b;
+    setPreview('aiPhPrev', 'aiPhPH', b);
+    $('idBtn').disabled = false;
+    $('idRes').hidden = true;
+    idDish = null;
+  });
+}
+
+function identifyMeal() {
+  if (!aiPhoto) return;
+  showBusy(t('identifying'));
+  identifyPhoto(aiPhoto)
+    .then(function(r) {
+      idDish = r.name || null;
+      $('btnIdShop').hidden = !idDish;
+      $('idName').textContent = r.name || '';
+      $('idDesc').textContent = r.description || '';
+      $('idRes').hidden = false;
+    })
+    .catch(function(e) { toast(e.message === 'NO_KEY' ? t('noKey') : t('idFailPhoto')); })
+    .finally(hideBusy);
+}
+
+var ID_SCHEMA = {
+  type: 'object',
+  properties: { name:{type:'string'}, description:{type:'string'} },
+  required: ['name','description'],
+  additionalProperties: false
+};
+
+function identifyPhoto(dataUrl) {
+  var b64 = dataUrl.split(',')[1];
+  var mime = (dataUrl.match(/data:([^;]+);/) || [])[1] || 'image/jpeg';
+  return callClaude([
+    {type:'image', source:{type:'base64', media_type:mime, data:b64}},
+    {type:'text', text:'Identify the dish in this photo. Give its usual name and a one-sentence description, both in ' + LANG_AI[lang] + '.'}
+  ], ID_SCHEMA);
+}
+
+// ── API ──
+function getApiKey() {
+  try { return localStorage.getItem('mp_apikey') || ''; } catch(e) { return ''; }
+}
+
+// One request to the Messages API with a JSON-schema answer format.
+// Uses server-side refusal fallbacks; if the server rejects that option, retries once without it.
+function callClaude(content, schema) {
+  var key = getApiKey();
+  if (!key) return Promise.reject(new Error('NO_KEY'));
+  function send(withFallback) {
+    var headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    };
+    var body = {
+      model: MDL,
+      max_tokens: 16000,
+      output_config: { effort: 'low', format: { type: 'json_schema', schema: schema } },
+      messages: [{ role: 'user', content: content }]
+    };
+    if (withFallback) {
+      headers['anthropic-beta'] = 'server-side-fallback-2026-07-01';
+      body.fallbacks = 'default';
+    }
+    return fetch(API_URL, { method: 'POST', headers: headers, body: JSON.stringify(body) })
+      .then(function(res) {
+        return res.json().then(function(data){ return {status: res.status, data: data}; },
+                              function(){ return {status: res.status, data: {}}; });
+      });
+  }
+  return send(true).then(function(r) {
+    if (r.status === 400 && r.data.error && r.data.error.type === 'invalid_request_error') return send(false);
+    return r;
+  }).then(function(r) {
+    var data = r.data || {};
+    if (r.status === 401 || r.status === 403) throw new Error('BAD_KEY');
+    if (r.status >= 400 || data.error) throw new Error((data.error && data.error.message) || ('HTTP ' + r.status));
+    if (data.stop_reason === 'refusal') throw new Error('REFUSED');
+    var txt = (data.content || []).filter(function(b){ return b.type === 'text'; }).map(function(b){ return b.text; }).join('');
+    try { return JSON.parse(txt); } catch(e) { throw new Error('BAD'); }
+  });
+}
+
+function aiErrMsg(e) {
+  switch (e && e.message) {
+    case 'NO_KEY': return t('noKey');
+    case 'BAD_KEY': return t('keyInvalid');
+    case 'REFUSED': return t('aiRefused');
+    case 'BAD': return t('badResponse');
+    default: return t('aiFail');
+  }
+}
+
+function compress(file, maxPx, q) {
+  return new Promise(function(resolve) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        var sc = Math.min(maxPx/img.width, maxPx/img.height, 1);
+        var c = document.createElement('canvas');
+        c.width = Math.round(img.width*sc); c.height = Math.round(img.height*sc);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        resolve(c.toDataURL('image/jpeg', q));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ── SHEETS & OVERLAYS ──
+var SHEET_ORDER = ['confirmSheet', 'mealSheet', 'menuSheet', 'daySheet']; // topmost first
+function syncOverlay() {
+  $('overlay').classList.toggle('on', !!document.querySelector('.sheet.open'));
+}
+function openSh(id) {
+  $(id).classList.add('open');
+  syncOverlay();
+}
+function closeSh(id) {
+  $(id).classList.remove('open');
+  syncOverlay();
+  if (id === 'daySheet') renderWk();
+}
+function closeTop() {
+  for (var i = 0; i < SHEET_ORDER.length; i++) {
+    if ($(SHEET_ORDER[i]).classList.contains('open')) {
+      if (SHEET_ORDER[i] === 'confirmSheet') closeConfirm(false); else closeSh(SHEET_ORDER[i]);
+      return;
+    }
+  }
+}
+
+var confirmResolve = null;
+function confirmDialog(title, text, okLabel) {
+  $('cfTitle').textContent = title;
+  $('cfText').textContent = text;
+  $('cfOk').textContent = okLabel;
+  openSh('confirmSheet');
+  return new Promise(function(resolve){ confirmResolve = resolve; });
+}
+function closeConfirm(val) {
+  closeSh('confirmSheet');
+  if (confirmResolve) { var r = confirmResolve; confirmResolve = null; r(val); }
+}
+
+function showBusy(text) { $('busyText').textContent = text; $('busy').classList.add('on'); }
+function hideBusy() { $('busy').classList.remove('on'); }
+
+var celeTimer;
+function celebrate(text) {
+  var c = $('celebrate');
+  $('celeText').textContent = text;
+  c.classList.add('on');
+  clearTimeout(celeTimer);
+  celeTimer = setTimeout(function(){ c.classList.remove('on'); }, 2200);
+}
+
+var toastTimer;
+function toast(msg) {
+  var e = $('toast');
+  e.textContent = msg;
+  e.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ e.classList.remove('show'); }, 2800);
+}
+
+// ── MENU ──
+function updateKeyStatus() {
+  var s = $('keyStatus');
+  var has = !!getApiKey();
+  s.textContent = has ? t('keySet') : t('keyMissing');
+  s.className = 'status' + (has ? ' ok' : '');
+}
+function setStatus(id, text, kind) {
+  var s = $(id);
+  s.textContent = text;
+  s.className = 'status' + (kind ? ' ' + kind : '');
+}
+function openMenu() {
+  $('apiKeyInp').value = '';
+  updateKeyStatus();
+  $('famInp').value = familyName();
+  $('pinCurrentInp').value = '';
+  $('pinNewInp').value = '';
+  setStatus('pinChangeStatus', '');
+  renderLangSeg();
+  openSh('menuSheet');
+}
+
+// ── REPORT (kept in English: it is meant to be pasted into Claude) ──
+function generateReport() {
+  var lines = [];
+  var now = new Date().toLocaleDateString('en-GB', {weekday:'long',day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  lines.push('='.repeat(56));
+  lines.push((familyName() ? 'FAMILY ' + familyName().toUpperCase() + ' — ' : '') + 'MEAL PLANNER REPORT');
+  lines.push('Generated: ' + now);
+  lines.push('='.repeat(56));
+
+  var dayKeys = Object.keys(D.days).sort();
+  lines.push('\nMEAL HISTORY (' + dayKeys.length + ' days logged)');
+  lines.push('-'.repeat(40));
+  if (dayKeys.length === 0) {
+    lines.push('No meals logged yet.');
+  } else {
+    dayKeys.forEach(function(key) {
+      var dd = D.days[key];
+      var meals = dd.meals || {};
+      lines.push('\n' + key + (dd.isQuick ? ' [QUICK DAY]' : ''));
+      MT.forEach(function(m) {
+        var ml = meals[m.k];
+        var label = I18N.en[m.k];
+        lines.push('  ' + label + ': ' + (ml ? ml.name + (ml.notes ? ' — ' + ml.notes : '') : '(not logged)'));
+      });
+    });
+  }
+
+  lines.push('\n' + '='.repeat(56));
+  lines.push('MEAL FREQUENCY (most cooked)');
+  lines.push('-'.repeat(40));
+  var freq = {};
+  dayKeys.forEach(function(key) {
+    var meals = (D.days[key] && D.days[key].meals) || {};
+    MT.forEach(function(m) {
+      if (meals[m.k] && meals[m.k].name) {
+        var name = meals[m.k].name.trim().toLowerCase();
+        freq[name] = (freq[name] || 0) + 1;
+      }
+    });
+  });
+  var sorted = Object.keys(freq).sort(function(a,b){ return freq[b] - freq[a]; });
+  if (sorted.length === 0) lines.push('No data yet.');
+  else sorted.slice(0, 20).forEach(function(name){ lines.push('  ' + freq[name] + 'x  ' + name); });
+
+  var quickDays = dayKeys.filter(function(k){ return D.days[k] && D.days[k].isQuick; });
+  if (quickDays.length > 0) {
+    lines.push('\n' + '='.repeat(56));
+    lines.push('BUSY / QUICK DAYS (' + quickDays.length + ' logged)');
+    lines.push('-'.repeat(40));
+    var dowCount = [0,0,0,0,0,0,0];
+    quickDays.forEach(function(k){ var p = k.split('-'); dowCount[new Date(+p[0], +p[1]-1, +p[2]).getDay()]++; });
+    var dowNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    dowCount.forEach(function(n, d){ if (n > 0) lines.push('  ' + dowNames[d] + ': ' + n + 'x'); });
+  }
+
+  lines.push('\n' + '='.repeat(56));
+  lines.push('CURRENT SHOPPING LISTS');
+  lines.push('-'.repeat(40));
+  STORES.forEach(function(s) {
+    var items = D.shop[s] || [];
+    if (items.length > 0) {
+      lines.push('\n' + STORE_NAMES[s]);
+      items.forEach(function(item){ lines.push('  • ' + item); });
+    }
+  });
+
+  lines.push('\n' + '='.repeat(56));
+  lines.push('END OF REPORT');
+  lines.push('Paste this into Claude and say: "Here is our meal data, please analyse and improve the app"');
+  lines.push('='.repeat(56));
+
+  download(lines.join('\n'), 'text/plain', fileSlug() + '-meal-report-' + new Date().toISOString().split('T')[0] + '.txt');
+  toast(t('reportDone'));
+}
+
+function download(text, type, name) {
+  var url = URL.createObjectURL(new Blob([text], {type: type}));
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+
+// ── EXPORT / IMPORT ──
+// Export bundles the photos from IndexedDB, so the file is a complete backup
+function exportData() {
+  var ids = [];
+  Object.keys(D.days).forEach(function(k) {
+    var meals = (D.days[k] && D.days[k].meals) || {};
+    Object.keys(meals).forEach(function(mt) {
+      if (meals[mt] && isPhotoRef(meals[mt].photo)) ids.push(meals[mt].photo.slice(PHOTO_REF.length));
+    });
+  });
+  toast(t('exporting'));
+  Promise.all(ids.map(function(id) {
+    return photoGet(id).then(function(v){ return [id, v]; }, function(){ return [id, null]; });
+  })).then(function(pairs) {
+    var photos = {};
+    pairs.forEach(function(p){ if (p[1]) photos[p[0]] = p[1]; });
+    var payload = { version: APP_VERSION, exported: new Date().toISOString(), family: familyName(), data: D, photos: photos };
+    download(JSON.stringify(payload, null, 2), 'application/json', fileSlug() + '-meal-data-' + new Date().toISOString().split('T')[0] + '.json');
+    toast(t('exported'));
+  });
+}
+
+function importData(e) {
+  var f = e.target.files[0];
+  if (!f) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    var payload, incoming;
+    try {
+      payload = JSON.parse(ev.target.result);
+      incoming = payload.data || payload;
+    } catch(err) {
+      toast(t('importFail'));
+      e.target.value = '';
+      return;
+    }
+    e.target.value = '';
+    var photos = payload.photos || {};
+    // Store bundled photos first; remember any that could not be stored
+    Promise.all(Object.keys(photos).map(function(id) {
+      return photoPut(id, photos[id]).then(function(){ return null; }, function(){ return id; });
+    })).then(function(failedIds) {
+      var failed = {};
+      failedIds.forEach(function(id){ if (id) failed[id] = true; });
+      // Merge: keep local data, add incoming on top
+      if (incoming.days) {
+        Object.keys(incoming.days).forEach(function(k) {
+          var meals = (incoming.days[k] && incoming.days[k].meals) || {};
+          Object.keys(meals).forEach(function(mt) {
+            var ml = meals[mt];
+            if (ml && isPhotoRef(ml.photo)) {
+              var id = ml.photo.slice(PHOTO_REF.length);
+              if (failed[id]) ml.photo = photos[id]; // keep it inline rather than lose it
+            }
+          });
+          D.days[k] = incoming.days[k];
+        });
+      }
+      if (incoming.shop) {
+        STORES.forEach(function(s) {
+          if (incoming.shop[s]) {
+            var ex = new Set(D.shop[s] || []);
+            incoming.shop[s].forEach(function(item){ ex.add(item); });
+            D.shop[s] = Array.from(ex);
+          }
+        });
+      }
+      if (incoming.family) D.family = incoming.family;
+      return migratePhotos(); // older export files carry photos inline
+    }).then(function() {
+      if (!sv()) return;
+      applyFamily();
+      renderWk();
+      renderShop();
+      toast(t('imported'));
+    }).catch(function() {
+      toast(t('importFail'));
+    });
+  };
+  reader.readAsText(f);
+}
+
+// ── WIRE UP EVENTS ──
+$('t-week').addEventListener('click', function(){ showV('week'); });
+$('t-shop').addEventListener('click', function(){ showV('shop'); });
+$('t-ai').addEventListener('click', function(){ showV('ai'); });
+$('btnPrevWk').addEventListener('click', function(){ wkOff--; renderWk(); });
+$('btnNextWk').addEventListener('click', function(){ wkOff++; renderWk(); });
+$('btnToday').addEventListener('click', function(){ wkOff = 0; renderWk(); });
+
+$('overlay').addEventListener('click', closeTop);
+$('btnCloseDay').addEventListener('click', function(){ closeSh('daySheet'); });
+$('btnCloseMeal').addEventListener('click', function(){ closeSh('mealSheet'); });
+$('btnCloseMenu').addEventListener('click', function(){ closeSh('menuSheet'); });
+$('cfCancel').addEventListener('click', function(){ closeConfirm(false); });
+$('cfOk').addEventListener('click', function(){ closeConfirm(true); });
+$('qtRow').addEventListener('click', toggleQuick);
+
+$('mPZ').addEventListener('click', function(){ $('mPhInp').click(); });
+$('mPhInp').addEventListener('change', handleMealPhoto);
+$('aiIdBtn').addEventListener('click', identifyInEditor);
+$('btnSaveMeal').addEventListener('click', saveMeal);
+$('mName').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('mNotes').focus(); });
+$('mNotes').addEventListener('keydown', function(e){ if (e.key === 'Enter') saveMeal(); });
+
+$('shopInp').addEventListener('keydown', function(e){ if (e.key === 'Enter') addItem(); });
+$('btnAddItem').addEventListener('click', addItem);
+$('btnAiShop').addEventListener('click', aiShop);
+
+$('planBtn').addEventListener('click', planWeek);
+$('aiPZ').addEventListener('click', function(){ $('aiPhInp').click(); });
+$('aiPhInp').addEventListener('change', handleAIPhoto);
+$('idBtn').addEventListener('click', identifyMeal);
+$('btnIdShop').addEventListener('click', addIngredients);
+
+$('btnMenu').addEventListener('click', openMenu);
+$('btnReport').addEventListener('click', generateReport);
+$('btnExport').addEventListener('click', exportData);
+$('btnImportTrigger').addEventListener('click', function(){ $('importInp').click(); });
+$('importInp').addEventListener('change', importData);
+
+$('btnSaveFamily').addEventListener('click', function() {
+  var val = $('famInp').value.trim().replace(/\s+/g, ' ');
+  if (!val) { toast(t('familyEmpty')); return; }
+  var prevName = D.family;
+  D.family = val;
+  if (!sv()) { D.family = prevName; return; }
+  applyFamily();
+  toast(t('familySaved'));
+});
+
+$('btnChangePin').addEventListener('click', function() {
+  var current = $('pinCurrentInp').value.trim();
+  var newPin = $('pinNewInp').value.trim();
+  if (current !== getCorrectPin()) { setStatus('pinChangeStatus', t('pinWrongCurrent'), 'err'); return; }
+  if (!/^\d{4}$/.test(newPin)) { setStatus('pinChangeStatus', t('pinFormat'), 'err'); return; }
+  try {
+    localStorage.setItem('mp_pin', newPin);
+    $('pinCurrentInp').value = '';
+    $('pinNewInp').value = '';
+    setStatus('pinChangeStatus', t('pinChanged'), 'ok');
+  } catch(e) {
+    setStatus('pinChangeStatus', t('storageFull'), 'err');
+  }
+});
+
+$('btnSaveKey').addEventListener('click', function() {
+  var val = $('apiKeyInp').value.trim();
+  if (!val) { toast(t('keyEmpty')); return; }
+  try {
+    localStorage.setItem('mp_apikey', val);
+    $('apiKeyInp').value = '';
+    updateKeyStatus();
+    toast(t('keySaved'));
+  } catch(e) {
+    toast(t('storageFull'));
+  }
+});
+
+$('celebrate').addEventListener('click', function(){ $('celebrate').classList.remove('on'); });
+
+document.addEventListener('keydown', function(e) {
+  if (locked) {
+    if (/^[0-9]$/.test(e.key)) pressPin(e.key);
+    else if (e.key === 'Backspace') pressPin('del');
+    else if (e.key === 'Enter') pressPin('ok');
+    return;
+  }
+  if (e.key === 'Escape') closeTop();
+});
+
+// ── INIT ──
+window.onerror = function(msg, src, line) {
+  var b = $('err-banner');
+  b.textContent = 'JS Error: ' + msg + ' (line ' + line + ')';
+  b.hidden = false;
+  return false;
+};
+$('js-banner').hidden = true;
+applyLang();
+initPin();
+// Ask the browser not to clear our storage when the phone runs low on space
+if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function(){});
+migratePhotos();
+
+})();
+</script>
+</body>
+</html>
