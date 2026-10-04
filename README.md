@@ -8,6 +8,8 @@
 
 ## Why I built this
 
+<img src="assets/mascot/web/chef-thinking-256.png" alt="The chef thinking about next week's meals" width="110" align="right">
+
 Every week, the same question comes back in our kitchen: *what are we going to eat next week?*
 
 I wanted an app that helps with exactly that. It should suggest a week of meals, keep in mind which days are busy, and make the shopping list for us. And when I see a dish I like, I want to take a picture and have the AI tell me what it is, what I need to make it, and put those ingredients on the shopping list.
@@ -17,6 +19,8 @@ I looked online and did not find anything that worked the way I wanted. So last 
 — Hans Tandt
 
 ## What it does
+
+<img src="assets/mascot/web/chef-happy-256.png" alt="The chef jumping for joy with his wooden spoon" width="120" align="right">
 
 - **Week planner**: breakfast, lunch and dinner for every day, with notes and photos.
 - **Quick days**: mark busy days; the AI chef then suggests meals that are ready in 20 minutes or less.
@@ -37,6 +41,8 @@ The whole app is the [`app`](app) folder: one `index.html` with all HTML, CSS an
 - **Lock**: on a new phone you choose a 4-digit PIN. It keeps the app private on a shared phone. It is a simple lock, not encryption.
 
 ## Get started
+
+<img src="assets/mascot/web/chef-main-256.png" alt="The chef holding his wooden spoon, ready to cook" width="110" align="right">
 
 1. Put the `app` folder online. A free [Netlify](https://www.netlify.com) account works well: drag the folder onto your project's **Deploys** page.
 2. Open the web address on your phone (Brave or Chrome) and choose a PIN.
