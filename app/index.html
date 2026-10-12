@@ -200,8 +200,10 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--sf2);padding:5px;border-radius:14px;border:1px solid var(--bd)}
 .seg button{min-height:42px;border-radius:10px;font-weight:700;font-size:13.5px;color:var(--t2)}
 .seg button.on{background:var(--sf);color:var(--acc);box-shadow:var(--shadow)}
+.seg.seg3{grid-template-columns:repeat(3,1fr)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .pin-inp{letter-spacing:6px;text-align:center}
+.pin-inp::placeholder{letter-spacing:normal}
 .status{font-size:13px;margin-top:8px;text-align:center;color:var(--t3);min-height:18px}
 .status.ok{color:var(--gn-t)}
 .status.err{color:var(--danger)}
@@ -527,7 +529,9 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke
     <section class="msec">
       <h3 class="msec-title"><svg class="i"><use href="#i-key"/></svg><span data-i18n="secAi">AI settings</span></h3>
       <p class="msec-hint" data-i18n="aiHint"></p>
-      <input class="inp mono" id="apiKeyInp" type="password" placeholder="sk-ant-api03-…" autocomplete="off" style="margin-bottom:10px">
+      <div class="seg seg3" id="provSeg"></div>
+      <p class="msec-hint" id="keyWhere" style="margin:10px 0"></p>
+      <input class="inp mono" id="apiKeyInp" type="password" placeholder="sk-ant-…" autocomplete="off" style="margin-bottom:10px">
       <button class="btn btn-gn btn-block" id="btnSaveKey" type="button" data-i18n="saveKey">Save API key</button>
       <div class="status" id="keyStatus"></div>
     </section>
@@ -603,10 +607,17 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke
 <script>
 (function() {
 
-var APP_VERSION = '2.2.0';
+var APP_VERSION = '2.3.0';
 
-var API_URL = 'https://api.anthropic.com/v1/messages';
-var MDL = 'claude-opus-5-5';
+// AI services the user can choose in the menu. Each keeps its own key on this device.
+// Claude uses Anthropic's Messages API; ChatGPT (OpenAI) and Grok (xAI) share the Responses API format.
+var PROVIDERS = {
+  claude: { name: 'Claude',  model: 'claude-opus-5-5', keyStore: 'mp_apikey',        keyPh: 'sk-ant-…', console: 'console.anthropic.com' },
+  openai: { name: 'ChatGPT', model: 'gpt-6.1-sol',     keyStore: 'mp_apikey_openai', keyPh: 'sk-…',     console: 'platform.openai.com/api-keys', url: 'https://api.openai.com/v1/responses' },
+  xai:    { name: 'Grok',    model: 'grok-4.7',        keyStore: 'mp_apikey_xai',    keyPh: 'xai-…',    console: 'console.x.ai', url: 'https://api.x.ai/v1/responses' }
+};
+var PROVIDER_ORDER = ['claude', 'openai', 'xai'];
+var CLAUDE_URL = 'https://api.anthropic.com/v1/messages';
 
 var MT = [{k:'breakfast'}, {k:'lunch'}, {k:'dinner'}];
 var MEAL_ICON = {breakfast:'sunrise', lunch:'sun', dinner:'moon'};
@@ -656,8 +667,8 @@ var I18N = {
     secLang:'Language',
     secSecurity:'Security', pinHint:'Change your 4-digit PIN', pinCurrent:'Current PIN', pinNew:'New PIN', changePin:'Change PIN',
     pinWrongCurrent:'Current PIN is wrong', pinFormat:'New PIN must be exactly 4 digits', pinChanged:'PIN changed',
-    secAi:'AI settings', aiHint:'Needed for meal planning and photo recognition. Get a key at console.anthropic.com. It is stored on this device only.',
-    saveKey:'Save API key', keySet:'API key is set', keyMissing:'No API key — AI features are off',
+    secAi:'AI settings', aiHint:'Needed for meal planning and photo recognition. Choose your AI service, then paste its API key. Keys are stored on this device only.', keyWhere:'Get a key at {url}', aiNoCredit:'No credit left on your AI account — top it up first',
+    saveKey:'Save API key', keySet:'{name}: API key is set', keyMissing:'{name}: no API key yet — AI features are off',
     keySaved:'API key saved — AI is ready', keyEmpty:'Paste your API key first',
     createdBy:'Created by Hans Tandt', pinEnter:'Enter your PIN', pinWrong:'Wrong PIN — try again', pinDelete:'Delete digit', familyNone:'Your family meal planner',
     pinCreate:'Choose a 4-digit PIN', pinConfirm:'Enter the same PIN again', pinMismatch:'The PINs do not match — start again', pinCreated:'PIN saved. Write it down somewhere safe.',
@@ -698,8 +709,8 @@ var I18N = {
     secLang:'Langue',
     secSecurity:'Sécurité', pinHint:'Modifier votre code PIN à 4 chiffres', pinCurrent:'PIN actuel', pinNew:'Nouveau PIN', changePin:'Modifier le PIN',
     pinWrongCurrent:'Le PIN actuel est incorrect', pinFormat:'Le nouveau PIN doit comporter 4 chiffres', pinChanged:'PIN modifié',
-    secAi:'Paramètres IA', aiHint:'Nécessaire pour la planification et la reconnaissance photo. Obtenez une clé sur console.anthropic.com. Elle reste uniquement sur cet appareil.',
-    saveKey:'Enregistrer la clé API', keySet:'La clé API est configurée', keyMissing:'Pas de clé API — fonctions IA désactivées',
+    secAi:'Paramètres IA', aiHint:'Nécessaire pour la planification et la reconnaissance photo. Choisissez votre service d’IA, puis collez sa clé API. Les clés restent uniquement sur cet appareil.', keyWhere:'Obtenez une clé sur {url}', aiNoCredit:'Plus de crédit sur votre compte IA — rechargez-le d’abord',
+    saveKey:'Enregistrer la clé API', keySet:'{name} : la clé API est configurée', keyMissing:'{name} : pas encore de clé API — fonctions IA désactivées',
     keySaved:'Clé API enregistrée — l’IA est prête', keyEmpty:'Collez d’abord votre clé API',
     createdBy:'Créé par Hans Tandt', pinEnter:'Entrez votre code PIN', pinWrong:'PIN incorrect — réessayez', pinDelete:'Effacer un chiffre', familyNone:'Le planificateur de repas de la famille',
     pinCreate:'Choisissez un code PIN à 4 chiffres', pinConfirm:'Entrez le même code PIN encore une fois', pinMismatch:'Les codes ne correspondent pas — recommencez', pinCreated:'PIN enregistré. Notez-le en lieu sûr.',
@@ -740,8 +751,8 @@ var I18N = {
     secLang:'Taal',
     secSecurity:'Beveiliging', pinHint:'Wijzig je pincode van 4 cijfers', pinCurrent:'Huidige pin', pinNew:'Nieuwe pin', changePin:'Pin wijzigen',
     pinWrongCurrent:'De huidige pin is fout', pinFormat:'De nieuwe pin moet uit 4 cijfers bestaan', pinChanged:'Pin gewijzigd',
-    secAi:'AI-instellingen', aiHint:'Nodig voor maaltijdplanning en fotoherkenning. Vraag een sleutel aan op console.anthropic.com. Hij blijft alleen op dit toestel.',
-    saveKey:'API-sleutel opslaan', keySet:'API-sleutel is ingesteld', keyMissing:'Geen API-sleutel — AI-functies staan uit',
+    secAi:'AI-instellingen', aiHint:'Nodig voor maaltijdplanning en fotoherkenning. Kies je AI-dienst en plak de API-sleutel ervan. De sleutels blijven alleen op dit toestel.', keyWhere:'Vraag een sleutel aan op {url}', aiNoCredit:'Geen tegoed meer op je AI-account — laad het eerst op',
+    saveKey:'API-sleutel opslaan', keySet:'{name}: API-sleutel is ingesteld', keyMissing:'{name}: nog geen API-sleutel — AI-functies staan uit',
     keySaved:'API-sleutel opgeslagen — AI is klaar', keyEmpty:'Plak eerst je API-sleutel',
     createdBy:'Gemaakt door Hans Tandt', pinEnter:'Voer je pincode in', pinWrong:'Verkeerde pin — probeer opnieuw', pinDelete:'Cijfer wissen', familyNone:'De maaltijdplanner van je gezin',
     pinCreate:'Kies een pincode van 4 cijfers', pinConfirm:'Voer dezelfde pincode nog eens in', pinMismatch:'De pincodes zijn niet gelijk — begin opnieuw', pinCreated:'Pincode opgeslagen. Schrijf hem ergens veilig op.',
@@ -782,8 +793,8 @@ var I18N = {
     secLang:'Sprache',
     secSecurity:'Sicherheit', pinHint:'Ändere deine 4-stellige PIN', pinCurrent:'Aktuelle PIN', pinNew:'Neue PIN', changePin:'PIN ändern',
     pinWrongCurrent:'Die aktuelle PIN ist falsch', pinFormat:'Die neue PIN muss genau 4 Ziffern haben', pinChanged:'PIN geändert',
-    secAi:'KI-Einstellungen', aiHint:'Nötig für die Essensplanung und die Fotoerkennung. Einen Schlüssel gibt es auf console.anthropic.com. Er bleibt nur auf diesem Gerät.',
-    saveKey:'API-Schlüssel speichern', keySet:'API-Schlüssel ist eingerichtet', keyMissing:'Kein API-Schlüssel — KI-Funktionen sind aus',
+    secAi:'KI-Einstellungen', aiHint:'Nötig für die Essensplanung und die Fotoerkennung. Wähle deinen KI-Dienst und füge seinen API-Schlüssel ein. Die Schlüssel bleiben nur auf diesem Gerät.', keyWhere:'Einen Schlüssel gibt es auf {url}', aiNoCredit:'Kein Guthaben mehr auf deinem KI-Konto — lade es zuerst auf',
+    saveKey:'API-Schlüssel speichern', keySet:'{name}: API-Schlüssel ist eingerichtet', keyMissing:'{name}: noch kein API-Schlüssel — KI-Funktionen sind aus',
     keySaved:'API-Schlüssel gespeichert — die KI ist bereit', keyEmpty:'Füge zuerst deinen API-Schlüssel ein',
     createdBy:'Erstellt von Hans Tandt', pinEnter:'Gib deine PIN ein', pinWrong:'Falsche PIN — bitte erneut versuchen', pinDelete:'Ziffer löschen', familyNone:'Der Essensplaner deiner Familie',
     pinCreate:'Wähle eine 4-stellige PIN', pinConfirm:'Gib dieselbe PIN noch einmal ein', pinMismatch:'Die PINs stimmen nicht überein — fang neu an', pinCreated:'PIN gespeichert. Schreib sie dir an einem sicheren Ort auf.',
@@ -1480,7 +1491,7 @@ function aiShop() {
   var meals = weekMealsText(wkOff);
   if (!meals) { toast(t('noMealsWeek')); return; }
   showBusy(t('generating'));
-  callClaude(
+  callAI(
     'Write a shopping list for this week\'s family meals (2 adults and children, living in the Belgian Ardennes, shopping at Delhaize, Lidl, Aldi and Massen in Luxembourg).\n\n' +
     'Meals:\n' + meals + '\n' + storeRules(),
     SHOP_SCHEMA
@@ -1495,7 +1506,7 @@ function aiShop() {
 function addIngredients() {
   if (!idDish) return;
   showBusy(t('ingredientsAdding'));
-  callClaude(
+  callAI(
     'List the ingredients needed to cook "' + idDish + '" at home for a family of 2 adults and children ' +
     '(Belgian Ardennes, shopping at Delhaize, Lidl, Aldi and Massen in Luxembourg). ' +
     'Leave out basics most kitchens already have, such as salt, pepper, cooking oil and water.\n' + storeRules(),
@@ -1536,7 +1547,7 @@ function planWeek() {
     sched += DAYS_EN[i] + ': ' + (dd.isQuick ? 'BUSY — quick meals only' : 'normal cooking day') + '\n';
   });
   showBusy(t('planning'));
-  callClaude(
+  callAI(
     'Plan 7 days of family meals (breakfast, lunch and dinner) for 2 adults and children living in the Belgian Ardennes. ' +
     'French, Belgian and German home cooking are all welcome.\n\nSchedule:\n' + sched + '\n' +
     'On busy days, choose simple meals that are ready in 20 minutes or less (pasta, soup, eggs, wraps). ' +
@@ -1648,24 +1659,56 @@ var ID_SCHEMA = {
 };
 
 function identifyPhoto(dataUrl) {
-  var b64 = dataUrl.split(',')[1];
-  var mime = (dataUrl.match(/data:([^;]+);/) || [])[1] || 'image/jpeg';
-  return callClaude([
-    {type:'image', source:{type:'base64', media_type:mime, data:b64}},
-    {type:'text', text:'Identify the dish in this photo. Give its usual name and a one-sentence description, both in ' + LANG_AI[lang] + '.'}
-  ], ID_SCHEMA);
+  return callAI('Identify the dish in this photo. Give its usual name and a one-sentence description, both in ' + LANG_AI[lang] + '.',
+    ID_SCHEMA, dataUrl);
 }
 
 // ── API ──
-function getApiKey() {
-  try { return localStorage.getItem('mp_apikey') || ''; } catch(e) { return ''; }
+function getProvider() {
+  try { var p = localStorage.getItem('mp_provider'); if (PROVIDERS[p]) return p; } catch(e) {}
+  return 'claude';
+}
+var provider = getProvider();
+function getApiKey(p) {
+  try { return localStorage.getItem(PROVIDERS[p || provider].keyStore) || ''; } catch(e) { return ''; }
 }
 
-// One request to the Messages API with a JSON-schema answer format.
-// Uses server-side refusal fallbacks; if the server rejects that option, retries once without it.
-function callClaude(content, schema) {
+// One AI request with a JSON-schema answer format, sent to the service chosen in the menu.
+// prompt: text; schema: JSON schema of the answer; image: optional data URL of a photo.
+function callAI(prompt, schema, image) {
   var key = getApiKey();
   if (!key) return Promise.reject(new Error('NO_KEY'));
+  return provider === 'claude' ? callClaude(key, prompt, schema, image)
+                               : callResponses(PROVIDERS[provider], key, prompt, schema, image);
+}
+
+function postJson(url, headers, body) {
+  return fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(body) })
+    .then(function(res) {
+      return res.json().then(function(data){ return {status: res.status, data: data || {}}; },
+                            function(){ return {status: res.status, data: {}}; });
+    });
+}
+
+// Turns an HTTP error into one of the app's error codes (see aiErrMsg)
+function apiError(r) {
+  var e = r.data && r.data.error;
+  var msg = (typeof e === 'string' ? e : (e && e.message)) || r.data.message || ('HTTP ' + r.status);
+  if (r.status === 401 || r.status === 403 || /api[ _-]?key/i.test(msg)) return new Error('BAD_KEY');
+  if (/credit|quota|balance|billing/i.test(msg)) return new Error('NO_CREDIT');
+  return new Error(msg);
+}
+
+// Claude: Anthropic Messages API. Uses server-side refusal fallbacks;
+// if the server rejects that option, retries once without it.
+function callClaude(key, prompt, schema, image) {
+  var content = prompt;
+  if (image) {
+    content = [
+      {type:'image', source:{type:'base64', media_type:(image.match(/data:([^;]+);/) || [])[1] || 'image/jpeg', data:image.split(',')[1]}},
+      {type:'text', text:prompt}
+    ];
+  }
   function send(withFallback) {
     var headers = {
       'Content-Type': 'application/json',
@@ -1674,7 +1717,7 @@ function callClaude(content, schema) {
       'anthropic-dangerous-direct-browser-access': 'true'
     };
     var body = {
-      model: MDL,
+      model: PROVIDERS.claude.model,
       max_tokens: 16000,
       output_config: { effort: 'low', format: { type: 'json_schema', schema: schema } },
       messages: [{ role: 'user', content: content }]
@@ -1683,29 +1726,54 @@ function callClaude(content, schema) {
       headers['anthropic-beta'] = 'server-side-fallback-2026-07-01';
       body.fallbacks = 'default';
     }
-    return fetch(API_URL, { method: 'POST', headers: headers, body: JSON.stringify(body) })
-      .then(function(res) {
-        return res.json().then(function(data){ return {status: res.status, data: data}; },
-                              function(){ return {status: res.status, data: {}}; });
-      });
+    return postJson(CLAUDE_URL, headers, body);
   }
   return send(true).then(function(r) {
-    if (r.status === 400 && r.data.error && r.data.error.type === 'invalid_request_error') return send(false);
+    if (r.status === 400 && r.data.error && r.data.error.type === 'invalid_request_error' &&
+        !/credit|balance/i.test(r.data.error.message || '')) return send(false);
     return r;
   }).then(function(r) {
-    var data = r.data || {};
-    if (r.status === 401 || r.status === 403) throw new Error('BAD_KEY');
-    if (r.status >= 400 || data.error) throw new Error((data.error && data.error.message) || ('HTTP ' + r.status));
+    var data = r.data;
+    if (r.status >= 400 || data.error) throw apiError(r);
     if (data.stop_reason === 'refusal') throw new Error('REFUSED');
     var txt = (data.content || []).filter(function(b){ return b.type === 'text'; }).map(function(b){ return b.text; }).join('');
     try { return JSON.parse(txt); } catch(e) { throw new Error('BAD'); }
   });
 }
 
+// ChatGPT (OpenAI) and Grok (xAI): Responses API, same request and answer format on both.
+// store:false — the service does not keep the conversation.
+function callResponses(p, key, prompt, schema, image) {
+  var content = [{type:'input_text', text:prompt}];
+  if (image) content.unshift({type:'input_image', image_url:image});
+  var body = {
+    model: p.model,
+    store: false,
+    input: [{ role: 'user', content: content }],
+    text: { format: { type: 'json_schema', name: 'answer', schema: schema, strict: true } }
+  };
+  return postJson(p.url, { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key }, body)
+    .then(function(r) {
+      var data = r.data;
+      if (r.status >= 400 || data.error) throw apiError(r);
+      var txt = typeof data.output_text === 'string' ? data.output_text : '';
+      var refused = false;
+      (data.output || []).forEach(function(item) {
+        (item.content || []).forEach(function(c) {
+          if (c.type === 'output_text' && typeof data.output_text !== 'string') txt += c.text;
+          if (c.type === 'refusal') refused = true;
+        });
+      });
+      if (!txt && refused) throw new Error('REFUSED');
+      try { return JSON.parse(txt); } catch(e) { throw new Error('BAD'); }
+    });
+}
+
 function aiErrMsg(e) {
   switch (e && e.message) {
     case 'NO_KEY': return t('noKey');
     case 'BAD_KEY': return t('keyInvalid');
+    case 'NO_CREDIT': return t('aiNoCredit');
     case 'REFUSED': return t('aiRefused');
     case 'BAD': return t('badResponse');
     default: return t('aiFail');
@@ -1791,8 +1859,28 @@ function toast(msg) {
 function updateKeyStatus() {
   var s = $('keyStatus');
   var has = !!getApiKey();
-  s.textContent = has ? t('keySet') : t('keyMissing');
+  var name = PROVIDERS[provider].name;
+  s.textContent = has ? t('keySet', {name: name}) : t('keyMissing', {name: name});
   s.className = 'status' + (has ? ' ok' : '');
+  $('keyWhere').textContent = t('keyWhere', {url: PROVIDERS[provider].console});
+  $('apiKeyInp').placeholder = PROVIDERS[provider].keyPh;
+}
+function renderProvSeg() {
+  var seg = $('provSeg');
+  seg.textContent = '';
+  PROVIDER_ORDER.forEach(function(code) {
+    var b = el('button', code === provider ? 'on' : '', PROVIDERS[code].name);
+    b.type = 'button';
+    b.setAttribute('aria-pressed', String(code === provider));
+    b.addEventListener('click', function() {
+      provider = code;
+      try { localStorage.setItem('mp_provider', code); } catch(e) {}
+      $('apiKeyInp').value = '';
+      renderProvSeg();
+      updateKeyStatus();
+    });
+    seg.appendChild(b);
+  });
 }
 function setStatus(id, text, kind) {
   var s = $(id);
@@ -1801,6 +1889,7 @@ function setStatus(id, text, kind) {
 }
 function openMenu() {
   $('apiKeyInp').value = '';
+  renderProvSeg();
   updateKeyStatus();
   $('famInp').value = familyName();
   $('pinCurrentInp').value = '';
@@ -2046,7 +2135,7 @@ $('btnSaveKey').addEventListener('click', function() {
   var val = $('apiKeyInp').value.trim();
   if (!val) { toast(t('keyEmpty')); return; }
   try {
-    localStorage.setItem('mp_apikey', val);
+    localStorage.setItem(PROVIDERS[provider].keyStore, val);
     $('apiKeyInp').value = '';
     updateKeyStatus();
     toast(t('keySaved'));

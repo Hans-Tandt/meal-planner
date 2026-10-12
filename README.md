@@ -37,7 +37,7 @@ I looked online and did not find anything that worked the way I wanted. So last 
 The whole app is the [`app`](app) folder: one `index.html` with all HTML, CSS and JavaScript, plus images and icons. There is no build step, no framework and no library to install.
 
 - **Data stays on the phone.** Meals and lists are stored in the browser (`localStorage`), photos in the browser's IndexedDB. Nothing is sent to a server, except the requests to the AI.
-- **AI**: the app calls the [Anthropic API](https://docs.anthropic.com) directly from the browser with your own API key, using Claude with a fixed JSON answer format. The key is stored on the device only and is never included in backups.
+- **AI**: choose **Claude** ([Anthropic](https://console.anthropic.com)), **ChatGPT** ([OpenAI](https://platform.openai.com/api-keys)) or **Grok** ([xAI](https://console.x.ai)) in the menu and paste your own API key. The app calls that service directly from the browser and asks for a fixed JSON answer format. Keys are stored on the device only and are never included in backups.
 - **Lock**: on a new phone you choose a 4-digit PIN. It keeps the app private on a shared phone. It is a simple lock, not encryption.
 
 ## Get started
@@ -46,7 +46,7 @@ The whole app is the [`app`](app) folder: one `index.html` with all HTML, CSS an
 
 1. Put the `app` folder online. A free [Netlify](https://www.netlify.com) account works well: drag the folder onto your project's **Deploys** page.
 2. Open the web address on your phone (Brave or Chrome) and choose a PIN.
-3. Open the menu ⋮ and paste an Anthropic API key from [console.anthropic.com](https://console.anthropic.com). AI requests are billed to that account.
+3. Open the menu ⋮, choose Claude, ChatGPT or Grok, and paste that service's API key. AI requests are billed to that account.
 4. Use the browser menu to install the app on the home screen.
 
 The [user manual (PDF)](manual/out/Meal_Planner_Manual_EN.pdf) explains every step with screenshots, including Netlify in Appendix B.
