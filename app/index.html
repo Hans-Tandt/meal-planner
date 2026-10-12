@@ -612,7 +612,7 @@ var APP_VERSION = '2.3.0';
 // AI services the user can choose in the menu. Each keeps its own key on this device.
 // Claude uses Anthropic's Messages API; ChatGPT (OpenAI) and Grok (xAI) share the Responses API format.
 var PROVIDERS = {
-  claude: { name: 'Claude',  model: 'claude-opus-5-5', keyStore: 'mp_apikey',        keyPh: 'sk-ant-…', console: 'console.anthropic.com' },
+  claude: { name: 'Claude',  model: 'claude-opus-5-5', keyStore: 'mp_apikey',        keyPh: 'sk-ant-…', console: 'platform.claude.com/settings/keys' },
   openai: { name: 'ChatGPT', model: 'gpt-6.1-sol',     keyStore: 'mp_apikey_openai', keyPh: 'sk-…',     console: 'platform.openai.com/api-keys', url: 'https://api.openai.com/v1/responses' },
   xai:    { name: 'Grok',    model: 'grok-4.7',        keyStore: 'mp_apikey_xai',    keyPh: 'xai-…',    console: 'console.x.ai', url: 'https://api.x.ai/v1/responses' }
 };

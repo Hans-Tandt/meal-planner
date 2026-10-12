@@ -37,7 +37,7 @@ I looked online and did not find anything that worked the way I wanted. So last 
 The whole app is the [`app`](app) folder: one `index.html` with all HTML, CSS and JavaScript, plus images and icons. There is no build step, no framework and no library to install.
 
 - **Data stays on the phone.** Meals and lists are stored in the browser (`localStorage`), photos in the browser's IndexedDB. Nothing is sent to a server, except the requests to the AI.
-- **AI**: choose **Claude** ([Anthropic](https://console.anthropic.com)), **ChatGPT** ([OpenAI](https://platform.openai.com/api-keys)) or **Grok** ([xAI](https://console.x.ai)) in the menu and paste your own API key. The app calls that service directly from the browser and asks for a fixed JSON answer format. Keys are stored on the device only and are never included in backups.
+- **AI**: choose **Claude** ([Anthropic](https://platform.claude.com/settings/keys)), **ChatGPT** ([OpenAI](https://platform.openai.com/api-keys)) or **Grok** ([xAI](https://console.x.ai)) in the menu and paste your own API key. The app calls that service directly from the browser and asks for a fixed JSON answer format. Keys are stored on the device only and are never included in backups.
 - **Lock**: on a new phone you choose a 4-digit PIN. It keeps the app private on a shared phone. It is a simple lock, not encryption.
 
 ## Get started
