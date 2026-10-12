@@ -278,7 +278,30 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .pin-key:active{background:var(--sf2);transform:scale(.95)}
 .pin-key.ok{background:var(--gn);border-color:var(--gn);color:#fff;font-size:18px;font-weight:800}
 .lock-foot{margin-top:26px;font-size:12px;color:var(--t3)}
-@media (max-height:560px){.lock-chef{display:none}.lock-fam{margin-bottom:12px}}
+/* Short screens (small phones, browser bars, landscape): keep the chef, make everything more compact */
+@media (max-height:700px){
+  .lock-inner{padding-top:calc(var(--safe-t) + 12px);padding-bottom:calc(var(--safe-b) + 12px)}
+  .lock-chef{height:clamp(64px,18vh,130px);margin-bottom:4px}
+  .lock-title{font-size:22px}
+  .lock-fam{margin-bottom:10px}
+  .lock-label{margin-bottom:8px}
+  .pin-err{margin-bottom:6px}
+  .keypad{grid-template-columns:repeat(3,58px);gap:10px}
+  .pin-key{width:58px;height:58px;font-size:22px}
+  .pin-key.ok{font-size:16px}
+  .lock-foot{display:none}
+}
+@media (max-height:440px){
+  .lock-chef{height:48px;margin-bottom:2px}
+  .lock-title{font-size:19px}
+  .lock-fam{margin-bottom:4px}
+  .lock-label{margin-bottom:6px}
+  .pin-dots{margin-bottom:4px}
+  .pin-err{min-height:16px;margin-bottom:4px}
+  .keypad{grid-template-columns:repeat(3,46px);gap:7px}
+  .pin-key{width:46px;height:46px;font-size:19px}
+  .pin-key.ok{font-size:14px}
+}
 @keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 @keyframes bob{50%{transform:translateY(-6px)}}
 
