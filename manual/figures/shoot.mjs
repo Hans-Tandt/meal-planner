@@ -1,5 +1,5 @@
 // Takes the manual's screenshots of the real app in headless Chrome.
-// Run:  node manual/figures/shoot.mjs      → manual/figures/raw/*.png + raw/meta.json
+// Run:  node manual/figures/shoot.mjs <en|fr|nl|de>   → manual/figures/raw/<lang>/*.png + meta.json
 // Phone size 390×844 at 2× pixels, light mode, animations off, sample data only (no family data).
 // "Today" is frozen to Tuesday 29 September 2026 so every run gives the same pictures.
 
@@ -11,34 +11,107 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, '..', '..', 'app');
-const OUT = join(HERE, 'raw');
+const LANG = (process.argv[2] || 'en').toLowerCase();       // en | fr | nl | de
+const OUT = join(HERE, 'raw', LANG);
 const CHROME = process.env.CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 8766, DBG = 9333;
 const BASE = `http://127.0.0.1:${PORT}/index.html`;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-// ── Sample data ──
-const SAMPLE = {
-  days: {
-    '2026-09-28': { isQuick: false, meals: { breakfast: m('Yogurt & granola'), lunch: m('Tomato soup'), dinner: m('Spaghetti Bolognese', 'Kids loved it!') } },
-    '2026-09-29': { isQuick: false, meals: { breakfast: m('Pancakes'), lunch: m('Croque monsieur') } },
-    '2026-09-30': { isQuick: true,  meals: { breakfast: m('Muesli'), dinner: m('Omelette & salad') } },
-    '2026-10-01': { isQuick: false, meals: { breakfast: m('Toast & jam'), lunch: m('Quiche Lorraine'), dinner: m('Chicken curry with rice') } },
-    '2026-10-02': { isQuick: false, meals: { dinner: m('Fish with mashed potatoes') } },
-    '2026-10-03': { isQuick: false, meals: { breakfast: m('Croissants'), dinner: m('Moules-frites') } },
-    '2026-10-04': { isQuick: false, meals: { lunch: m('Roast chicken'), dinner: m('Soup & bread') } }
+// ── Sample data per language (meal names, shopping items and the stand-in AI answers) ──
+// days: Mon..Sun as [breakfast, lunch, dinner] (null = not planned); Wednesday is a quick day.
+const DATA = {
+  en: {
+    days: [['Yogurt & granola', 'Tomato soup', 'Spaghetti Bolognese'], ['Pancakes', 'Croque monsieur', null],
+           ['Muesli', null, 'Omelette & salad'], ['Toast & jam', 'Quiche Lorraine', 'Chicken curry with rice'],
+           [null, null, 'Fish with mashed potatoes'], ['Croissants', null, 'Moules-frites'], [null, 'Roast chicken', 'Soup & bread']],
+    note: 'Kids loved it!',
+    shop: { delhaize: ['Minced beef 500 g', 'Tomatoes 1 kg', 'Milk 2 L', 'Gouda cheese 400 g', 'Fresh parsley'],
+            lidl: ['Spaghetti 1 kg', 'Rice 1 kg'], aldi: ['Orange juice 2 L'], massen: ['Coffee beans 1 kg'], other: [] },
+    ticked: 'Milk 2 L',
+    typed: 'Chicken curry',
+    plan: [['Yogurt with berries', 'Leek and potato soup', 'Chicken stew with carrots'],
+           ['Pancakes', 'Ham and cheese sandwiches', 'Pasta with tomato sauce'],
+           ['Muesli', 'Egg wraps', 'Tomato soup with bread'],
+           ['Toast with jam', 'Quiche Lorraine', 'Meatballs in tomato sauce with fries'],
+           ['Porridge', 'Salad niçoise', 'Baked salmon with rice'],
+           ['Croissants', 'Croque monsieur', 'Carbonnade flamande with mash'],
+           ['Waffles', 'Roast chicken with apple sauce', 'Vegetable soup']],
+    id: ['Spaghetti Bolognese', 'Spaghetti with a slow-cooked tomato and minced beef sauce, topped with grated cheese.'],
+    aiShop: { delhaize: ['Chicken thighs 1 kg'], lidl: ['Pasta 500 g'] }
   },
-  shop: {
-    delhaize: ['Minced beef 500 g', 'Tomatoes 1 kg', 'Milk 2 L', 'Gouda cheese 400 g', 'Fresh parsley'],
-    lidl: ['Spaghetti 1 kg', 'Rice 1 kg'],
-    aldi: ['Orange juice 2 L'],
-    massen: ['Coffee beans 1 kg'],
-    other: []
+  fr: {
+    days: [['Yaourt et granola', 'Soupe aux tomates', 'Spaghetti bolognaise'], ['Crêpes', 'Croque-monsieur', null],
+           ['Muesli', null, 'Omelette et salade'], ['Tartines à la confiture', 'Quiche lorraine', 'Curry de poulet et riz'],
+           [null, null, 'Poisson et purée'], ['Croissants', null, 'Moules-frites'], [null, 'Poulet rôti', 'Soupe et pain']],
+    note: 'Les enfants ont adoré !',
+    shop: { delhaize: ['Haché de bœuf 500 g', 'Tomates 1 kg', 'Lait 2 L', 'Gouda 400 g', 'Persil frais'],
+            lidl: ['Spaghetti 1 kg', 'Riz 1 kg'], aldi: ['Jus d’orange 2 L'], massen: ['Café en grains 1 kg'], other: [] },
+    ticked: 'Lait 2 L',
+    typed: 'Curry de poulet',
+    plan: [['Yaourt aux fruits rouges', 'Soupe poireaux-pommes de terre', 'Ragoût de poulet aux carottes'],
+           ['Crêpes', 'Sandwichs jambon-fromage', 'Pâtes à la sauce tomate'],
+           ['Muesli', 'Wraps aux œufs', 'Soupe aux tomates et pain'],
+           ['Tartines à la confiture', 'Quiche lorraine', 'Boulets sauce tomate et frites'],
+           ['Porridge', 'Salade niçoise', 'Saumon au four et riz'],
+           ['Croissants', 'Croque-monsieur', 'Carbonnade flamande et purée'],
+           ['Gaufres', 'Poulet rôti et compote', 'Soupe aux légumes']],
+    id: ['Spaghetti bolognaise', 'Spaghetti avec une sauce tomate mijotée au bœuf haché, parsemés de fromage râpé.'],
+    aiShop: { delhaize: ['Cuisses de poulet 1 kg'], lidl: ['Pâtes 500 g'] }
   },
-  done: { 'delhaize|Milk 2 L': true },
-  family: 'Tandt'
+  nl: {
+    days: [['Yoghurt met granola', 'Tomatensoep', 'Spaghetti bolognese'], ['Pannenkoeken', 'Croque-monsieur', null],
+           ['Muesli', null, 'Omelet met salade'], ['Boterhammen met confituur', 'Quiche lorraine', 'Kipcurry met rijst'],
+           [null, null, 'Vis met puree'], ['Croissants', null, 'Mosselen met frietjes'], [null, 'Gebraden kip', 'Soep met brood']],
+    note: 'De kinderen vonden het heerlijk!',
+    shop: { delhaize: ['Gehakt 500 g', 'Tomaten 1 kg', 'Melk 2 L', 'Goudse kaas 400 g', 'Verse peterselie'],
+            lidl: ['Spaghetti 1 kg', 'Rijst 1 kg'], aldi: ['Sinaasappelsap 2 L'], massen: ['Koffiebonen 1 kg'], other: [] },
+    ticked: 'Melk 2 L',
+    typed: 'Kipcurry',
+    plan: [['Yoghurt met bessen', 'Prei-aardappelsoep', 'Kippenstoofpot met wortelen'],
+           ['Pannenkoeken', 'Broodjes ham en kaas', 'Pasta met tomatensaus'],
+           ['Muesli', 'Wraps met ei', 'Tomatensoep met brood'],
+           ['Boterhammen met confituur', 'Quiche lorraine', 'Balletjes in tomatensaus met frietjes'],
+           ['Havermoutpap', 'Salade niçoise', 'Zalm uit de oven met rijst'],
+           ['Croissants', 'Croque-monsieur', 'Stoofvlees met puree'],
+           ['Wafels', 'Gebraden kip met appelmoes', 'Groentesoep']],
+    id: ['Spaghetti bolognese', 'Spaghetti met een langzaam gegaarde tomatensaus met gehakt, bestrooid met geraspte kaas.'],
+    aiShop: { delhaize: ['Kippendijen 1 kg'], lidl: ['Pasta 500 g'] }
+  },
+  de: {
+    days: [['Joghurt mit Granola', 'Tomatensuppe', 'Spaghetti Bolognese'], ['Pfannkuchen', 'Croque Monsieur', null],
+           ['Müsli', null, 'Omelett mit Salat'], ['Marmeladenbrot', 'Quiche Lorraine', 'Hähnchencurry mit Reis'],
+           [null, null, 'Fisch mit Kartoffelpüree'], ['Croissants', null, 'Muscheln mit Pommes'], [null, 'Brathähnchen', 'Suppe mit Brot']],
+    note: 'Die Kinder waren begeistert!',
+    shop: { delhaize: ['Hackfleisch 500 g', 'Tomaten 1 kg', 'Milch 2 L', 'Gouda 400 g', 'Frische Petersilie'],
+            lidl: ['Spaghetti 1 kg', 'Reis 1 kg'], aldi: ['Orangensaft 2 L'], massen: ['Kaffeebohnen 1 kg'], other: [] },
+    ticked: 'Milch 2 L',
+    typed: 'Hähnchencurry',
+    plan: [['Joghurt mit Beeren', 'Lauch-Kartoffel-Suppe', 'Hähnchen-Eintopf mit Möhren'],
+           ['Pfannkuchen', 'Schinken-Käse-Sandwiches', 'Nudeln mit Tomatensoße'],
+           ['Müsli', 'Wraps mit Ei', 'Tomatensuppe mit Brot'],
+           ['Marmeladenbrot', 'Quiche Lorraine', 'Fleischbällchen in Tomatensoße mit Pommes'],
+           ['Haferbrei', 'Salade Niçoise', 'Lachs aus dem Ofen mit Reis'],
+           ['Croissants', 'Croque Monsieur', 'Flämisches Rindergulasch mit Püree'],
+           ['Waffeln', 'Brathähnchen mit Apfelmus', 'Gemüsesuppe']],
+    id: ['Spaghetti Bolognese', 'Spaghetti mit einer lange geschmorten Tomatensoße mit Hackfleisch, bestreut mit geriebenem Käse.'],
+    aiShop: { delhaize: ['Hähnchenschenkel 1 kg'], lidl: ['Nudeln 500 g'] }
+  }
 };
+const SD = DATA[LANG];
+if (!SD) throw new Error('Unknown language: ' + LANG);
+
 function m(name, notes) { return { name, notes: notes || '', photo: null }; }
+const DATES = ['2026-09-28', '2026-09-29', '2026-09-30', '2026-10-01', '2026-10-02', '2026-10-03', '2026-10-04'];
+const SAMPLE = { days: {}, shop: SD.shop, done: { ['delhaize|' + SD.ticked]: true }, family: 'Tandt' };
+SD.days.forEach((d, i) => {
+  const meals = {};
+  ['breakfast', 'lunch', 'dinner'].forEach((k, j) => { if (d[j]) meals[k] = m(d[j], i === 0 && k === 'dinner' ? SD.note : ''); });
+  SAMPLE.days[DATES[i]] = { isQuick: i === 2, meals };
+});
+const PLAN = { days: SD.plan.map(p => ({ breakfast: p[0], lunch: p[1], dinner: p[2] })) };
+const ID = { name: SD.id[0], description: SD.id[1] };
+const SHOP = Object.assign({ delhaize: [], lidl: [], aldi: [], massen: [], other: [] }, SD.aiShop);
 
 // Injected into every page: frozen date, helpers and a stand-in for the AI server.
 const INJECT = `
@@ -51,17 +124,9 @@ const INJECT = `
   window.__closeAll = async () => {
     while (document.querySelector('.sheet.open')) { document.getElementById('overlay').click(); await __sleep(120); }
   };
-  const PLAN = { days: [
-    { breakfast: 'Yogurt with berries', lunch: 'Leek and potato soup', dinner: 'Chicken stew with carrots' },
-    { breakfast: 'Pancakes', lunch: 'Ham and cheese sandwiches', dinner: 'Pasta with tomato sauce' },
-    { breakfast: 'Muesli', lunch: 'Egg wraps', dinner: 'Tomato soup with bread' },
-    { breakfast: 'Toast with jam', lunch: 'Quiche Lorraine', dinner: 'Meatballs in tomato sauce with fries' },
-    { breakfast: 'Porridge', lunch: 'Salad niçoise', dinner: 'Baked salmon with rice' },
-    { breakfast: 'Croissants', lunch: 'Croque monsieur', dinner: 'Carbonnade flamande with mash' },
-    { breakfast: 'Waffles', lunch: 'Roast chicken with apple sauce', dinner: 'Vegetable soup' }
-  ] };
-  const ID = { name: 'Spaghetti Bolognese', description: 'Spaghetti with a slow-cooked tomato and minced beef sauce, topped with grated cheese.' };
-  const SHOP = { delhaize: ['Chicken thighs 1 kg'], lidl: ['Pasta 500 g'], aldi: [], massen: [], other: [] };
+  const PLAN = ${JSON.stringify(PLAN)};
+  const ID = ${JSON.stringify(ID)};
+  const SHOP = ${JSON.stringify(SHOP)};
   window.__stubAI = () => {
     window.fetch = async (url, opt) => {
       const body = JSON.parse(opt.body);
@@ -171,7 +236,7 @@ try {
   await js(`
     localStorage.clear(); sessionStorage.clear();
     localStorage.setItem('mptandt', ${JSON.stringify(JSON.stringify(SAMPLE))});
-    localStorage.setItem('mp_lang', 'en');
+    localStorage.setItem('mp_lang', '${LANG}');
     localStorage.setItem('mp_apikey', 'sk-ant-sample');
     localStorage.setItem('mp_pin', '1234');
     sessionStorage.setItem('mp_auth', '1');`);
@@ -191,7 +256,7 @@ try {
 
   await shot('editor', `
     document.querySelector('#daySlots .slot-add').click(); await __sleep(200);
-    document.getElementById('mName').value = 'Chicken curry';`, [
+    document.getElementById('mName').value = ${JSON.stringify(SD.typed)};`, [
     { n: 2, sel: '#mName' },
     { n: 3, sel: '#mPZ' },
     { n: 4, sel: '#btnSaveMeal' }
@@ -252,6 +317,14 @@ try {
     { n: 3, sel: '#langSeg' },
     { n: 4, sel: '#famInp' }
   ], null, `const a = document.getElementById('menuSheet').getBoundingClientRect(); const b = document.getElementById('btnSaveFamily').getBoundingClientRect(); return { top: a.top, bottom: b.bottom + 18 };`);
+
+  await shot('aikey', `
+    document.getElementById('provSeg').scrollIntoView({ block: 'center' }); await __sleep(150);`, [
+    { n: 1, sel: '#provSeg' },
+    { n: 2, sel: '#keyWhere' },
+    { n: 3, sel: '#apiKeyInp' },
+    { n: 4, sel: '#btnSaveKey' }
+  ], null, `const a = document.getElementById('provSeg').closest('.msec').getBoundingClientRect(); const k = document.getElementById('keyStatus').getBoundingClientRect(); return { top: a.top - 4, bottom: k.bottom + 16 };`);
 
   await js(`await __closeAll(); sessionStorage.removeItem('mp_auth'); localStorage.removeItem('mp_pin');`);
   await load(BASE);

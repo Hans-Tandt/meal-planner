@@ -6,12 +6,15 @@ Run after shoot.mjs:   py manual/figures/annotate.py
 - writes the small mascot pictures used on the cover and beside TIP / NOTE / TRAP
 """
 import json
+import sys
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = Path(__file__).parent
-RAW = HERE / "raw"
-OUT = HERE
+LANG = (sys.argv[1] if len(sys.argv) > 1 else "en").lower()   # en | fr | nl | de
+RAW = HERE / "raw" / LANG
+OUT = HERE / LANG
+OUT.mkdir(exist_ok=True)
 APP_IMG = HERE.parent.parent / "app" / "img"
 
 NAVY = (31, 58, 95)
@@ -71,30 +74,32 @@ figures = {
     "fig_shop": annotate("shop"),
     "fig_identify": annotate("identify"),
     "fig_menu": annotate("menu"),
+    "fig_aikey": annotate("aikey"),
     "fig_lock": annotate("lock"),
 }
 for name, im in figures.items():
     im.save(OUT / f"{name}.png", optimize=True)
     print(name, im.size)
 
-# Clean three-screen picture for the GitHub README (no markers)
-screens = [Image.open(RAW / f"{n}.png").convert("RGB") for n in ("week", "plan", "shop")]
-gap = 40
-row = Image.new("RGB", (sum(s.width for s in screens) + gap * 2, screens[0].height), "white")
-x = 0
-for s_im in screens:
-    framed = Image.new("RGB", (s_im.width, s_im.height), FRAME)
-    framed.paste(s_im.crop((2, 2, s_im.width - 2, s_im.height - 2)), (2, 2))
-    row.paste(framed, (x, 0))
-    x += s_im.width + gap
-row = row.resize((row.width // 2, row.height // 2), Image.LANCZOS)
-docs = HERE.parent.parent / "docs"
-docs.mkdir(exist_ok=True)
-row.save(docs / "screenshots.png", optimize=True)
-print("docs/screenshots.png", row.size)
+# Clean three-screen picture for the GitHub README (no markers) — English only
+if LANG == "en":
+    screens = [Image.open(RAW / f"{n}.png").convert("RGB") for n in ("week", "plan", "shop")]
+    gap = 40
+    row = Image.new("RGB", (sum(s.width for s in screens) + gap * 2, screens[0].height), "white")
+    x = 0
+    for s_im in screens:
+        framed = Image.new("RGB", (s_im.width, s_im.height), FRAME)
+        framed.paste(s_im.crop((2, 2, s_im.width - 2, s_im.height - 2)), (2, 2))
+        row.paste(framed, (x, 0))
+        x += s_im.width + gap
+    row = row.resize((row.width // 2, row.height // 2), Image.LANCZOS)
+    docs = HERE.parent.parent / "docs"
+    docs.mkdir(exist_ok=True)
+    row.save(docs / "screenshots.png", optimize=True)
+    print("docs/screenshots.png", row.size)
 
 # Mascot pictures (transparent PNG, small files)
-mascot = OUT / "mascot"
+mascot = HERE / "mascot"   # shared by all languages
 mascot.mkdir(exist_ok=True)
 for pose, h, out in (("wave", 640, "cover"), ("happy", 240, "tip"), ("main", 240, "note"), ("thinking", 240, "trap")):
     im = Image.open(APP_IMG / f"chef-{pose}-512.webp").convert("RGBA")

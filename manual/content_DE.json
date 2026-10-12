@@ -1,0 +1,1184 @@
+{
+  "meta": {
+    "title": "Meal Planner",
+    "subtitle": "Handbuch: die Mahlzeiten und Einkäufe der Familie planen",
+    "version": "Version 2.0",
+    "date": "12. Oktober 2026",
+    "project": "Meal Planner",
+    "author": "Hans Tandt",
+    "tocTitle": "Inhalt",
+    "mascot": {
+      "cover": "figures/mascot/cover.png",
+      "coverWidth": 190,
+      "tip": "figures/mascot/tip.png",
+      "note": "figures/mascot/note.png",
+      "trap": "figures/mascot/trap.png",
+      "width": 46
+    },
+    "labels": {
+      "tip": "TIPP",
+      "note": "HINWEIS",
+      "trap": "FALLE",
+      "page": "Seite"
+    }
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "1. So benutzt du dieses Handbuch"
+    },
+    {
+      "type": "p",
+      "text": "Dieses Handbuch zeigt dir, wie du die Mahlzeiten der Familie mit Meal Planner planst. Jedes Kapitel ist eine Aufgabe. Folge den nummerierten Schritten der Reihe nach."
+    },
+    {
+      "type": "p",
+      "text": "Die Nummern in den Bildern entsprechen den Nummern im Text. Farbige Kästen geben zusätzliche Hilfe:"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Kasten",
+        "Bedeutung"
+      ],
+      "widths": [
+        1,
+        5
+      ],
+      "rows": [
+        [
+          "TIPP",
+          "Ein besserer Weg. Hilfreich, aber du kannst ihn überspringen."
+        ],
+        [
+          "HINWEIS",
+          "Etwas Wissenswertes, damit dich nichts überrascht."
+        ],
+        [
+          "FALLE",
+          "Ein Fehler, den du vermeiden solltest, und was du stattdessen tust."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Ist die App noch nicht auf deinem Handy? Beginne mit Anhang A, Die App auf einem neuen Handy einrichten. Ist die App noch nicht online? Beginne mit Anhang B. Brauchst du einen API-Schlüssel für den KI-Koch? Siehe Anhang C."
+    },
+    {
+      "type": "h2",
+      "text": "Die App auf einen Blick"
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_week.png",
+      "width": 230,
+      "caption": "Abbildung 1. Die Wochenansicht: Hier beginnt alles.",
+      "alt": "Die Wochenansicht mit den Wochenpfeilen, einer Tageskarte, dem Etikett Schnell, den Reitern und der Menütaste markiert."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Teil",
+        "Was er tut"
+      ],
+      "widths": [
+        1,
+        3,
+        9
+      ],
+      "rows": [
+        [
+          "1",
+          "Wochenpfeile",
+          "Zur vorherigen oder nächsten Woche wechseln."
+        ],
+        [
+          "2",
+          "Tageskarte",
+          "Antippen, um die Gerichte dieses Tages zu sehen und zu ändern. Heute hat einen orangen Rand."
+        ],
+        [
+          "3",
+          "Etikett Schnell",
+          "Der Tag ist voll. Der KI-Koch schlägt dafür schnelle Gerichte vor."
+        ],
+        [
+          "4",
+          "Reiter",
+          "Zwischen Woche, Einkauf und KI-Koch wechseln."
+        ],
+        [
+          "5",
+          "Menü ⋮",
+          "Sicherung, Sprache, Familienname, PIN und KI-Einstellungen."
+        ]
+      ]
+    },
+    {
+      "type": "h1",
+      "text": "2. Schnellstart: das heutige Abendessen planen"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: in zwei Minuten ein Gericht für heute eintragen."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Öffne Meal Planner auf deinem Handy.",
+        "Gib deine 4-stellige PIN ein.",
+        "Tippe auf die Karte von heute. Sie hat einen orangen Rand und das Etikett Heute.",
+        "Tippe auf Hinzufügen neben Abendessen (1).",
+        "Gib den Namen des Gerichts ein (2), zum Beispiel Hähnchencurry.",
+        "Tippe auf Speichern (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_add_meal.png",
+      "width": 470,
+      "caption": "Abbildung 2. Tippe auf Hinzufügen, gib den Namen des Gerichts ein und tippe auf Speichern.",
+      "alt": "Links: Dienstag mit einer Taste Hinzufügen neben Abendessen. Rechts: der Gericht-Editor mit dem Namensfeld, dem Fotobereich und der Taste Speichern markiert."
+    },
+    {
+      "type": "p",
+      "text": "Geschafft: Das Gericht steht jetzt auf der Karte von heute in der Wochenansicht."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Ein Foto hinzufügen",
+      "text": "Tippe auf den Fotobereich (3), um das Gericht zu fotografieren oder ein Foto auszuwählen. Das Foto erscheint dann auf der Tageskarte."
+    },
+    {
+      "type": "h1",
+      "text": "3. Deine Woche planen"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: die Woche füllen, Gerichte ändern und volle Tage markieren."
+    },
+    {
+      "type": "h2",
+      "text": "Zu einer anderen Woche wechseln"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tippe auf ›, um die nächste Woche zu sehen.",
+        "Tippe auf ‹, um eine Woche zurückzugehen.",
+        "Tippe auf Diese Woche, um zur aktuellen Woche zurückzukehren. Die Taste erscheint nur, wenn du eine andere Woche ansiehst."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Einen vollen Tag als schnell markieren"
+    },
+    {
+      "type": "p",
+      "text": "An vollen Tagen bleibt wenig Zeit zum Kochen. Markiere diese Tage als schnell. Der KI-Koch schlägt dann Gerichte vor, die in 20 Minuten oder weniger fertig sind."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tippe auf die Karte des Tages.",
+        "Tippe auf den Schalter Schneller Tag (1). Er wird orange.",
+        "Tippe auf × oder irgendwo neben das Fenster, um es zu schließen."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_day.png",
+      "width": 250,
+      "caption": "Abbildung 3. Ein Tag: Schneller Tag einschalten und Gerichte ändern, entfernen oder hinzufügen.",
+      "alt": "Mittwoch mit eingeschaltetem Schalter Schnell und den Tasten Stift, Papierkorb und Hinzufügen markiert."
+    },
+    {
+      "type": "p",
+      "text": "Geschafft: Die Tageskarte zeigt das Etikett Schnell und links einen orangen Streifen."
+    },
+    {
+      "type": "h2",
+      "text": "Ein Gericht ändern oder entfernen"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Um",
+        "Tippe auf"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "ein Gericht zu ändern",
+          "den Stift (2) oder das Gericht selbst"
+        ],
+        [
+          "ein Gericht zu entfernen",
+          "den Papierkorb (3)"
+        ],
+        [
+          "ein Gericht hinzuzufügen",
+          "Hinzufügen (4)"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Der Papierkorb lässt sich nicht rückgängig machen",
+      "text": "Der Papierkorb entfernt das Gericht und sein Foto sofort. Hast du ihn aus Versehen angetippt, trage das Gericht neu ein."
+    },
+    {
+      "type": "h1",
+      "text": "4. Den KI-Koch deine Woche planen lassen"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: mit einem Tipp eine ganze Woche voller Gerichte bekommen."
+    },
+    {
+      "type": "p",
+      "text": "Was du brauchst: eine Internetverbindung und einen API-Schlüssel für Claude, ChatGPT oder Grok im Menü. Anhang C zeigt, wie du einen bekommst."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Markiere die vollen Tage als schnell (Kapitel 3).",
+        "Tippe auf den Reiter KI-Koch.",
+        "Tippe auf Gerichte vorschlagen.",
+        "Warte, während der Koch plant. Das dauert einen Moment.",
+        "Lies den Vorschlag (1). Scrolle nach unten, um alle 7 Tage zu sehen.",
+        "Tippe auf In den Kalender übernehmen (2).",
+        "Fragt die App Geplante Gerichte ersetzen?, tippe auf Ersetzen (3) oder Abbrechen (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_plan.png",
+      "width": 440,
+      "caption": "Abbildung 4. Prüfe den Vorschlag und übernimm ihn. Ersetze nur, wenn du die schon geplanten Gerichte verlieren willst.",
+      "alt": "Links: der Vorschlag mit einem Tag und der Taste In den Kalender übernehmen markiert. Rechts: die Frage Geplante Gerichte ersetzen mit Ersetzen und Abbrechen markiert."
+    },
+    {
+      "type": "p",
+      "text": "Geschafft: Der fröhliche Koch erscheint, und die Wochenansicht zeigt die neuen Gerichte."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Ersetzen überschreibt die ganze Woche",
+      "text": "Ersetzen entfernt alle Gerichte und Fotos, die in dieser Woche schon geplant sind. Tippe auf Abbrechen, um sie zu behalten."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Der Vorschlag gefällt dir nicht?",
+      "text": "Tippe noch einmal auf Gerichte vorschlagen, um einen neuen Vorschlag zu bekommen. Nichts ändert sich, bis du auf In den Kalender übernehmen tippst."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Die Namen der Gerichte folgen der Sprache der App",
+      "text": "Der Koch schreibt in der Sprache der App. Kapitel 7 zeigt, wie du sie änderst."
+    },
+    {
+      "type": "h1",
+      "text": "5. Die Einkaufsliste benutzen"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: eine Liste pro Geschäft führen und Artikel im Laden abhaken."
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_shop.png",
+      "width": 230,
+      "caption": "Abbildung 5. Eine Liste pro Geschäft: Artikel hinzufügen, abhaken und löschen.",
+      "alt": "Die Liste von Delhaize mit den Geschäftstasten, dem Eingabefeld, einem Kästchen zum Abhaken, einem Papierkorb und der Taste KI-Liste markiert."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Um",
+        "Tu dies"
+      ],
+      "widths": [
+        1,
+        4,
+        8
+      ],
+      "rows": [
+        [
+          "1",
+          "ein Geschäft zu wählen",
+          "Tippe auf Delhaize, Lidl, Aldi, Massen oder Sonstiges. Die Zahl zeigt die Artikel, die du noch kaufen musst."
+        ],
+        [
+          "2",
+          "einen Artikel hinzuzufügen",
+          "Gib den Artikel ein und tippe auf +."
+        ],
+        [
+          "3",
+          "einen Artikel abzuhaken",
+          "Tippe auf das Kästchen. Tippe noch einmal, um den Haken zu entfernen."
+        ],
+        [
+          "4",
+          "einen Artikel zu löschen",
+          "Tippe auf den Papierkorb."
+        ],
+        [
+          "5",
+          "die KI die Liste schreiben zu lassen",
+          "Tippe auf KI-Liste. Siehe die Schritte unten."
+        ]
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Die KI die Liste schreiben lassen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Plane zuerst die Woche (Kapitel 3 oder 4).",
+        "Tippe auf den Reiter Einkauf.",
+        "Tippe auf KI-Liste (5).",
+        "Warte, während der Koch die Liste schreibt."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Geschafft: Unter jedem Geschäft erscheinen neue Artikel. Artikel, die schon auf einer Liste stehen, werden nicht doppelt hinzugefügt."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Welche Woche?",
+      "text": "Die KI-Liste nimmt die Woche, die du zuletzt in der Wochenansicht angesehen hast."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Mach die Liste gleich nach dem Planen",
+      "text": "Übernimm den Vorschlag und tippe dann auf KI-Liste. Der Einkauf für die ganze Woche ist mit zwei Tipps fertig."
+    },
+    {
+      "type": "h1",
+      "text": "6. Ein Gericht erkennen und dafür einkaufen"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: den Namen eines Gerichts anhand eines Fotos herausfinden und seine Zutaten auf die Einkaufsliste setzen."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tippe auf den Reiter KI-Koch.",
+        "Scrolle nach unten bis Gericht erkennen.",
+        "Tippe auf den Fotobereich und mach oder wähle ein Foto.",
+        "Tippe auf Dieses Gericht erkennen (1).",
+        "Lies den Namen (2) und die Beschreibung.",
+        "Tippe auf Zutaten auf die Einkaufsliste (3)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_identify.png",
+      "width": 320,
+      "caption": "Abbildung 6. Der Koch nennt das Gericht; ein weiterer Tipp setzt seine Zutaten auf die Einkaufsliste.",
+      "alt": "Die Taste Dieses Gericht erkennen, der Name des Gerichts und die Taste Zutaten auf die Einkaufsliste markiert."
+    },
+    {
+      "type": "p",
+      "text": "Geschafft: Der fröhliche Koch zeigt, wie viele Zutaten hinzugefügt wurden. Jede Zutat steht auf der Liste des Geschäfts, in dem du sie meistens kaufst."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Grundzutaten werden weggelassen",
+      "text": "Salz, Pfeffer, Speiseöl und Wasser werden nicht hinzugefügt. Artikel, die schon auf einer Liste stehen, werden nicht doppelt hinzugefügt."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Nutze es beim Eintragen eines Gerichts",
+      "text": "Der Gericht-Editor hat auch eine Taste Mit KI erkennen. Sie füllt den Namen und die Notizen für dich aus."
+    },
+    {
+      "type": "h1",
+      "text": "7. Sprache, Familienname und PIN ändern"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: die App zu deiner machen. Alle Einstellungen sind im Menü ⋮ oben rechts."
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_menu.png",
+      "width": 250,
+      "caption": "Abbildung 7. Im Menü sind die Sicherung, die Sprache und der Familienname.",
+      "alt": "Das Menü mit Exportieren, Importieren, den Sprachtasten und dem Feld für den Familiennamen markiert."
+    },
+    {
+      "type": "h2",
+      "text": "Die Sprache ändern"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tippe auf ⋮.",
+        "Tippe auf English, Français, Nederlands oder Deutsch (3)."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Die App wechselt sofort die Sprache. Jedes Handy behält seine eigene Sprache."
+    },
+    {
+      "type": "h2",
+      "text": "Den Familiennamen ändern"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tippe auf ⋮.",
+        "Gib den Namen im Feld Familie ein (4).",
+        "Tippe auf Familiennamen speichern."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Der Name erscheint auf dem Sperrbildschirm, oben in der App und in Berichten."
+    },
+    {
+      "type": "h2",
+      "text": "Die PIN ändern"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tippe auf ⋮.",
+        "Scrolle nach unten bis Sicherheit.",
+        "Gib deine aktuelle PIN ein.",
+        "Gib eine neue 4-stellige PIN ein.",
+        "Tippe auf PIN ändern."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Schreib deine PIN auf",
+      "text": "Die App kann eine vergessene PIN weder anzeigen noch zurücksetzen. Bewahre sie an einem sicheren Ort auf. Kapitel 9 zeigt, was du tust, wenn sie verloren ist."
+    },
+    {
+      "type": "h2",
+      "text": "Den KI-Dienst wählen"
+    },
+    {
+      "type": "p",
+      "text": "Der KI-Koch kann Claude, ChatGPT oder Grok benutzen. Jeder Dienst braucht seinen eigenen API-Schlüssel. Anhang C zeigt, wie du einen Schlüssel bekommst und in die App einträgst."
+    },
+    {
+      "type": "h1",
+      "text": "8. Deine Daten sichern und auf ein anderes Handy übertragen"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: eine Kopie deiner Gerichte, Fotos und Listen aufbewahren und sie auf ein anderes Handy übertragen."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Deine Daten liegen auf dem Handy",
+      "text": "Gerichte und Listen werden auf jedem Handy gespeichert, nicht online. Zwei Handys teilen ihre Änderungen nicht von selbst."
+    },
+    {
+      "type": "h2",
+      "text": "Eine Sicherung machen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tippe auf ⋮.",
+        "Tippe auf Daten exportieren (Sicherung) (1).",
+        "Speichere die Datei, zum Beispiel in Google Drive."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Der Dateiname sieht so aus: tandt-meal-data-2026-10-04.json. Die Datei enthält die Gerichte, Fotos, Einkaufslisten und den Familiennamen."
+    },
+    {
+      "type": "h2",
+      "text": "Eine Sicherung zurückspielen oder auf ein anderes Handy übertragen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Öffne die App auf dem Handy, das die Daten bekommen soll.",
+        "Tippe auf ⋮.",
+        "Tippe auf Daten importieren (2).",
+        "Wähle die Sicherungsdatei."
+      ]
+    },
+    {
+      "type": "table",
+      "header": [
+        "Wenn",
+        "Dann"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "ein Tag in der Datei und auf diesem Handy ist",
+          "ersetzt der Tag aus der Datei den Tag auf diesem Handy."
+        ],
+        [
+          "ein Tag nur auf diesem Handy ist",
+          "bleibt er, wie er ist."
+        ],
+        [
+          "ein Artikel in der Datei und auf diesem Handy ist",
+          "steht er nur einmal da."
+        ],
+        [
+          "Artikel auf dem anderen Handy abgehakt waren",
+          "werden die Haken nicht übernommen. Hake sie neu ab."
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Browserdaten löschen löscht alles",
+      "text": "Wenn du die Websitedaten in Brave löschst, verschwinden alle Gerichte, Fotos und Listen auf diesem Handy. Mach zuerst eine Sicherung."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Sichere jede Woche",
+      "text": "Exportiere einmal pro Woche eine Sicherung, zum Beispiel nach dem großen Einkauf."
+    },
+    {
+      "type": "h1",
+      "text": "9. Häufige Probleme lösen"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Wenn du das siehst",
+        "Dann"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Füge zuerst deinen API-Schlüssel hinzu",
+          "Tippe auf ⋮, wähle deinen KI-Dienst und füge seinen API-Schlüssel unter KI-Einstellungen ein. Siehe Anhang C."
+        ],
+        [
+          "API-Schlüssel abgelehnt",
+          "Der Schlüssel ist falsch, nicht mehr gültig oder gehört zu einem anderen KI-Dienst. Prüfe, ob der im Menü gewählte Dienst zum Schlüssel passt."
+        ],
+        [
+          "Kein Guthaben mehr auf deinem KI-Konto",
+          "Lade Guthaben in der Konsole deines KI-Dienstes auf (Anhang C) und versuche es erneut."
+        ],
+        [
+          "KI nicht erreichbar — prüfe deine Verbindung",
+          "Prüfe WLAN oder mobile Daten und versuche es erneut."
+        ],
+        [
+          "Unerwartete Antwort — bitte erneut versuchen",
+          "Tippe noch einmal auf dieselbe Taste."
+        ],
+        [
+          "Die KI hat diese Anfrage abgelehnt",
+          "Versuche es später erneut oder mit einem anderen Foto."
+        ],
+        [
+          "Speicher voll — Änderungen nicht gespeichert",
+          "Schaffe Platz auf dem Handy und speichere dann erneut."
+        ],
+        [
+          "Falsche PIN — bitte erneut versuchen",
+          "Prüfe die PIN und gib sie erneut ein."
+        ],
+        [
+          "Du hast die PIN vergessen",
+          "Lösche in Brave die Websitedaten der App. Damit verschwinden die PIN und alle Daten auf diesem Handy. Wähle danach eine neue PIN und importiere deine Sicherung (Kapitel 8)."
+        ],
+        [
+          "Die App sieht nach einem Update alt aus",
+          "Schließe die App und öffne sie wieder. Zieh in Brave die Seite nach unten, um sie neu zu laden."
+        ]
+      ]
+    },
+    {
+      "type": "h1",
+      "text": "Anhang A. Die App auf einem neuen Handy einrichten"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: Meal Planner zum ersten Mal auf ein Handy bringen. Einmal pro Handy."
+    },
+    {
+      "type": "p",
+      "text": "Was du brauchst: die Webadresse der App und einen API-Schlüssel für Claude, ChatGPT oder Grok (ein geheimer Code, mit dem die App die KI benutzen kann)."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Öffne Brave oder Chrome auf dem Handy.",
+        "Geh zur Webadresse der App.",
+        "Wähle eine 4-stellige PIN (Abbildung 8).",
+        "Gib dieselbe PIN noch einmal ein.",
+        "Tippe auf ⋮, wähle deine Sprache und speichere deinen Familiennamen.",
+        "Wähle unter KI-Einstellungen Claude, ChatGPT oder Grok und füge den API-Schlüssel dieses Dienstes ein (Anhang C).",
+        "Öffne das Menü von Brave und tippe auf App installieren oder Zum Startbildschirm hinzufügen."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_lock.png",
+      "width": 200,
+      "caption": "Abbildung 8. Auf einem neuen Handy wählst du deine eigene PIN. Danach fragt die App bei jedem Öffnen danach.",
+      "alt": "Der Sperrbildschirm mit dem winkenden Koch, der eine 4-stellige PIN verlangt, mit dem Tastenfeld markiert."
+    },
+    {
+      "type": "p",
+      "text": "Geschafft: Das Symbol des Kochs ist auf deinem Startbildschirm. Von dort öffnet sich die App im Vollbild."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Der API-Schlüssel bleibt auf diesem Handy",
+      "text": "Jedes Handy braucht den Schlüssel einmal. Sicherungen enthalten den Schlüssel nie."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Halte den API-Schlüssel geheim",
+      "text": "Wer den Schlüssel hat, kann die KI auf deine Kosten benutzen. Schick ihn nicht per Chat oder E-Mail."
+    },
+    {
+      "type": "pagebreak"
+    },
+    {
+      "type": "h1",
+      "text": "Anhang B. Die App mit Netlify online stellen"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: die App im Internet veröffentlichen, damit jedes Handy sie öffnen kann. Einmal an einem Computer, und erneut bei jedem Update."
+    },
+    {
+      "type": "p",
+      "text": "Was du brauchst: einen Computer mit Chrome, Edge oder Brave, den Ordner namens app und eine E-Mail-Adresse oder ein Konto bei Google, GitHub, GitLab oder Bitbucket."
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_deploy.png",
+      "width": 470,
+      "caption": "Abbildung 9. Zieh den Ordner app zu Netlify; die Handys öffnen danach die Webadresse.",
+      "alt": "Drei Kästen: der Ordner app auf dem PC, Netlify und die Handys, verbunden mit Pfeilen ziehen und Adresse."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Wer macht das?",
+      "text": "Nur die Person, die die App betreut. Familienmitglieder brauchen nur Anhang A."
+    },
+    {
+      "type": "p",
+      "text": "Die Seiten von Netlify sind auf Englisch. Die Schritte unten benutzen die englischen Namen der Netlify-Tasten."
+    },
+    {
+      "type": "h2",
+      "text": "B0. Den Ordner app holen"
+    },
+    {
+      "type": "p",
+      "text": "Die App ist ein einziger Ordner namens app. Dieser Anhang stellt den Ordner online. Du bekommst ihn auf der Website hanstandt.be."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Öffne hanstandt.be in deinem Browser.",
+        "Klicke auf Meal Planner.",
+        "Klicke auf die Download-Taste. Dein Computer speichert eine ZIP-Datei (einen gepackten Ordner).",
+        "Klicke mit der rechten Maustaste auf die ZIP-Datei und wähle Alle extrahieren.",
+        "Öffne den entpackten Ordner. Darin liegt der Ordner namens app."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Wo ist der Quellcode?",
+      "text": "Der Ordner app ist das ganze Programm. Sein Quellcode ist die Datei index.html darin. Du kannst sie mit dem Editor öffnen, um sie zu lesen. Um die App zu benutzen, musst du nichts daran ändern."
+    },
+    {
+      "type": "h2",
+      "text": "B1. Ein kostenloses Netlify-Konto anlegen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Öffne app.netlify.com/signup in deinem Browser.",
+        "Wähle, wie du dich registrierst: Google, GitHub, GitLab, Bitbucket oder E-Mail.",
+        "Folge den Schritten auf dem Bildschirm. Mit E-Mail öffnest du die Nachricht von Netlify und klickst auf den Link darin.",
+        "Fragt Netlify nach einem Tarif, wähle den kostenlosen Tarif (free). Er reicht für diese App."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Geschafft: Du siehst die Seite Projects deines Teams (Abbildung 10)."
+    },
+    {
+      "type": "h2",
+      "text": "B2. Die App zum ersten Mal veröffentlichen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Klicke links im Menü auf Projects (1).",
+        "Öffne den Datei-Explorer auf deinem Computer und such den Ordner namens app.",
+        "Zieh den Ordner app auf die Ablagefläche unten auf der Seite (2).",
+        "Warte ein paar Sekunden. Netlify öffnet die Übersicht deines neuen Projekts."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_projects.png",
+      "width": 470,
+      "caption": "Abbildung 10. Die Seite Projects: Leg den Ordner app auf die Fläche unten.",
+      "alt": "Die Seite Projects von Netlify mit Projects im Menü links und der Ablagefläche markiert."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Zieh nur den Ordner app",
+      "text": "Der Projektordner enthält auch die Handbücher und Notizen. Ziehst du diesen Ordner, veröffentlicht Netlify sie mit, und die App zeigt Page not found."
+    },
+    {
+      "type": "h2",
+      "text": "B3. Die Projektübersicht lesen"
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_overview.png",
+      "width": 420,
+      "caption": "Abbildung 11. Die Projektübersicht: die Webadresse, die Einstellungen und die Fläche für Updates.",
+      "alt": "Die Project overview mit der Webadresse, der Taste Project configuration und der Ablagefläche Already built it? markiert."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Teil",
+        "Was er tut"
+      ],
+      "widths": [
+        1,
+        4,
+        8
+      ],
+      "rows": [
+        [
+          "1",
+          "Webadresse",
+          "Die Adresse deiner App. Sie endet auf .netlify.app. Klicke darauf, um die App zu öffnen."
+        ],
+        [
+          "2",
+          "Project configuration",
+          "Die Einstellungen: der Projektname (B4) und wer es öffnen darf (B5)."
+        ],
+        [
+          "3",
+          "Already built it?",
+          "Eine Ablagefläche für Updates (B7)."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Ein grünes Etikett Public neben dem Projektnamen bedeutet: Jeder mit der Adresse kann die App öffnen."
+    },
+    {
+      "type": "h2",
+      "text": "B4. Der App eine klare Adresse geben"
+    },
+    {
+      "type": "p",
+      "text": "Netlify gibt einem neuen Projekt einen zufälligen Namen. Ein klarer Name ergibt eine Adresse, die leicht zu tippen ist, zum Beispiel peeters-essen.netlify.app."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Klicke in der Projektübersicht auf Project configuration.",
+        "Klicke auf General (1).",
+        "Klicke unter Project information auf Change project name (2).",
+        "Gib den neuen Namen ein (1 in Abbildung 13).",
+        "Prüfe die neue Adresse unter dem Feld (2).",
+        "Klicke auf Save (3)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_config.png",
+      "width": 400,
+      "caption": "Abbildung 12. Project configuration, General: die Taste Change project name.",
+      "alt": "Die Einstellungen General mit dem Reiter General und der Taste Change project name markiert."
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_rename.png",
+      "width": 300,
+      "caption": "Abbildung 13. Gib den Namen ein, prüfe die Adresse und klicke auf Save.",
+      "alt": "Das Fenster Change project name mit dem Namensfeld, der neuen Adresse und der Taste Save markiert."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Regeln für den Namen",
+      "text": "Verwende nur Buchstaben, Ziffern und Bindestriche, höchstens 37 Zeichen. Lehnt Netlify den Namen ab, benutzt ihn schon jemand anderes: Wähle einen anderen."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Benenne um, bevor die Familie anfängt",
+      "text": "Jedes Handy speichert seine Gerichte unter der Webadresse. Nach einem neuen Namen beginnen die Handys unter der neuen Adresse leer. Benenne zuerst um, oder mach auf jedem Handy eine Sicherung und importiere sie unter der neuen Adresse (Kapitel 8)."
+    },
+    {
+      "type": "h2",
+      "text": "B5. Die App öffentlich machen"
+    },
+    {
+      "type": "p",
+      "text": "Netlify-Teams, die seit dem 28. Juli 2026 angelegt wurden, machen neue Projekte privat. Ein privates Projekt verlangt von Besuchern eine Anmeldung bei Netlify, die Handys können die App also nicht öffnen."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Klicke in der Projektübersicht auf Project configuration.",
+        "Klicke links im Menü auf Visitor access (1).",
+        "Lies Production visibility (2). Steht dort Public, bist du fertig.",
+        "Steht dort Private, klicke auf Edit visibility (3), wähle public und speichere."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_visibility.png",
+      "width": 420,
+      "caption": "Abbildung 14. Visitor access: Production visibility muss Public sein.",
+      "alt": "Die Einstellungen Visitor access mit dem Menüpunkt, der Zeile Production visibility und der Taste Edit visibility markiert."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Ein Klick nach der ersten Veröffentlichung",
+      "text": "Direkt nach der ersten Veröffentlichung kann die Projektübersicht eine Taste Make public zeigen. Sie macht dasselbe mit einem Klick."
+    },
+    {
+      "type": "h2",
+      "text": "B6. Die App auf den Handys öffnen"
+    },
+    {
+      "type": "p",
+      "text": "Schick die Webadresse an jedes Handy, zum Beispiel in einer Nachricht. Folge danach auf jedem Handy Anhang A."
+    },
+    {
+      "type": "h2",
+      "text": "B7. Ein Update veröffentlichen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Melde dich auf app.netlify.com an.",
+        "Klicke auf dein Projekt.",
+        "Klicke links im Menü auf Deploys (1).",
+        "Zieh den ganzen Ordner app auf die Ablagefläche Need to update your project? (3).",
+        "Warte, bis die neue Veröffentlichung oben in der Liste Published zeigt (2).",
+        "Schließe auf jedem Handy die App und öffne sie wieder."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_deploys.png",
+      "width": 470,
+      "caption": "Abbildung 15. Die Seite Deploys: Leg den Ordner app unten ab und warte auf Published.",
+      "alt": "Die Seite Deploys mit Deploys im Menü, dem Etikett Published und der Ablagefläche markiert."
+    },
+    {
+      "type": "p",
+      "text": "Geschafft: Die Webadresse bleibt gleich. Gerichte, Fotos und Einstellungen bleiben auf jedem Handy."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Zieh den Ordner, nicht die Dateien darin",
+      "text": "Der Ordner app hält die Seite, die Bilder und die Symbole zusammen. Ohne sie fehlen die Bilder des Kochs und das Symbol der App."
+    },
+    {
+      "type": "h2",
+      "text": "B8. Wenn etwas schiefgeht"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Wenn",
+        "Dann"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "die Adresse eine Anmeldung bei Netlify verlangt",
+          "ist das Projekt privat. Mach es öffentlich (B5)."
+        ],
+        [
+          "die Adresse ein Passwort verlangt",
+          "wurde der Ordner ohne Anmeldung abgelegt. Melde dich an oder registriere dich, um das Projekt zu übernehmen, und mach es dann öffentlich (B5)."
+        ],
+        [
+          "Page not found erscheint",
+          "wurde ein Ordner um den Ordner app gezogen. Zieh den Ordner app selbst erneut (B7)."
+        ],
+        [
+          "die Bilder des Kochs oder das Symbol fehlen",
+          "wurden nur einige Dateien gezogen. Zieh den ganzen Ordner app erneut (B7)."
+        ],
+        [
+          "das Handy noch die alte Version zeigt",
+          "schließe die App und öffne sie wieder. Zieh in Brave die Seite nach unten, um sie neu zu laden."
+        ],
+        [
+          "Netlify den neuen Projektnamen ablehnt",
+          "ist der Name vergeben oder enthält andere Zeichen. Wähle einen anderen (B4)."
+        ]
+      ]
+    },
+    {
+      "type": "pagebreak"
+    },
+    {
+      "type": "h1",
+      "text": "Anhang C. Einen API-Schlüssel für den KI-Koch bekommen"
+    },
+    {
+      "type": "p",
+      "text": "Ziel: den API-Schlüssel bekommen, mit dem die App die KI benutzen kann. Wähle einen Dienst: Claude, ChatGPT oder Grok. Einmal an einem Computer."
+    },
+    {
+      "type": "table",
+      "header": [
+        "Dienst",
+        "Firma",
+        "Schlüssel bekommst du auf",
+        "Der Schlüssel beginnt mit"
+      ],
+      "widths": [
+        2,
+        2,
+        5,
+        3
+      ],
+      "rows": [
+        [
+          "Claude",
+          "Anthropic",
+          "platform.claude.com",
+          "sk-ant-"
+        ],
+        [
+          "ChatGPT",
+          "OpenAI",
+          "platform.openai.com",
+          "sk-"
+        ],
+        [
+          "Grok",
+          "xAI (auch als SpaceXAI angezeigt)",
+          "console.x.ai",
+          "(siehe Konsole)"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Ein Chat-Abo ist kein API-Guthaben",
+      "text": "ChatGPT Plus und ähnliche Chat-Abos bezahlen die API nicht. Die API-Nutzung bezahlst du extra, mit Guthaben in der Konsole des Dienstes."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Was es kostet",
+      "text": "Du bezahlst pro Anfrage. Eine Wochenplanung oder eine Einkaufsliste kostet meist ein paar Cent. Fang mit einem kleinen Guthaben an."
+    },
+    {
+      "type": "h2",
+      "text": "C1. Claude (Anthropic)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Öffne platform.claude.com und melde dich an oder leg ein Konto an.",
+        "Lade Guthaben auf der Seite Billing unter Settings auf.",
+        "Geh zu Settings und dann API keys.",
+        "Klicke auf Create key.",
+        "Gib dem Schlüssel einen Namen, zum Beispiel Meal Planner, und wähle ein Ablaufdatum.",
+        "Kopiere den Schlüssel. Er beginnt mit sk-ant-."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "C2. ChatGPT (OpenAI)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Öffne platform.openai.com und melde dich an oder leg ein Konto an.",
+        "Füge in den Abrechnungseinstellungen (billing) eine Zahlungsart und Guthaben hinzu.",
+        "Öffne die Seite API keys deines Projekts.",
+        "Klicke auf + Create new secret key.",
+        "Gib dem Schlüssel einen Namen, zum Beispiel Meal Planner.",
+        "Kopiere den Schlüssel."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "C3. Grok (xAI)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Öffne console.x.ai und melde dich an oder leg ein Konto an.",
+        "Kaufe Guthaben unter Billing und dann API spend management.",
+        "Öffne die Seite API Keys.",
+        "Leg einen neuen Schlüssel an und gib ihm einen Namen, zum Beispiel Meal Planner.",
+        "Kopiere den Schlüssel."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Kopiere den Schlüssel sofort",
+      "text": "Die Konsole zeigt den vollständigen Schlüssel nur beim Anlegen. Verlierst du ihn, leg einen neuen an."
+    },
+    {
+      "type": "h2",
+      "text": "C4. Den Schlüssel in die App eintragen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Schick dir den Schlüssel auf sichere Weise, zum Beispiel über einen Passwort-Manager.",
+        "Öffne auf dem Handy die App und tippe auf ⋮.",
+        "Scrolle nach unten bis KI-Einstellungen.",
+        "Tippe auf den gewählten Dienst: Claude, ChatGPT oder Grok (1).",
+        "Prüfe, woher der Schlüssel kommt (2).",
+        "Füge den Schlüssel in das Feld ein (3).",
+        "Tippe auf API-Schlüssel speichern (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/de/fig_aikey.png",
+      "width": 260,
+      "caption": "Abbildung 16. KI-Einstellungen: Dienst wählen, Schlüssel einfügen, speichern.",
+      "alt": "Die KI-Einstellungen im Menü mit den Tasten der Dienste, der Adresse für den Schlüssel, dem Schlüsselfeld und der Taste API-Schlüssel speichern markiert."
+    },
+    {
+      "type": "p",
+      "text": "Geschafft: Die Zeile unter der Taste sagt zum Beispiel Claude: API-Schlüssel ist eingerichtet."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Wechsle den Dienst, wann du willst",
+      "text": "Jeder Dienst behält seinen eigenen Schlüssel auf dem Handy. Tippe auf einen anderen Dienst, um ihn zu benutzen; sein Schlüssel bleibt gespeichert."
+    },
+    {
+      "type": "h1",
+      "text": "Glossar"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Begriff",
+        "Bedeutung"
+      ],
+      "widths": [
+        1,
+        3
+      ],
+      "rows": [
+        [
+          "API-Schlüssel",
+          "Ein geheimer Code, mit dem die App den KI-Koch benutzen kann."
+        ],
+        [
+          "Exportieren / Importieren",
+          "Eine Sicherungsdatei speichern / eine Sicherungsdatei laden."
+        ],
+        [
+          "KI-Dienst",
+          "Claude, ChatGPT oder Grok: die KI, die die App benutzt."
+        ],
+        [
+          "KI-Koch",
+          "Der Teil der App, der Gerichte vorschlägt und Gerichte erkennt."
+        ],
+        [
+          "Netlify",
+          "Der Dienst, der die App unter einer Webadresse online hält."
+        ],
+        [
+          "PIN",
+          "Der 4-stellige Code, den du wählst, um die App zu öffnen."
+        ],
+        [
+          "Projekt (project)",
+          "Deine App auf Netlify, mit eigener Webadresse."
+        ],
+        [
+          "Schneller Tag",
+          "Ein voller Tag, der schnelle Gerichte bekommt."
+        ],
+        [
+          "Sicherungsdatei",
+          "Eine Datei mit all deinen Gerichten, Fotos und Listen."
+        ],
+        [
+          "Tageskarte",
+          "Der Kasten für einen Tag in der Wochenansicht."
+        ],
+        [
+          "Veröffentlichung (deploy)",
+          "Eine neue Version der App online stellen."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Versionsgeschichte: Version 2.0, 12. Oktober 2026, erste deutsche Ausgabe, für Meal Planner v2.3.0 (gleicher Inhalt wie die englische Version 2.0)."
+    }
+  ]
+}

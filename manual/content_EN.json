@@ -2,8 +2,8 @@
   "meta": {
     "title": "Meal Planner",
     "subtitle": "User manual: plan the family's meals and shopping",
-    "version": "Version 1.2",
-    "date": "4 October 2026",
+    "version": "Version 2.0",
+    "date": "12 October 2026",
     "project": "Meal Planner",
     "author": "Hans Tandt",
     "tocTitle": "Contents",
@@ -56,7 +56,7 @@
     },
     {
       "type": "p",
-      "text": "Is the app not on your phone yet? Start with Appendix A, Set up the app on a new phone. Is the app not online yet? Start with Appendix B, Put the app online with Netlify."
+      "text": "Is the app not on your phone yet? Start with Appendix A, Set up the app on a new phone. Is the app not online yet? Start with Appendix B. Do you need an API key for the AI chef? See Appendix C."
     },
     {
       "type": "h2",
@@ -64,7 +64,7 @@
     },
     {
       "type": "figure",
-      "path": "figures/fig_week.png",
+      "path": "figures/en/fig_week.png",
       "width": 230,
       "caption": "Figure 1. The week screen: everything starts here.",
       "alt": "The week screen with the week arrows, a day card, the Quick label, the tabs and the menu button marked."
@@ -105,7 +105,7 @@
         [
           "5",
           "Menu ⋮",
-          "Backup, language, family name, PIN and API key."
+          "Backup, language, family name, PIN and AI settings."
         ]
       ]
     },
@@ -130,7 +130,7 @@
     },
     {
       "type": "figure",
-      "path": "figures/fig_add_meal.png",
+      "path": "figures/en/fig_add_meal.png",
       "width": 470,
       "caption": "Figure 2. Tap Add, type the meal name, then tap Save meal.",
       "alt": "Left: Tuesday with an Add button beside Dinner. Right: the meal editor with the name field, the photo area and the Save meal button marked."
@@ -183,7 +183,7 @@
     },
     {
       "type": "figure",
-      "path": "figures/fig_day.png",
+      "path": "figures/en/fig_day.png",
       "width": 250,
       "caption": "Figure 3. One day: switch Quick meal day on, and change, remove or add meals.",
       "alt": "Wednesday with the quick switch on, and the pencil, bin and Add buttons marked."
@@ -237,7 +237,7 @@
     },
     {
       "type": "p",
-      "text": "What you need: an internet connection and an API key in the menu. Appendix A shows how to add the key."
+      "text": "What you need: an internet connection and an API key for Claude, ChatGPT or Grok in the menu. Appendix C shows how to get one."
     },
     {
       "type": "numbers",
@@ -253,7 +253,7 @@
     },
     {
       "type": "figure",
-      "path": "figures/fig_plan.png",
+      "path": "figures/en/fig_plan.png",
       "width": 440,
       "caption": "Figure 4. Check the plan, then apply it. Replace only if you want to lose the meals already planned.",
       "alt": "Left: the suggested plan with one day and the Apply to calendar button marked. Right: the Replace planned meals question with Replace and Cancel marked."
@@ -290,7 +290,7 @@
     },
     {
       "type": "figure",
-      "path": "figures/fig_shop.png",
+      "path": "figures/en/fig_shop.png",
       "width": 230,
       "caption": "Figure 5. One list per shop: add, tick and delete items.",
       "alt": "The Delhaize list with the shop buttons, the add field, a tick box, a bin and the AI list button marked."
@@ -385,7 +385,7 @@
     },
     {
       "type": "figure",
-      "path": "figures/fig_identify.png",
+      "path": "figures/en/fig_identify.png",
       "width": 320,
       "caption": "Figure 6. The chef names the dish; one more tap puts its ingredients on the shopping list.",
       "alt": "The Identify this meal button, the dish name and the Add ingredients to shopping list button marked."
@@ -416,7 +416,7 @@
     },
     {
       "type": "figure",
-      "path": "figures/fig_menu.png",
+      "path": "figures/en/fig_menu.png",
       "width": 250,
       "caption": "Figure 7. The menu holds the backup, language and family settings.",
       "alt": "The menu with Export, Import, the language buttons and the family name field marked."
@@ -471,6 +471,14 @@
       "variant": "trap",
       "title": "Write your PIN down",
       "text": "The app cannot show or reset a forgotten PIN. Keep it somewhere safe. Chapter 9 shows what to do if it is lost."
+    },
+    {
+      "type": "h2",
+      "text": "Choose the AI service"
+    },
+    {
+      "type": "p",
+      "text": "The AI chef can use Claude, ChatGPT or Grok. Each service needs its own API key. Appendix C shows how to get a key and put it in the app."
     },
     {
       "type": "h1",
@@ -573,11 +581,15 @@
       "rows": [
         [
           "Add your API key first",
-          "Tap ⋮ and paste the API key under AI settings. See Appendix A."
+          "Tap ⋮, choose your AI service and paste its API key under AI settings. See Appendix C."
         ],
         [
           "API key not accepted",
-          "The key is wrong or no longer valid. Paste a new key."
+          "The key is wrong, no longer valid, or belongs to another AI service. Check that the service chosen in the menu matches the key."
+        ],
+        [
+          "No credit left on your AI account",
+          "Add credit in your AI service's console (Appendix C), then try again."
         ],
         [
           "AI unavailable — check your connection",
@@ -619,7 +631,7 @@
     },
     {
       "type": "p",
-      "text": "What you need: the app's web address and an API key (a secret code that lets the app use the AI)."
+      "text": "What you need: the app's web address and an API key for Claude, ChatGPT or Grok (a secret code that lets the app use the AI)."
     },
     {
       "type": "numbers",
@@ -629,16 +641,16 @@
         "Choose a 4-digit PIN (Figure 8).",
         "Enter the same PIN again.",
         "Tap ⋮, choose your language and save your family name.",
-        "Paste the API key under AI settings, then tap Save API key.",
+        "Under AI settings, choose Claude, ChatGPT or Grok and paste that service's API key (Appendix C).",
         "Open the Brave menu and tap Install app or Add to Home screen."
       ]
     },
     {
       "type": "figure",
-      "path": "figures/fig_lock.png",
+      "path": "figures/en/fig_lock.png",
       "width": 200,
       "caption": "Figure 8. On a new phone you choose your own PIN. After that, the app asks for it each time you open it.",
-      "alt": "The lock screen asking to choose a 4-digit PIN, with the keypad marked."
+      "alt": "The lock screen with the waving chef, asking to choose a 4-digit PIN, with the keypad marked."
     },
     {
       "type": "p",
@@ -657,12 +669,6 @@
       "text": "Anyone with the key can use the AI at your cost. Do not send it by chat or e-mail."
     },
     {
-      "type": "callout",
-      "variant": "tip",
-      "title": "Where to get an API key",
-      "text": "Create one at console.anthropic.com, under API keys. You need an Anthropic account with credit."
-    },
-    {
       "type": "pagebreak"
     },
     {
@@ -671,15 +677,15 @@
     },
     {
       "type": "p",
-      "text": "Purpose: publish the app on the internet, so every phone can open it. Do this on a computer."
+      "text": "Purpose: publish the app on the internet, so every phone can open it. Do this once on a computer, and again for each update."
     },
     {
       "type": "p",
-      "text": "What you need: a free Netlify account (a service that hosts websites) and the folder named app."
+      "text": "What you need: a computer with Chrome, Edge or Brave, the folder named app, and an e-mail address or a Google, GitHub, GitLab or Bitbucket account."
     },
     {
       "type": "figure",
-      "path": "figures/fig_deploy.png",
+      "path": "figures/en/fig_deploy.png",
       "width": 470,
       "caption": "Figure 9. Drag the app folder to Netlify; phones then open the web address.",
       "alt": "Three boxes: the app folder on the PC, Netlify, and the phones, joined by arrows labelled drag and address."
@@ -691,43 +697,225 @@
       "text": "Only the person who manages the app. Family members only need Appendix A."
     },
     {
+      "type": "p",
+      "text": "Netlify's screens are in English. The steps below use Netlify's own button names."
+    },
+    {
       "type": "h2",
-      "text": "Publish the app for the first time"
+      "text": "B0. Get the app folder"
+    },
+    {
+      "type": "p",
+      "text": "The app is one folder named app. This appendix puts that folder online. You get it from the website hanstandt.be."
     },
     {
       "type": "numbers",
       "items": [
-        "Sign in at app.netlify.com.",
-        "Open the Projects page of your team.",
-        "Drag the app folder onto the drop area at the bottom of the page.",
-        "Wait until the deploy is finished.",
-        "Copy the web address that Netlify shows. It ends in .netlify.app."
+        "Open hanstandt.be in your browser.",
+        "Click Meal Planner.",
+        "Click the download button. Your computer saves a zip file (a packed folder).",
+        "Right-click the zip file and choose Extract All.",
+        "Open the unpacked folder. Inside is the folder named app."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Where is the source code?",
+      "text": "The folder app is the whole program. Its source code is the file index.html inside it. You can open that file with Notepad to read it. You do not need to change it to use the app."
+    },
+    {
+      "type": "h2",
+      "text": "B1. Create a free Netlify account"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open app.netlify.com/signup in your browser.",
+        "Choose how to sign up: Google, GitHub, GitLab, Bitbucket or e-mail.",
+        "Follow the steps on the screen. With e-mail, open the message from Netlify and click the link in it.",
+        "If Netlify asks about a plan, choose the free plan. It is enough for this app."
       ]
     },
     {
       "type": "p",
-      "text": "Success: the web address opens the lock screen in a browser. Now set up each phone with Appendix A."
+      "text": "Success: you see the Projects page of your team (Figure 10)."
+    },
+    {
+      "type": "h2",
+      "text": "B2. Publish the app for the first time"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Click Projects in the menu on the left (1).",
+        "Open File Explorer on your computer and find the folder named app.",
+        "Drag the app folder onto the drop area at the bottom of the page (2).",
+        "Wait a few seconds. Netlify opens the overview of your new project."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_projects.png",
+      "width": 470,
+      "caption": "Figure 10. The Projects page: drop the app folder in the area at the bottom.",
+      "alt": "The Netlify Projects page with Projects in the left menu and the drop area marked."
     },
     {
       "type": "callout",
       "variant": "trap",
-      "title": "Sign in before you drop the folder",
-      "text": "A folder dropped without signing in stays online for about one hour only. Sign in first, so the app stays online."
+      "title": "Drag only the app folder",
+      "text": "The project folder also holds the manuals and notes. If you drag that folder, Netlify publishes them too, and the app shows Page not found."
     },
     {
       "type": "h2",
-      "text": "Publish an update"
+      "text": "B3. Read the project overview"
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_overview.png",
+      "width": 420,
+      "caption": "Figure 11. The project overview: the web address, the settings and the area for updates.",
+      "alt": "The Project overview with the web address, the Project configuration button and the Already built it? drop area marked."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Part",
+        "What it does"
+      ],
+      "widths": [
+        1,
+        4,
+        8
+      ],
+      "rows": [
+        [
+          "1",
+          "Web address",
+          "The address of your app. It ends in .netlify.app. Click it to open the app."
+        ],
+        [
+          "2",
+          "Project configuration",
+          "The settings: the project name (B4) and who may open it (B5)."
+        ],
+        [
+          "3",
+          "Already built it?",
+          "A drop area for updates (B7)."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "A green Public label next to the project name means everyone with the address can open the app."
+    },
+    {
+      "type": "h2",
+      "text": "B4. Give the app a clear address"
+    },
+    {
+      "type": "p",
+      "text": "Netlify gives a new project a random name. A clear name gives an address that is easy to type, for example peeters-meals.netlify.app."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "On the project overview, click Project configuration.",
+        "Click General (1).",
+        "Under Project information, click Change project name (2).",
+        "Type the new name (1 in Figure 13).",
+        "Check the new address under the field (2).",
+        "Click Save (3)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_config.png",
+      "width": 400,
+      "caption": "Figure 12. Project configuration, General: the Change project name button.",
+      "alt": "The General settings with the General tab and the Change project name button marked."
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_rename.png",
+      "width": 300,
+      "caption": "Figure 13. Type the name, check the address, then click Save.",
+      "alt": "The Change project name window with the name field, the resulting address and the Save button marked."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Name rules",
+      "text": "Use only letters, numbers and hyphens, at most 37 characters. If Netlify refuses the name, someone else already uses it: choose another."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Rename before the family starts",
+      "text": "Each phone keeps its meals under the web address. After a new name, the phones start empty at the new address. Rename first, or make a backup on each phone and import it at the new address (chapter 8)."
+    },
+    {
+      "type": "h2",
+      "text": "B5. Make the app public"
+    },
+    {
+      "type": "p",
+      "text": "Netlify teams created since 28 July 2026 make new projects private. A private project asks visitors to sign in to Netlify, so the phones cannot open the app."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "On the project overview, click Project configuration.",
+        "Click Visitor access in the menu on the left (1).",
+        "Read Production visibility (2). If it says Public, you are done.",
+        "If it says Private, click Edit visibility (3), choose public and save."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_visibility.png",
+      "width": 420,
+      "caption": "Figure 14. Visitor access: Production visibility must be Public.",
+      "alt": "The Visitor access settings with the menu item, the Production visibility line and the Edit visibility button marked."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "One click after the first deploy",
+      "text": "Right after the first deploy, the project overview may show a Make public button. It does the same in one click."
+    },
+    {
+      "type": "h2",
+      "text": "B6. Open the app on the phones"
+    },
+    {
+      "type": "p",
+      "text": "Send the web address to each phone, for example in a message. Then follow Appendix A on each phone."
+    },
+    {
+      "type": "h2",
+      "text": "B7. Publish an update"
     },
     {
       "type": "numbers",
       "items": [
         "Sign in at app.netlify.com.",
-        "Open your project.",
-        "Open the Deploys page.",
-        "Drag the whole app folder onto the drop area at the bottom of the page.",
-        "Wait until the new deploy is finished.",
-        "On the phone, close the app and open it again."
+        "Click your project.",
+        "Click Deploys in the menu on the left (1).",
+        "Drag the whole app folder onto the drop area Need to update your project? (3).",
+        "Wait until the new deploy at the top of the list shows Published (2).",
+        "On each phone, close the app and open it again."
       ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_deploys.png",
+      "width": 470,
+      "caption": "Figure 15. The Deploys page: drop the app folder at the bottom, then wait for Published.",
+      "alt": "The Deploys page with Deploys in the menu, the Published label and the drop area marked."
     },
     {
       "type": "p",
@@ -738,6 +926,188 @@
       "variant": "tip",
       "title": "Drag the folder, not the files inside it",
       "text": "The app folder holds the page, the pictures and the icons together. Without them, the chef pictures and the app icon are missing."
+    },
+    {
+      "type": "h2",
+      "text": "B8. If something goes wrong"
+    },
+    {
+      "type": "table",
+      "header": [
+        "If",
+        "Then"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "The address asks you to sign in to Netlify",
+          "The project is private. Make it public (B5)."
+        ],
+        [
+          "The address asks for a password",
+          "The folder was dropped without signing in. Sign in or sign up to claim the project, then make it public (B5)."
+        ],
+        [
+          "Page not found",
+          "A folder around the app folder was dragged. Drag the app folder itself again (B7)."
+        ],
+        [
+          "The chef pictures or the icon are missing",
+          "Only some files were dragged. Drag the whole app folder again (B7)."
+        ],
+        [
+          "The phone still shows the old version",
+          "Close the app and open it again. In Brave, pull the page down to reload."
+        ],
+        [
+          "Netlify refuses the new project name",
+          "The name is taken or has other characters. Choose another (B4)."
+        ]
+      ]
+    },
+    {
+      "type": "pagebreak"
+    },
+    {
+      "type": "h1",
+      "text": "Appendix C. Get an API key for the AI chef"
+    },
+    {
+      "type": "p",
+      "text": "Purpose: get the API key that lets the app use the AI. Choose one service: Claude, ChatGPT or Grok. Do this once on a computer."
+    },
+    {
+      "type": "table",
+      "header": [
+        "Service",
+        "Company",
+        "Get the key at",
+        "The key starts with"
+      ],
+      "widths": [
+        2,
+        2,
+        5,
+        3
+      ],
+      "rows": [
+        [
+          "Claude",
+          "Anthropic",
+          "platform.claude.com",
+          "sk-ant-"
+        ],
+        [
+          "ChatGPT",
+          "OpenAI",
+          "platform.openai.com",
+          "sk-"
+        ],
+        [
+          "Grok",
+          "xAI (also shown as SpaceXAI)",
+          "console.x.ai",
+          "(see the console)"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "A chat subscription is not API credit",
+      "text": "ChatGPT Plus and similar chat subscriptions do not pay for the API. API use is paid separately, with credit in the service's console."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "What it costs",
+      "text": "You pay per request. A week plan or a shopping list usually costs a few cents. Start with a small amount of credit."
+    },
+    {
+      "type": "h2",
+      "text": "C1. Claude (Anthropic)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open platform.claude.com and sign in, or create an account.",
+        "Add credit on the Billing page under Settings.",
+        "Go to Settings, then API keys.",
+        "Click Create key.",
+        "Give the key a name, for example Meal Planner, and choose an expiry.",
+        "Copy the key. It starts with sk-ant-."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "C2. ChatGPT (OpenAI)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open platform.openai.com and sign in, or create an account.",
+        "Add a payment method and credit in the billing settings.",
+        "Open the API keys page of your project.",
+        "Click + Create new secret key.",
+        "Give the key a name, for example Meal Planner.",
+        "Copy the key."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "C3. Grok (xAI)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open console.x.ai and sign in, or create an account.",
+        "Buy credit under Billing, then API spend management.",
+        "Open the API Keys page.",
+        "Create a new key and give it a name, for example Meal Planner.",
+        "Copy the key."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Copy the key straight away",
+      "text": "The console shows the full key only when you create it. If you lose it, create a new key."
+    },
+    {
+      "type": "h2",
+      "text": "C4. Put the key in the app"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Send the key to yourself in a safe way, for example in a password manager.",
+        "On the phone, open the app and tap ⋮.",
+        "Scroll down to AI settings.",
+        "Tap the service you chose: Claude, ChatGPT or Grok (1).",
+        "Check where the key comes from (2).",
+        "Paste the key in the field (3).",
+        "Tap Save API key (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/en/fig_aikey.png",
+      "width": 260,
+      "caption": "Figure 16. AI settings: choose the service, paste its key, then save.",
+      "alt": "The AI settings in the menu with the service buttons, the key address, the key field and the Save API key button marked."
+    },
+    {
+      "type": "p",
+      "text": "Success: the line under the button says, for example, Claude: API key is set."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Switch service at any time",
+      "text": "Each service keeps its own key on the phone. Tap another service to use it; its key is remembered."
     },
     {
       "type": "h1",
@@ -757,6 +1127,10 @@
         [
           "AI chef",
           "The part of the app that suggests meals and recognises dishes."
+        ],
+        [
+          "AI service",
+          "Claude, ChatGPT or Grok: the AI the app uses."
         ],
         [
           "API key",
@@ -787,6 +1161,10 @@
           "The 4-digit code you choose to open the app."
         ],
         [
+          "Project",
+          "Your app on Netlify, with its own web address."
+        ],
+        [
           "Quick day",
           "A busy day that gets fast meals."
         ]
@@ -794,7 +1172,7 @@
     },
     {
       "type": "p",
-      "text": "Revision history: Version 1.0, 4 October 2026, first edition for Meal Planner v2.0.0. Version 1.1, 4 October 2026, chapter 6 adds the ingredients button (Meal Planner v2.1.0) and Appendix B, Put the app online with Netlify. Version 1.2, 4 October 2026, you choose your own PIN on a new phone (Meal Planner v2.2.0)."
+      "text": "Revision history: Version 1.0, 4 October 2026, first edition for Meal Planner v2.0.0. Version 1.1, 4 October 2026, chapter 6 adds the ingredients button (Meal Planner v2.1.0) and Appendix B, Put the app online with Netlify. Version 1.2, 4 October 2026, you choose your own PIN on a new phone (Meal Planner v2.2.0). Version 2.0, 12 October 2026, Appendix B rewritten step by step with Netlify screenshots; new Appendix C, API keys for Claude, ChatGPT and Grok (Meal Planner v2.3.0); first edition in French, Dutch and German."
     }
   ]
 }

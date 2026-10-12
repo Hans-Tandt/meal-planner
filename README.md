@@ -49,7 +49,14 @@ The whole app is the [`app`](app) folder: one `index.html` with all HTML, CSS an
 3. Open the menu ⋮, choose Claude, ChatGPT or Grok, and paste that service's API key. AI requests are billed to that account.
 4. Use the browser menu to install the app on the home screen.
 
-The [user manual (PDF)](manual/out/Meal_Planner_Manual_EN.pdf) explains every step with screenshots, including Netlify in Appendix B.
+The user manual explains every step with screenshots, also for people who are not technical: putting the app online with Netlify (Appendix B) and getting an API key for Claude, ChatGPT or Grok (Appendix C).
+[English](manual/out/Meal_Planner_Manual_EN.pdf) · [Français](manual/out/Meal_Planner_Manual_FR.pdf) · [Nederlands](manual/out/Meal_Planner_Manual_NL.pdf) · [Deutsch](manual/out/Meal_Planner_Manual_DE.pdf)
+
+The app is also offered as a download on [hanstandt.be](https://hanstandt.be/projects/meal-planner/).
+
+## Where is the source code?
+
+The folder [`app`](app) is the whole program. Its source code is one file, [`app/index.html`](app/index.html): the screens (HTML), the look (CSS) and the program (JavaScript) are all in it. You can open it with any text editor to read it. There is nothing to compile or install.
 
 ## Make it yours
 
@@ -74,7 +81,8 @@ The app was made for one family in the Belgian Ardennes, and it shows. To fit yo
 | Folder | Contents |
 |---|---|
 | [`app`](app) | The app: deploy this folder |
-| [`manual`](manual) | The user manual: `content_EN.json`, the screenshot and figure scripts, and the finished PDF and Word file |
+| [`manual`](manual) | The user manuals in English, French, Dutch and German: `content_build.py` (one structure, four languages), the screenshot and figure scripts, and the finished PDF and Word files |
+| [`Showcase`](Showcase) | Five screens per language, for a gallery |
 | [`assets/mascot`](assets/mascot) | The chef mascot: source images, web versions and the prompts used to create them |
 | [`docs`](docs) | Pictures for this page |
 

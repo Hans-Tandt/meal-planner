@@ -1,0 +1,1184 @@
+{
+  "meta": {
+    "title": "Meal Planner",
+    "subtitle": "Handleiding: de maaltijden en boodschappen van het gezin plannen",
+    "version": "Versie 2.0",
+    "date": "12 oktober 2026",
+    "project": "Meal Planner",
+    "author": "Hans Tandt",
+    "tocTitle": "Inhoud",
+    "mascot": {
+      "cover": "figures/mascot/cover.png",
+      "coverWidth": 190,
+      "tip": "figures/mascot/tip.png",
+      "note": "figures/mascot/note.png",
+      "trap": "figures/mascot/trap.png",
+      "width": 46
+    },
+    "labels": {
+      "tip": "TIP",
+      "note": "LET OP",
+      "trap": "VALKUIL",
+      "page": "Pagina"
+    }
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "1. Hoe je deze handleiding gebruikt"
+    },
+    {
+      "type": "p",
+      "text": "Deze handleiding laat zien hoe je de maaltijden van het gezin plant met Meal Planner. Elk hoofdstuk is één taak. Volg de genummerde stappen in volgorde."
+    },
+    {
+      "type": "p",
+      "text": "De nummers in de afbeeldingen komen overeen met de nummers in de tekst. Gekleurde kaders geven extra hulp:"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Kader",
+        "Betekenis"
+      ],
+      "widths": [
+        1,
+        5
+      ],
+      "rows": [
+        [
+          "TIP",
+          "Een betere manier. Handig, maar je mag het overslaan."
+        ],
+        [
+          "LET OP",
+          "Iets om te weten, zodat niets je verrast."
+        ],
+        [
+          "VALKUIL",
+          "Een fout om te vermijden, en wat je beter doet."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Staat de app nog niet op je telefoon? Begin met bijlage A, De app op een nieuwe telefoon zetten. Staat de app nog niet online? Begin met bijlage B. Heb je een API-sleutel nodig voor de AI-chef? Zie bijlage C."
+    },
+    {
+      "type": "h2",
+      "text": "De app in één oogopslag"
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_week.png",
+      "width": 230,
+      "caption": "Figuur 1. Het weekscherm: hier begint alles.",
+      "alt": "Het weekscherm met de weekpijlen, een dagkaart, het label Snel, de tabbladen en de menuknop gemarkeerd."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Onderdeel",
+        "Wat het doet"
+      ],
+      "widths": [
+        1,
+        3,
+        9
+      ],
+      "rows": [
+        [
+          "1",
+          "Weekpijlen",
+          "Naar de vorige of de volgende week gaan."
+        ],
+        [
+          "2",
+          "Dagkaart",
+          "Tik erop om de maaltijden van die dag te zien en te wijzigen. Vandaag heeft een oranje rand."
+        ],
+        [
+          "3",
+          "Label Snel",
+          "De dag is druk. De AI-chef stelt er snelle maaltijden voor voor."
+        ],
+        [
+          "4",
+          "Tabbladen",
+          "Wisselen tussen Week, Boodschappen en AI-chef."
+        ],
+        [
+          "5",
+          "Menu ⋮",
+          "Back-up, taal, familienaam, pincode en AI-instellingen."
+        ]
+      ]
+    },
+    {
+      "type": "h1",
+      "text": "2. Snel starten: het avondeten van vanavond plannen"
+    },
+    {
+      "type": "p",
+      "text": "Doel: in twee minuten één maaltijd aan vandaag toevoegen."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open Meal Planner op je telefoon.",
+        "Voer je pincode van 4 cijfers in.",
+        "Tik op de kaart van vandaag. Die heeft een oranje rand en het label Vandaag.",
+        "Tik op Toevoegen naast Avondeten (1).",
+        "Typ de naam van het gerecht (2), bijvoorbeeld Kipcurry.",
+        "Tik op Opslaan (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_add_meal.png",
+      "width": 470,
+      "caption": "Figuur 2. Tik op Toevoegen, typ de naam van het gerecht en tik op Opslaan.",
+      "alt": "Links: dinsdag met een knop Toevoegen naast Avondeten. Rechts: de maaltijdeditor met het naamveld, het fotovak en de knop Opslaan gemarkeerd."
+    },
+    {
+      "type": "p",
+      "text": "Gelukt: de maaltijd staat nu op de kaart van vandaag in het weekscherm."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Een foto toevoegen",
+      "text": "Tik op het fotovak (3) om het gerecht te fotograferen of een foto te kiezen. De foto verschijnt dan op de dagkaart."
+    },
+    {
+      "type": "h1",
+      "text": "3. Je week plannen"
+    },
+    {
+      "type": "p",
+      "text": "Doel: de week vullen, maaltijden wijzigen en drukke dagen markeren."
+    },
+    {
+      "type": "h2",
+      "text": "Naar een andere week gaan"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tik op › om de volgende week te zien.",
+        "Tik op ‹ om een week terug te gaan.",
+        "Tik op Deze week om terug te keren naar de huidige week. De knop verschijnt alleen als je naar een andere week kijkt."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Een drukke dag als snel markeren"
+    },
+    {
+      "type": "p",
+      "text": "Op drukke dagen is er weinig tijd om te koken. Markeer die dagen als snel. De AI-chef stelt dan maaltijden voor die in 20 minuten of minder klaar zijn."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tik op de kaart van de dag.",
+        "Tik op de schakelaar Snelle dag (1). Hij wordt oranje.",
+        "Tik op × of ergens naast het venster om het te sluiten."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_day.png",
+      "width": 250,
+      "caption": "Figuur 3. Eén dag: zet Snelle dag aan, en wijzig, verwijder of voeg maaltijden toe.",
+      "alt": "Woensdag met de schakelaar Snel aan, en de knoppen potlood, prullenbak en Toevoegen gemarkeerd."
+    },
+    {
+      "type": "p",
+      "text": "Gelukt: de dagkaart toont het label Snel en een oranje streep links."
+    },
+    {
+      "type": "h2",
+      "text": "Een maaltijd wijzigen of verwijderen"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Om",
+        "Tik op"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Een maaltijd te wijzigen",
+          "Het potlood (2), of de maaltijd zelf"
+        ],
+        [
+          "Een maaltijd te verwijderen",
+          "De prullenbak (3)"
+        ],
+        [
+          "Een maaltijd toe te voegen",
+          "Toevoegen (4)"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "De prullenbak kun je niet ongedaan maken",
+      "text": "De prullenbak verwijdert de maaltijd en haar foto meteen. Tik je er per ongeluk op, voeg de maaltijd dan opnieuw toe."
+    },
+    {
+      "type": "h1",
+      "text": "4. De AI-chef je week laten plannen"
+    },
+    {
+      "type": "p",
+      "text": "Doel: met één tik een volledige week maaltijden krijgen."
+    },
+    {
+      "type": "p",
+      "text": "Wat je nodig hebt: een internetverbinding en een API-sleutel voor Claude, ChatGPT of Grok in het menu. Bijlage C laat zien hoe je er een krijgt."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Markeer de drukke dagen als snel (hoofdstuk 3).",
+        "Tik op het tabblad AI-chef.",
+        "Tik op Maaltijden voorstellen.",
+        "Wacht terwijl de chef plant. Dat duurt even.",
+        "Lees het voorstel (1). Scrol naar beneden om alle 7 dagen te zien.",
+        "Tik op In de kalender zetten (2).",
+        "Vraagt de app Geplande maaltijden vervangen?, tik dan op Vervangen (3) of Annuleren (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_plan.png",
+      "width": 440,
+      "caption": "Figuur 4. Controleer het voorstel en zet het in de kalender. Vervang alleen als je de al geplande maaltijden wilt verliezen.",
+      "alt": "Links: het voorstel met één dag en de knop In de kalender zetten gemarkeerd. Rechts: de vraag Geplande maaltijden vervangen met Vervangen en Annuleren gemarkeerd."
+    },
+    {
+      "type": "p",
+      "text": "Gelukt: de blije chef verschijnt, en het weekscherm toont de nieuwe maaltijden."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Vervangen overschrijft de hele week",
+      "text": "Vervangen verwijdert alle maaltijden en foto's die al in die week gepland staan. Tik op Annuleren om ze te houden."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Niet tevreden met het voorstel?",
+      "text": "Tik opnieuw op Maaltijden voorstellen voor een nieuw voorstel. Er verandert niets tot je op In de kalender zetten tikt."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "De namen van de gerechten volgen de taal van de app",
+      "text": "De chef schrijft in de taal van de app. Hoofdstuk 7 laat zien hoe je die wijzigt."
+    },
+    {
+      "type": "h1",
+      "text": "5. De boodschappenlijst gebruiken"
+    },
+    {
+      "type": "p",
+      "text": "Doel: één lijst per winkel bijhouden en artikelen afvinken in de winkel."
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_shop.png",
+      "width": 230,
+      "caption": "Figuur 5. Eén lijst per winkel: artikelen toevoegen, afvinken en verwijderen.",
+      "alt": "De lijst van Delhaize met de winkelknoppen, het invoerveld, een vinkvakje, een prullenbak en de knop AI-lijst gemarkeerd."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Om",
+        "Doe dit"
+      ],
+      "widths": [
+        1,
+        4,
+        8
+      ],
+      "rows": [
+        [
+          "1",
+          "Een winkel te kiezen",
+          "Tik op Delhaize, Lidl, Aldi, Massen of Overig. Het getal toont de artikelen die je nog moet kopen."
+        ],
+        [
+          "2",
+          "Een artikel toe te voegen",
+          "Typ het artikel en tik op +."
+        ],
+        [
+          "3",
+          "Een artikel af te vinken",
+          "Tik op het vakje. Tik nog eens om het vinkje weg te halen."
+        ],
+        [
+          "4",
+          "Een artikel te verwijderen",
+          "Tik op de prullenbak."
+        ],
+        [
+          "5",
+          "De AI de lijst te laten maken",
+          "Tik op AI-lijst. Zie de stappen hieronder."
+        ]
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "De AI de lijst laten maken"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Plan eerst de week (hoofdstuk 3 of 4).",
+        "Tik op het tabblad Boodschappen.",
+        "Tik op AI-lijst (5).",
+        "Wacht terwijl de chef de lijst schrijft."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Gelukt: onder elke winkel verschijnen nieuwe artikelen. Artikelen die al op een lijst staan, worden niet twee keer toegevoegd."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Welke week?",
+      "text": "De AI-lijst gebruikt de week die je het laatst bekeek in het weekscherm."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Maak de lijst meteen na het plannen",
+      "text": "Zet het voorstel in de kalender en tik dan op AI-lijst. De boodschappen voor de hele week zijn klaar in twee tikken."
+    },
+    {
+      "type": "h1",
+      "text": "6. Een gerecht herkennen en er boodschappen voor doen"
+    },
+    {
+      "type": "p",
+      "text": "Doel: de naam van een gerecht vinden op basis van een foto, en de ingrediënten op de boodschappenlijst zetten."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tik op het tabblad AI-chef.",
+        "Scrol naar beneden tot Gerecht herkennen.",
+        "Tik op het fotovak en maak of kies een foto.",
+        "Tik op Dit gerecht herkennen (1).",
+        "Lees de naam (2) en de beschrijving.",
+        "Tik op Ingrediënten op de boodschappenlijst (3)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_identify.png",
+      "width": 320,
+      "caption": "Figuur 6. De chef geeft het gerecht een naam; nog één tik zet de ingrediënten op de boodschappenlijst.",
+      "alt": "De knop Dit gerecht herkennen, de naam van het gerecht en de knop Ingrediënten op de boodschappenlijst gemarkeerd."
+    },
+    {
+      "type": "p",
+      "text": "Gelukt: de blije chef toont hoeveel ingrediënten er zijn toegevoegd. Elk ingrediënt staat op de lijst van de winkel waar je het meestal koopt."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Basisproducten worden weggelaten",
+      "text": "Zout, peper, bakolie en water worden niet toegevoegd. Artikelen die al op een lijst staan, worden niet twee keer toegevoegd."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Gebruik het bij het toevoegen van een maaltijd",
+      "text": "De maaltijdeditor heeft ook een knop Herkennen met AI. Die vult de naam en de notities voor je in."
+    },
+    {
+      "type": "h1",
+      "text": "7. Taal, familienaam en pincode wijzigen"
+    },
+    {
+      "type": "p",
+      "text": "Doel: de app eigen maken. Alle instellingen staan in het menu ⋮ rechtsboven."
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_menu.png",
+      "width": 250,
+      "caption": "Figuur 7. In het menu staan de back-up, de taal en de familienaam.",
+      "alt": "Het menu met Exporteren, Importeren, de taalknoppen en het veld voor de familienaam gemarkeerd."
+    },
+    {
+      "type": "h2",
+      "text": "De taal wijzigen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tik op ⋮.",
+        "Tik op English, Français, Nederlands of Deutsch (3)."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "De app wisselt meteen van taal. Elke telefoon houdt zijn eigen taal."
+    },
+    {
+      "type": "h2",
+      "text": "De familienaam wijzigen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tik op ⋮.",
+        "Typ de naam in het veld Familie (4).",
+        "Tik op Familienaam opslaan."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "De naam verschijnt op het vergrendelscherm, bovenaan de app en in rapporten."
+    },
+    {
+      "type": "h2",
+      "text": "De pincode wijzigen"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tik op ⋮.",
+        "Scrol naar beneden tot Beveiliging.",
+        "Typ je huidige pincode.",
+        "Typ een nieuwe pincode van 4 cijfers.",
+        "Tik op Pin wijzigen."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Schrijf je pincode op",
+      "text": "De app kan een vergeten pincode niet tonen of resetten. Bewaar hem op een veilige plek. Hoofdstuk 9 legt uit wat je doet als je hem kwijt bent."
+    },
+    {
+      "type": "h2",
+      "text": "De AI-dienst kiezen"
+    },
+    {
+      "type": "p",
+      "text": "De AI-chef kan Claude, ChatGPT of Grok gebruiken. Elke dienst heeft een eigen API-sleutel nodig. Bijlage C laat zien hoe je een sleutel krijgt en in de app zet."
+    },
+    {
+      "type": "h1",
+      "text": "8. Een back-up maken en je gegevens naar een andere telefoon zetten"
+    },
+    {
+      "type": "p",
+      "text": "Doel: een kopie bewaren van je maaltijden, foto's en lijsten, en ze naar een andere telefoon overzetten."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Je gegevens staan op de telefoon",
+      "text": "Maaltijden en lijsten worden op elke telefoon bewaard, niet online. Twee telefoons delen hun wijzigingen niet vanzelf."
+    },
+    {
+      "type": "h2",
+      "text": "Een back-up maken"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Tik op ⋮.",
+        "Tik op Gegevens exporteren (back-up) (1).",
+        "Bewaar het bestand, bijvoorbeeld op Google Drive."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "De bestandsnaam lijkt op tandt-meal-data-2026-10-04.json. Het bestand bevat de maaltijden, foto's, boodschappenlijsten en de familienaam."
+    },
+    {
+      "type": "h2",
+      "text": "Een back-up terugzetten of naar een andere telefoon overzetten"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open de app op de telefoon die de gegevens moet krijgen.",
+        "Tik op ⋮.",
+        "Tik op Gegevens importeren (2).",
+        "Kies het back-upbestand."
+      ]
+    },
+    {
+      "type": "table",
+      "header": [
+        "Als",
+        "Dan"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Een dag staat in het bestand en op deze telefoon",
+          "De dag uit het bestand vervangt de dag op deze telefoon."
+        ],
+        [
+          "Een dag staat alleen op deze telefoon",
+          "Die blijft zoals hij is."
+        ],
+        [
+          "Een artikel staat in het bestand en op deze telefoon",
+          "Het staat er maar één keer."
+        ],
+        [
+          "Artikelen waren afgevinkt op de andere telefoon",
+          "Vinkjes worden niet gekopieerd. Vink ze opnieuw af."
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Browsergegevens wissen wist alles",
+      "text": "Als je de sitegegevens in Brave wist, verdwijnen alle maaltijden, foto's en lijsten op deze telefoon. Maak eerst een back-up."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Maak elke week een back-up",
+      "text": "Exporteer één keer per week een back-up, bijvoorbeeld na de grote boodschappen."
+    },
+    {
+      "type": "h1",
+      "text": "9. Veelvoorkomende problemen oplossen"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Als je dit ziet",
+        "Dan"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Voeg eerst je API-sleutel toe",
+          "Tik op ⋮, kies je AI-dienst en plak de API-sleutel ervan onder AI-instellingen. Zie bijlage C."
+        ],
+        [
+          "API-sleutel geweigerd",
+          "De sleutel is fout, niet meer geldig, of hoort bij een andere AI-dienst. Controleer of de dienst die in het menu gekozen is bij de sleutel past."
+        ],
+        [
+          "Geen tegoed meer op je AI-account",
+          "Laad tegoed op in de console van je AI-dienst (bijlage C) en probeer opnieuw."
+        ],
+        [
+          "AI niet beschikbaar — controleer je verbinding",
+          "Controleer wifi of mobiele data en probeer opnieuw."
+        ],
+        [
+          "Onverwacht antwoord — probeer opnieuw",
+          "Tik nog eens op dezelfde knop."
+        ],
+        [
+          "De AI heeft dit verzoek geweigerd",
+          "Probeer later opnieuw, of met een andere foto."
+        ],
+        [
+          "Opslag vol — wijzigingen niet opgeslagen",
+          "Maak ruimte vrij op de telefoon en sla opnieuw op."
+        ],
+        [
+          "Verkeerde pin — probeer opnieuw",
+          "Controleer de pincode en typ hem opnieuw."
+        ],
+        [
+          "Je bent de pincode vergeten",
+          "Wis de sitegegevens van de app in Brave. Daarmee verdwijnen de pincode en alle gegevens op deze telefoon. Kies daarna een nieuwe pincode en importeer je back-up (hoofdstuk 8)."
+        ],
+        [
+          "De app ziet er oud uit na een update",
+          "Sluit de app en open hem opnieuw. Trek in Brave de pagina naar beneden om te herladen."
+        ]
+      ]
+    },
+    {
+      "type": "h1",
+      "text": "Bijlage A. De app op een nieuwe telefoon zetten"
+    },
+    {
+      "type": "p",
+      "text": "Doel: Meal Planner voor het eerst op een telefoon zetten. Eén keer per telefoon."
+    },
+    {
+      "type": "p",
+      "text": "Wat je nodig hebt: het webadres van de app en een API-sleutel voor Claude, ChatGPT of Grok (een geheime code waarmee de app de AI kan gebruiken)."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open Brave of Chrome op de telefoon.",
+        "Ga naar het webadres van de app.",
+        "Kies een pincode van 4 cijfers (figuur 8).",
+        "Voer dezelfde pincode nog eens in.",
+        "Tik op ⋮, kies je taal en sla je familienaam op.",
+        "Kies onder AI-instellingen Claude, ChatGPT of Grok en plak de API-sleutel van die dienst (bijlage C).",
+        "Open het menu van Brave en tik op App installeren of Toevoegen aan startscherm."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_lock.png",
+      "width": 200,
+      "caption": "Figuur 8. Op een nieuwe telefoon kies je zelf je pincode. Daarna vraagt de app er telkens om als je hem opent.",
+      "alt": "Het vergrendelscherm met de zwaaiende chef, dat vraagt een pincode van 4 cijfers te kiezen, met het toetsenblok gemarkeerd."
+    },
+    {
+      "type": "p",
+      "text": "Gelukt: het icoon van de chef staat op je startscherm. De app opent van daaruit op volledig scherm."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "De API-sleutel blijft op deze telefoon",
+      "text": "Elke telefoon heeft de sleutel één keer nodig. Back-ups bevatten de sleutel nooit."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Houd de API-sleutel geheim",
+      "text": "Wie de sleutel heeft, kan de AI gebruiken op jouw kosten. Stuur hem niet via chat of e-mail."
+    },
+    {
+      "type": "pagebreak"
+    },
+    {
+      "type": "h1",
+      "text": "Bijlage B. De app online zetten met Netlify"
+    },
+    {
+      "type": "p",
+      "text": "Doel: de app op internet publiceren, zodat elke telefoon hem kan openen. Eén keer op een computer, en opnieuw bij elke update."
+    },
+    {
+      "type": "p",
+      "text": "Wat je nodig hebt: een computer met Chrome, Edge of Brave, de map met de naam app, en een e-mailadres of een account bij Google, GitHub, GitLab of Bitbucket."
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_deploy.png",
+      "width": 470,
+      "caption": "Figuur 9. Sleep de map app naar Netlify; de telefoons openen daarna het webadres.",
+      "alt": "Drie kaders: de map app op de pc, Netlify en de telefoons, verbonden met pijlen slepen en adres."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Wie doet dit?",
+      "text": "Alleen de persoon die de app beheert. Gezinsleden hebben alleen bijlage A nodig."
+    },
+    {
+      "type": "p",
+      "text": "De schermen van Netlify zijn in het Engels. De stappen hieronder gebruiken de Engelse namen van de knoppen van Netlify."
+    },
+    {
+      "type": "h2",
+      "text": "B0. De map app ophalen"
+    },
+    {
+      "type": "p",
+      "text": "De app is één map met de naam app. Deze bijlage zet die map online. Je vindt hem op de website hanstandt.be."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open hanstandt.be in je browser.",
+        "Klik op Meal Planner.",
+        "Klik op de downloadknop. Je computer bewaart een zip-bestand (een ingepakte map).",
+        "Klik met de rechtermuisknop op het zip-bestand en kies Alles uitpakken.",
+        "Open de uitgepakte map. Daarin staat de map met de naam app."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Waar staat de broncode?",
+      "text": "De map app is het hele programma. De broncode is het bestand index.html erin. Je kunt dat bestand openen met Kladblok om het te lezen. Om de app te gebruiken hoef je er niets aan te veranderen."
+    },
+    {
+      "type": "h2",
+      "text": "B1. Een gratis Netlify-account maken"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open app.netlify.com/signup in je browser.",
+        "Kies hoe je je aanmeldt: Google, GitHub, GitLab, Bitbucket of e-mail.",
+        "Volg de stappen op het scherm. Met e-mail open je het bericht van Netlify en klik je op de link erin.",
+        "Vraagt Netlify naar een abonnement, kies dan het gratis abonnement (free). Dat is genoeg voor deze app."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Gelukt: je ziet de pagina Projects van je team (figuur 10)."
+    },
+    {
+      "type": "h2",
+      "text": "B2. De app voor het eerst publiceren"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Klik op Projects in het menu links (1).",
+        "Open Verkenner op je computer en zoek de map met de naam app.",
+        "Sleep de map app naar het neerzetvak onderaan de pagina (2).",
+        "Wacht een paar seconden. Netlify opent het overzicht van je nieuwe project."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_projects.png",
+      "width": 470,
+      "caption": "Figuur 10. De pagina Projects: zet de map app neer in het vak onderaan.",
+      "alt": "De pagina Projects van Netlify met Projects in het menu links en het neerzetvak gemarkeerd."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Sleep alleen de map app",
+      "text": "De projectmap bevat ook de handleidingen en notities. Sleep je die map, dan publiceert Netlify ze ook, en de app toont Page not found."
+    },
+    {
+      "type": "h2",
+      "text": "B3. Het projectoverzicht lezen"
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_overview.png",
+      "width": 420,
+      "caption": "Figuur 11. Het projectoverzicht: het webadres, de instellingen en het vak voor updates.",
+      "alt": "De Project overview met het webadres, de knop Project configuration en het neerzetvak Already built it? gemarkeerd."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Onderdeel",
+        "Wat het doet"
+      ],
+      "widths": [
+        1,
+        4,
+        8
+      ],
+      "rows": [
+        [
+          "1",
+          "Webadres",
+          "Het adres van je app. Het eindigt op .netlify.app. Klik erop om de app te openen."
+        ],
+        [
+          "2",
+          "Project configuration",
+          "De instellingen: de projectnaam (B4) en wie het mag openen (B5)."
+        ],
+        [
+          "3",
+          "Already built it?",
+          "Een neerzetvak voor updates (B7)."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Een groen label Public naast de projectnaam betekent dat iedereen met het adres de app kan openen."
+    },
+    {
+      "type": "h2",
+      "text": "B4. De app een duidelijk adres geven"
+    },
+    {
+      "type": "p",
+      "text": "Netlify geeft een nieuw project een willekeurige naam. Een duidelijke naam geeft een adres dat makkelijk te typen is, bijvoorbeeld peeters-maaltijden.netlify.app."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Klik in het projectoverzicht op Project configuration.",
+        "Klik op General (1).",
+        "Klik onder Project information op Change project name (2).",
+        "Typ de nieuwe naam (1 in figuur 13).",
+        "Controleer het nieuwe adres onder het veld (2).",
+        "Klik op Save (3)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_config.png",
+      "width": 400,
+      "caption": "Figuur 12. Project configuration, General: de knop Change project name.",
+      "alt": "De instellingen General met het tabblad General en de knop Change project name gemarkeerd."
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_rename.png",
+      "width": 300,
+      "caption": "Figuur 13. Typ de naam, controleer het adres en klik op Save.",
+      "alt": "Het venster Change project name met het naamveld, het nieuwe adres en de knop Save gemarkeerd."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Regels voor de naam",
+      "text": "Gebruik alleen letters, cijfers en koppeltekens, maximaal 37 tekens. Weigert Netlify de naam, dan gebruikt iemand anders hem al: kies een andere."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Hernoem voor het gezin begint",
+      "text": "Elke telefoon bewaart zijn maaltijden onder het webadres. Na een nieuwe naam beginnen de telefoons leeg op het nieuwe adres. Hernoem eerst, of maak op elke telefoon een back-up en importeer die op het nieuwe adres (hoofdstuk 8)."
+    },
+    {
+      "type": "h2",
+      "text": "B5. De app openbaar maken"
+    },
+    {
+      "type": "p",
+      "text": "Netlify-teams die sinds 28 juli 2026 zijn aangemaakt, maken nieuwe projecten privé. Een privéproject vraagt bezoekers om aan te melden bij Netlify, dus de telefoons kunnen de app niet openen."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Klik in het projectoverzicht op Project configuration.",
+        "Klik op Visitor access in het menu links (1).",
+        "Lees Production visibility (2). Staat er Public, dan ben je klaar.",
+        "Staat er Private, klik dan op Edit visibility (3), kies public en sla op."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_visibility.png",
+      "width": 420,
+      "caption": "Figuur 14. Visitor access: Production visibility moet Public zijn.",
+      "alt": "De instellingen Visitor access met het menu-item, de regel Production visibility en de knop Edit visibility gemarkeerd."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Eén klik na de eerste publicatie",
+      "text": "Meteen na de eerste publicatie kan het projectoverzicht een knop Make public tonen. Die doet hetzelfde in één klik."
+    },
+    {
+      "type": "h2",
+      "text": "B6. De app openen op de telefoons"
+    },
+    {
+      "type": "p",
+      "text": "Stuur het webadres naar elke telefoon, bijvoorbeeld in een bericht. Volg daarna bijlage A op elke telefoon."
+    },
+    {
+      "type": "h2",
+      "text": "B7. Een update publiceren"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Meld je aan op app.netlify.com.",
+        "Klik op je project.",
+        "Klik op Deploys in het menu links (1).",
+        "Sleep de hele map app naar het neerzetvak Need to update your project? (3).",
+        "Wacht tot de nieuwe publicatie bovenaan de lijst Published toont (2).",
+        "Sluit op elke telefoon de app en open hem opnieuw."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_deploys.png",
+      "width": 470,
+      "caption": "Figuur 15. De pagina Deploys: zet de map app onderaan neer en wacht op Published.",
+      "alt": "De pagina Deploys met Deploys in het menu, het label Published en het neerzetvak gemarkeerd."
+    },
+    {
+      "type": "p",
+      "text": "Gelukt: het webadres blijft hetzelfde. Maaltijden, foto's en instellingen blijven op elke telefoon."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Sleep de map, niet de bestanden erin",
+      "text": "De map app houdt de pagina, de afbeeldingen en de iconen bij elkaar. Zonder die ontbreken de afbeeldingen van de chef en het icoon van de app."
+    },
+    {
+      "type": "h2",
+      "text": "B8. Als er iets misgaat"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Als",
+        "Dan"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Het adres vraagt je aan te melden bij Netlify",
+          "Het project is privé. Maak het openbaar (B5)."
+        ],
+        [
+          "Het adres vraagt een wachtwoord",
+          "De map is neergezet zonder aan te melden. Meld je aan of maak een account om het project op te eisen, en maak het daarna openbaar (B5)."
+        ],
+        [
+          "Page not found",
+          "Er is een map rond de map app gesleept. Sleep de map app zelf opnieuw (B7)."
+        ],
+        [
+          "De afbeeldingen van de chef of het icoon ontbreken",
+          "Er zijn maar enkele bestanden gesleept. Sleep de hele map app opnieuw (B7)."
+        ],
+        [
+          "De telefoon toont nog de oude versie",
+          "Sluit de app en open hem opnieuw. Trek in Brave de pagina naar beneden om te herladen."
+        ],
+        [
+          "Netlify weigert de nieuwe projectnaam",
+          "De naam is al bezet of bevat andere tekens. Kies een andere (B4)."
+        ]
+      ]
+    },
+    {
+      "type": "pagebreak"
+    },
+    {
+      "type": "h1",
+      "text": "Bijlage C. Een API-sleutel voor de AI-chef krijgen"
+    },
+    {
+      "type": "p",
+      "text": "Doel: de API-sleutel krijgen waarmee de app de AI kan gebruiken. Kies één dienst: Claude, ChatGPT of Grok. Eén keer op een computer."
+    },
+    {
+      "type": "table",
+      "header": [
+        "Dienst",
+        "Bedrijf",
+        "Sleutel aanvragen op",
+        "De sleutel begint met"
+      ],
+      "widths": [
+        2,
+        2,
+        5,
+        3
+      ],
+      "rows": [
+        [
+          "Claude",
+          "Anthropic",
+          "platform.claude.com",
+          "sk-ant-"
+        ],
+        [
+          "ChatGPT",
+          "OpenAI",
+          "platform.openai.com",
+          "sk-"
+        ],
+        [
+          "Grok",
+          "xAI (ook getoond als SpaceXAI)",
+          "console.x.ai",
+          "(zie de console)"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Een chatabonnement is geen API-tegoed",
+      "text": "ChatGPT Plus en gelijkaardige chatabonnementen betalen de API niet. API-gebruik betaal je apart, met tegoed in de console van de dienst."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Wat het kost",
+      "text": "Je betaalt per verzoek. Een weekplanning of een boodschappenlijst kost meestal enkele centen. Begin met een klein bedrag aan tegoed."
+    },
+    {
+      "type": "h2",
+      "text": "C1. Claude (Anthropic)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open platform.claude.com en meld je aan, of maak een account.",
+        "Laad tegoed op via de pagina Billing onder Settings.",
+        "Ga naar Settings en dan API keys.",
+        "Klik op Create key.",
+        "Geef de sleutel een naam, bijvoorbeeld Meal Planner, en kies een vervaldatum.",
+        "Kopieer de sleutel. Hij begint met sk-ant-."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "C2. ChatGPT (OpenAI)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open platform.openai.com en meld je aan, of maak een account.",
+        "Voeg een betaalmethode en tegoed toe in de facturatie-instellingen (billing).",
+        "Open de pagina API keys van je project.",
+        "Klik op + Create new secret key.",
+        "Geef de sleutel een naam, bijvoorbeeld Meal Planner.",
+        "Kopieer de sleutel."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "C3. Grok (xAI)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Open console.x.ai en meld je aan, of maak een account.",
+        "Koop tegoed onder Billing en dan API spend management.",
+        "Open de pagina API Keys.",
+        "Maak een nieuwe sleutel en geef hem een naam, bijvoorbeeld Meal Planner.",
+        "Kopieer de sleutel."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Kopieer de sleutel meteen",
+      "text": "De console toont de volledige sleutel alleen bij het aanmaken. Ben je hem kwijt, maak dan een nieuwe sleutel."
+    },
+    {
+      "type": "h2",
+      "text": "C4. De sleutel in de app zetten"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Stuur de sleutel op een veilige manier naar jezelf, bijvoorbeeld via een wachtwoordbeheerder.",
+        "Open op de telefoon de app en tik op ⋮.",
+        "Scrol naar beneden tot AI-instellingen.",
+        "Tik op de dienst die je koos: Claude, ChatGPT of Grok (1).",
+        "Controleer waar de sleutel vandaan komt (2).",
+        "Plak de sleutel in het veld (3).",
+        "Tik op API-sleutel opslaan (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/nl/fig_aikey.png",
+      "width": 260,
+      "caption": "Figuur 16. AI-instellingen: kies de dienst, plak de sleutel en sla op.",
+      "alt": "De AI-instellingen in het menu met de knoppen van de diensten, het adres voor de sleutel, het sleutelveld en de knop API-sleutel opslaan gemarkeerd."
+    },
+    {
+      "type": "p",
+      "text": "Gelukt: de regel onder de knop zegt bijvoorbeeld Claude: API-sleutel is ingesteld."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Wissel van dienst wanneer je wilt",
+      "text": "Elke dienst houdt zijn eigen sleutel op de telefoon. Tik op een andere dienst om die te gebruiken; de sleutel blijft bewaard."
+    },
+    {
+      "type": "h1",
+      "text": "Woordenlijst"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Term",
+        "Betekenis"
+      ],
+      "widths": [
+        1,
+        3
+      ],
+      "rows": [
+        [
+          "AI-chef",
+          "Het deel van de app dat maaltijden voorstelt en gerechten herkent."
+        ],
+        [
+          "AI-dienst",
+          "Claude, ChatGPT of Grok: de AI die de app gebruikt."
+        ],
+        [
+          "API-sleutel",
+          "Een geheime code waarmee de app de AI-chef kan gebruiken."
+        ],
+        [
+          "Back-upbestand",
+          "Een bestand met al je maaltijden, foto's en lijsten."
+        ],
+        [
+          "Dagkaart",
+          "Het kader van één dag in het weekscherm."
+        ],
+        [
+          "Exporteren / Importeren",
+          "Een back-upbestand bewaren / een back-upbestand laden."
+        ],
+        [
+          "Netlify",
+          "De dienst die de app online houdt op één webadres."
+        ],
+        [
+          "Pincode",
+          "De code van 4 cijfers die je kiest om de app te openen."
+        ],
+        [
+          "Project",
+          "Je app op Netlify, met een eigen webadres."
+        ],
+        [
+          "Publicatie (deploy)",
+          "Een nieuwe versie van de app online zetten."
+        ],
+        [
+          "Snelle dag",
+          "Een drukke dag die snelle maaltijden krijgt."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Versiegeschiedenis: versie 2.0, 12 oktober 2026, eerste Nederlandse uitgave, voor Meal Planner v2.3.0 (zelfde inhoud als de Engelse versie 2.0)."
+    }
+  ]
+}

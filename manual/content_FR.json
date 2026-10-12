@@ -1,0 +1,1188 @@
+{
+  "meta": {
+    "title": "Meal Planner",
+    "subtitle": "Mode d'emploi : planifier les repas et les courses de la famille",
+    "version": "Version 2.0",
+    "date": "12 octobre 2026",
+    "project": "Meal Planner",
+    "author": "Hans Tandt",
+    "tocTitle": "Sommaire",
+    "mascot": {
+      "cover": "figures/mascot/cover.png",
+      "coverWidth": 190,
+      "tip": "figures/mascot/tip.png",
+      "note": "figures/mascot/note.png",
+      "trap": "figures/mascot/trap.png",
+      "width": 46
+    },
+    "labels": {
+      "tip": "ASTUCE",
+      "note": "À SAVOIR",
+      "trap": "PIÈGE",
+      "page": "Page"
+    }
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "1. Comment utiliser ce mode d'emploi"
+    },
+    {
+      "type": "p",
+      "text": "Ce mode d'emploi montre comment planifier les repas de la famille avec Meal Planner. Chaque chapitre est une tâche. Suivez les étapes numérotées dans l'ordre."
+    },
+    {
+      "type": "p",
+      "text": "Les numéros dans les images correspondent aux numéros dans le texte. Les encadrés de couleur donnent une aide en plus :"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Encadré",
+        "Signification"
+      ],
+      "widths": [
+        1,
+        5
+      ],
+      "rows": [
+        [
+          "ASTUCE",
+          "Une meilleure façon de faire. Utile, mais vous pouvez la passer."
+        ],
+        [
+          "À SAVOIR",
+          "Une information pour éviter les surprises."
+        ],
+        [
+          "PIÈGE",
+          "Une erreur à éviter, et ce qu'il faut faire à la place."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "L'application n'est pas encore sur votre téléphone ? Commencez par l'annexe A, Installer l'application sur un nouveau téléphone. L'application n'est pas encore en ligne ? Commencez par l'annexe B. Il vous faut une clé API pour le chef IA ? Voyez l'annexe C."
+    },
+    {
+      "type": "h2",
+      "text": "L'application en un coup d'œil"
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_week.png",
+      "width": 230,
+      "caption": "Figure 1. L'écran de la semaine : tout commence ici.",
+      "alt": "L'écran de la semaine avec les flèches de semaine, une carte de jour, l'étiquette Rapide, les onglets et le bouton de menu marqués."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Élément",
+        "À quoi il sert"
+      ],
+      "widths": [
+        1,
+        3,
+        9
+      ],
+      "rows": [
+        [
+          "1",
+          "Flèches de semaine",
+          "Aller à la semaine précédente ou suivante."
+        ],
+        [
+          "2",
+          "Carte de jour",
+          "Touchez-la pour voir et modifier les repas de ce jour. Aujourd'hui a un bord orange."
+        ],
+        [
+          "3",
+          "Étiquette Rapide",
+          "La journée est chargée. Le chef IA propose des repas rapides pour ce jour."
+        ],
+        [
+          "4",
+          "Onglets",
+          "Passer de Semaine à Courses ou à Chef IA."
+        ],
+        [
+          "5",
+          "Menu ⋮",
+          "Sauvegarde, langue, nom de famille, PIN et paramètres IA."
+        ]
+      ]
+    },
+    {
+      "type": "h1",
+      "text": "2. Démarrage rapide : planifier le souper de ce soir"
+    },
+    {
+      "type": "p",
+      "text": "But : ajouter un repas à aujourd'hui en deux minutes."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Ouvrez Meal Planner sur votre téléphone.",
+        "Entrez votre code PIN à 4 chiffres.",
+        "Touchez la carte d'aujourd'hui. Elle a un bord orange et l'étiquette Aujourd'hui.",
+        "Touchez Ajouter à côté de Souper (1).",
+        "Tapez le nom du plat (2), par exemple Curry de poulet.",
+        "Touchez Enregistrer (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_add_meal.png",
+      "width": 470,
+      "caption": "Figure 2. Touchez Ajouter, tapez le nom du plat, puis touchez Enregistrer.",
+      "alt": "À gauche : mardi avec un bouton Ajouter à côté de Souper. À droite : l'éditeur de repas avec le champ du nom, la zone photo et le bouton Enregistrer marqués."
+    },
+    {
+      "type": "p",
+      "text": "Réussi : le repas apparaît maintenant sur la carte d'aujourd'hui dans l'écran de la semaine."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Ajouter une photo",
+      "text": "Touchez la zone photo (3) pour photographier le plat ou choisir une photo. La photo apparaît ensuite sur la carte du jour."
+    },
+    {
+      "type": "h1",
+      "text": "3. Planifier votre semaine"
+    },
+    {
+      "type": "p",
+      "text": "But : remplir la semaine, modifier des repas et marquer les journées chargées."
+    },
+    {
+      "type": "h2",
+      "text": "Aller à une autre semaine"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Touchez › pour voir la semaine suivante.",
+        "Touchez ‹ pour revenir d'une semaine.",
+        "Touchez Cette semaine pour revenir à la semaine en cours. Ce bouton n'apparaît que si vous regardez une autre semaine."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Marquer une journée chargée comme rapide"
+    },
+    {
+      "type": "p",
+      "text": "Les jours chargés, il reste peu de temps pour cuisiner. Marquez ces jours comme rapides. Le chef IA propose alors des repas prêts en 20 minutes ou moins."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Touchez la carte du jour.",
+        "Touchez l'interrupteur Journée rapide (1). Il devient orange.",
+        "Touchez × ou n'importe où à côté de la fenêtre pour la fermer."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_day.png",
+      "width": 250,
+      "caption": "Figure 3. Un jour : activez Journée rapide, et modifiez, supprimez ou ajoutez des repas.",
+      "alt": "Mercredi avec l'interrupteur rapide activé, et les boutons crayon, corbeille et Ajouter marqués."
+    },
+    {
+      "type": "p",
+      "text": "Réussi : la carte du jour montre l'étiquette Rapide et une bande orange à gauche."
+    },
+    {
+      "type": "h2",
+      "text": "Modifier ou supprimer un repas"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Pour",
+        "Touchez"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Modifier un repas",
+          "Le crayon (2), ou le repas lui-même"
+        ],
+        [
+          "Supprimer un repas",
+          "La corbeille (3)"
+        ],
+        [
+          "Ajouter un repas",
+          "Ajouter (4)"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "La corbeille ne s'annule pas",
+      "text": "La corbeille supprime le repas et sa photo tout de suite. Si vous la touchez par erreur, ajoutez le repas à nouveau."
+    },
+    {
+      "type": "h1",
+      "text": "4. Laisser le chef IA planifier votre semaine"
+    },
+    {
+      "type": "p",
+      "text": "But : obtenir toute une semaine de repas en une touche."
+    },
+    {
+      "type": "p",
+      "text": "Il vous faut : une connexion internet et une clé API pour Claude, ChatGPT ou Grok dans le menu. L'annexe C montre comment en obtenir une."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Marquez les journées chargées comme rapides (chapitre 3).",
+        "Touchez l'onglet Chef IA.",
+        "Touchez Proposer des repas.",
+        "Attendez pendant que le chef planifie. Cela prend un instant.",
+        "Lisez la proposition (1). Faites défiler pour voir les 7 jours.",
+        "Touchez Appliquer au calendrier (2).",
+        "Si l'application demande Remplacer les repas prévus ?, touchez Remplacer (3) ou Annuler (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_plan.png",
+      "width": 440,
+      "caption": "Figure 4. Vérifiez la proposition, puis appliquez-la. Remplacez seulement si vous voulez perdre les repas déjà prévus.",
+      "alt": "À gauche : la proposition avec un jour et le bouton Appliquer au calendrier marqués. À droite : la question Remplacer les repas prévus avec Remplacer et Annuler marqués."
+    },
+    {
+      "type": "p",
+      "text": "Réussi : le chef content apparaît, et l'écran de la semaine montre les nouveaux repas."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Remplacer écrase toute la semaine",
+      "text": "Remplacer supprime tous les repas et photos déjà prévus cette semaine-là. Touchez Annuler pour les garder."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "La proposition ne vous plaît pas ?",
+      "text": "Touchez à nouveau Proposer des repas pour une autre proposition. Rien ne change tant que vous ne touchez pas Appliquer au calendrier."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Les noms des plats suivent la langue de l'application",
+      "text": "Le chef écrit dans la langue de l'application. Le chapitre 7 montre comment la changer."
+    },
+    {
+      "type": "h1",
+      "text": "5. Utiliser la liste de courses"
+    },
+    {
+      "type": "p",
+      "text": "But : tenir une liste par magasin et cocher les articles au magasin."
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_shop.png",
+      "width": 230,
+      "caption": "Figure 5. Une liste par magasin : ajoutez, cochez et supprimez des articles.",
+      "alt": "La liste Delhaize avec les boutons des magasins, le champ d'ajout, une case à cocher, une corbeille et le bouton Liste IA marqués."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Pour",
+        "Faites ceci"
+      ],
+      "widths": [
+        1,
+        4,
+        8
+      ],
+      "rows": [
+        [
+          "1",
+          "Choisir un magasin",
+          "Touchez Delhaize, Lidl, Aldi, Massen ou Autre. Le chiffre montre les articles encore à acheter."
+        ],
+        [
+          "2",
+          "Ajouter un article",
+          "Tapez l'article, puis touchez +."
+        ],
+        [
+          "3",
+          "Cocher un article",
+          "Touchez la case. Touchez-la à nouveau pour décocher."
+        ],
+        [
+          "4",
+          "Supprimer un article",
+          "Touchez la corbeille."
+        ],
+        [
+          "5",
+          "Laisser l'IA faire la liste",
+          "Touchez Liste IA. Voyez les étapes ci-dessous."
+        ]
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Laisser l'IA faire la liste"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Planifiez d'abord la semaine (chapitre 3 ou 4).",
+        "Touchez l'onglet Courses.",
+        "Touchez Liste IA (5).",
+        "Attendez pendant que le chef écrit la liste."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Réussi : de nouveaux articles apparaissent sous chaque magasin. Les articles déjà sur une liste ne sont pas ajoutés deux fois."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Quelle semaine ?",
+      "text": "La liste IA utilise la semaine que vous avez regardée en dernier dans l'écran de la semaine."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Faites la liste juste après la planification",
+      "text": "Appliquez la proposition, puis touchez Liste IA. Les courses de toute la semaine sont prêtes en deux touches."
+    },
+    {
+      "type": "h1",
+      "text": "6. Reconnaître un plat et faire les courses"
+    },
+    {
+      "type": "p",
+      "text": "But : trouver le nom d'un plat à partir d'une photo, et mettre ses ingrédients sur la liste de courses."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Touchez l'onglet Chef IA.",
+        "Faites défiler jusqu'à Reconnaître un plat.",
+        "Touchez la zone photo, puis prenez ou choisissez une photo.",
+        "Touchez Reconnaître ce plat (1).",
+        "Lisez le nom (2) et la description.",
+        "Touchez Ajouter les ingrédients aux courses (3)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_identify.png",
+      "width": 320,
+      "caption": "Figure 6. Le chef nomme le plat ; une touche de plus met ses ingrédients sur la liste de courses.",
+      "alt": "Le bouton Reconnaître ce plat, le nom du plat et le bouton Ajouter les ingrédients aux courses marqués."
+    },
+    {
+      "type": "p",
+      "text": "Réussi : le chef content montre combien d'ingrédients ont été ajoutés. Chaque ingrédient est sur la liste du magasin où vous l'achetez d'habitude."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Les produits de base sont laissés de côté",
+      "text": "Le sel, le poivre, l'huile de cuisson et l'eau ne sont pas ajoutés. Les articles déjà sur une liste ne sont pas ajoutés deux fois."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Utilisez-le en ajoutant un repas",
+      "text": "L'éditeur de repas a aussi un bouton Reconnaître avec l'IA. Il remplit le nom et les notes pour vous."
+    },
+    {
+      "type": "h1",
+      "text": "7. Changer la langue, le nom de famille et le PIN"
+    },
+    {
+      "type": "p",
+      "text": "But : adapter l'application à votre famille. Tous les réglages sont dans le menu ⋮ en haut à droite."
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_menu.png",
+      "width": 250,
+      "caption": "Figure 7. Le menu contient la sauvegarde, la langue et le nom de famille.",
+      "alt": "Le menu avec Exporter, Importer, les boutons de langue et le champ du nom de famille marqués."
+    },
+    {
+      "type": "h2",
+      "text": "Changer la langue"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Touchez ⋮.",
+        "Touchez English, Français, Nederlands ou Deutsch (3)."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "L'application change de langue tout de suite. Chaque téléphone garde sa propre langue."
+    },
+    {
+      "type": "h2",
+      "text": "Changer le nom de famille"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Touchez ⋮.",
+        "Tapez le nom dans le champ Famille (4).",
+        "Touchez Enregistrer le nom."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Le nom apparaît sur l'écran de verrouillage, en haut de l'application et dans les rapports."
+    },
+    {
+      "type": "h2",
+      "text": "Changer le PIN"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Touchez ⋮.",
+        "Faites défiler jusqu'à Sécurité.",
+        "Tapez votre PIN actuel.",
+        "Tapez un nouveau PIN à 4 chiffres.",
+        "Touchez Modifier le PIN."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Notez votre PIN",
+      "text": "L'application ne peut ni afficher ni réinitialiser un PIN oublié. Gardez-le en lieu sûr. Le chapitre 9 explique quoi faire s'il est perdu."
+    },
+    {
+      "type": "h2",
+      "text": "Choisir le service d'IA"
+    },
+    {
+      "type": "p",
+      "text": "Le chef IA peut utiliser Claude, ChatGPT ou Grok. Chaque service a besoin de sa propre clé API. L'annexe C montre comment obtenir une clé et la mettre dans l'application."
+    },
+    {
+      "type": "h1",
+      "text": "8. Sauvegarder vos données et les passer à un autre téléphone"
+    },
+    {
+      "type": "p",
+      "text": "But : garder une copie de vos repas, photos et listes, et les passer à un autre téléphone."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Vos données restent sur le téléphone",
+      "text": "Les repas et les listes sont enregistrés sur chaque téléphone, pas en ligne. Deux téléphones ne partagent pas leurs modifications tout seuls."
+    },
+    {
+      "type": "h2",
+      "text": "Faire une sauvegarde"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Touchez ⋮.",
+        "Touchez Exporter les données (sauvegarde) (1).",
+        "Enregistrez le fichier, par exemple sur Google Drive."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Le nom du fichier ressemble à tandt-meal-data-2026-10-04.json. Il contient les repas, les photos, les listes de courses et le nom de famille."
+    },
+    {
+      "type": "h2",
+      "text": "Restaurer une sauvegarde ou passer à un autre téléphone"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Ouvrez l'application sur le téléphone qui doit recevoir les données.",
+        "Touchez ⋮.",
+        "Touchez Importer des données (2).",
+        "Choisissez le fichier de sauvegarde."
+      ]
+    },
+    {
+      "type": "table",
+      "header": [
+        "Si",
+        "Alors"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Un jour est dans le fichier et sur ce téléphone",
+          "Le jour du fichier remplace celui de ce téléphone."
+        ],
+        [
+          "Un jour est seulement sur ce téléphone",
+          "Il reste tel quel."
+        ],
+        [
+          "Un article est dans le fichier et sur ce téléphone",
+          "Il apparaît une seule fois."
+        ],
+        [
+          "Des articles étaient cochés sur l'autre téléphone",
+          "Les coches ne sont pas copiées. Cochez-les à nouveau."
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Effacer les données du navigateur efface tout",
+      "text": "Effacer les données du site dans Brave supprime tous les repas, photos et listes de ce téléphone. Faites d'abord une sauvegarde."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Sauvegardez chaque semaine",
+      "text": "Exportez une sauvegarde une fois par semaine, par exemple après les grandes courses."
+    },
+    {
+      "type": "h1",
+      "text": "9. Résoudre les problèmes courants"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Si vous voyez",
+        "Alors"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "Ajoutez d'abord votre clé API",
+          "Touchez ⋮, choisissez votre service d'IA et collez sa clé API sous Paramètres IA. Voyez l'annexe C."
+        ],
+        [
+          "Clé API refusée",
+          "La clé est fausse, n'est plus valable ou appartient à un autre service d'IA. Vérifiez que le service choisi dans le menu correspond à la clé."
+        ],
+        [
+          "Plus de crédit sur votre compte IA",
+          "Ajoutez du crédit dans la console de votre service d'IA (annexe C), puis réessayez."
+        ],
+        [
+          "IA indisponible — vérifiez votre connexion",
+          "Vérifiez le Wi-Fi ou les données mobiles, puis réessayez."
+        ],
+        [
+          "Réponse inattendue — réessayez",
+          "Touchez à nouveau le même bouton."
+        ],
+        [
+          "L'IA a refusé cette demande",
+          "Réessayez plus tard, ou avec une autre photo."
+        ],
+        [
+          "Mémoire pleine — modifications non enregistrées",
+          "Libérez de la place sur le téléphone, puis enregistrez à nouveau."
+        ],
+        [
+          "PIN incorrect — réessayez",
+          "Vérifiez le PIN et tapez-le à nouveau."
+        ],
+        [
+          "Vous avez oublié le PIN",
+          "Effacez les données du site de l'application dans Brave. Cela supprime le PIN et toutes les données de ce téléphone. Choisissez ensuite un nouveau PIN et importez votre sauvegarde (chapitre 8)."
+        ],
+        [
+          "L'application a l'air ancienne après une mise à jour",
+          "Fermez l'application et rouvrez-la. Dans Brave, tirez la page vers le bas pour la recharger."
+        ]
+      ]
+    },
+    {
+      "type": "h1",
+      "text": "Annexe A. Installer l'application sur un nouveau téléphone"
+    },
+    {
+      "type": "p",
+      "text": "But : mettre Meal Planner sur un téléphone pour la première fois. À faire une fois par téléphone."
+    },
+    {
+      "type": "p",
+      "text": "Il vous faut : l'adresse web de l'application et une clé API pour Claude, ChatGPT ou Grok (un code secret qui permet à l'application d'utiliser l'IA)."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Ouvrez Brave ou Chrome sur le téléphone.",
+        "Allez à l'adresse web de l'application.",
+        "Choisissez un code PIN à 4 chiffres (figure 8).",
+        "Entrez le même PIN encore une fois.",
+        "Touchez ⋮, choisissez votre langue et enregistrez votre nom de famille.",
+        "Sous Paramètres IA, choisissez Claude, ChatGPT ou Grok et collez la clé API de ce service (annexe C).",
+        "Ouvrez le menu de Brave et touchez Installer l'application ou Ajouter à l'écran d'accueil."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_lock.png",
+      "width": 200,
+      "caption": "Figure 8. Sur un nouveau téléphone, vous choisissez votre propre PIN. Ensuite, l'application le demande à chaque ouverture.",
+      "alt": "L'écran de verrouillage avec le chef qui fait signe, qui demande de choisir un PIN à 4 chiffres, avec le clavier marqué."
+    },
+    {
+      "type": "p",
+      "text": "Réussi : l'icône du chef est sur votre écran d'accueil. L'application s'ouvre en plein écran depuis là."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "La clé API reste sur ce téléphone",
+      "text": "Chaque téléphone a besoin de la clé une fois. Les sauvegardes ne contiennent jamais la clé."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Gardez la clé API secrète",
+      "text": "Quiconque a la clé peut utiliser l'IA à vos frais. Ne l'envoyez pas par chat ni par e-mail."
+    },
+    {
+      "type": "pagebreak"
+    },
+    {
+      "type": "h1",
+      "text": "Annexe B. Mettre l'application en ligne avec Netlify"
+    },
+    {
+      "type": "p",
+      "text": "But : publier l'application sur internet, pour que chaque téléphone puisse l'ouvrir. À faire une fois sur un ordinateur, et à nouveau pour chaque mise à jour."
+    },
+    {
+      "type": "p",
+      "text": "Il vous faut : un ordinateur avec Chrome, Edge ou Brave, le dossier nommé app, et une adresse e-mail ou un compte Google, GitHub, GitLab ou Bitbucket."
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_deploy.png",
+      "width": 470,
+      "caption": "Figure 9. Glissez le dossier app vers Netlify ; les téléphones ouvrent ensuite l'adresse web.",
+      "alt": "Trois cadres : le dossier app sur le PC, Netlify et les téléphones, reliés par des flèches glisser et adresse."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Qui fait cela ?",
+      "text": "Seulement la personne qui gère l'application. Les membres de la famille n'ont besoin que de l'annexe A."
+    },
+    {
+      "type": "p",
+      "text": "Les écrans de Netlify sont en anglais. Les étapes ci-dessous utilisent les noms anglais des boutons de Netlify."
+    },
+    {
+      "type": "h2",
+      "text": "B0. Obtenir le dossier app"
+    },
+    {
+      "type": "p",
+      "text": "L'application est un seul dossier nommé app. Cette annexe met ce dossier en ligne. Vous le trouvez sur le site hanstandt.be."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Ouvrez hanstandt.be dans votre navigateur.",
+        "Cliquez sur Meal Planner.",
+        "Cliquez sur le bouton de téléchargement. Votre ordinateur enregistre un fichier zip (un dossier compressé).",
+        "Faites un clic droit sur le fichier zip et choisissez Extraire tout.",
+        "Ouvrez le dossier extrait. Il contient le dossier nommé app."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Où se trouve le code source ?",
+      "text": "Le dossier app est tout le programme. Son code source est le fichier index.html qu'il contient. Vous pouvez ouvrir ce fichier avec le Bloc-notes pour le lire. Il ne faut rien y changer pour utiliser l'application."
+    },
+    {
+      "type": "h2",
+      "text": "B1. Créer un compte Netlify gratuit"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Ouvrez app.netlify.com/signup dans votre navigateur.",
+        "Choisissez comment vous inscrire : Google, GitHub, GitLab, Bitbucket ou e-mail.",
+        "Suivez les étapes à l'écran. Avec un e-mail, ouvrez le message de Netlify et cliquez sur le lien.",
+        "Si Netlify demande un abonnement, choisissez le plan gratuit (free). Il suffit pour cette application."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Réussi : vous voyez la page Projects de votre équipe (figure 10)."
+    },
+    {
+      "type": "h2",
+      "text": "B2. Publier l'application pour la première fois"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Cliquez sur Projects dans le menu de gauche (1).",
+        "Ouvrez l'Explorateur de fichiers et trouvez le dossier nommé app.",
+        "Glissez le dossier app sur la zone de dépôt en bas de la page (2).",
+        "Attendez quelques secondes. Netlify ouvre la vue d'ensemble de votre nouveau projet."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_projects.png",
+      "width": 470,
+      "caption": "Figure 10. La page Projects : déposez le dossier app dans la zone du bas.",
+      "alt": "La page Projects de Netlify avec Projects dans le menu de gauche et la zone de dépôt marqués."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Glissez seulement le dossier app",
+      "text": "Le dossier du projet contient aussi les modes d'emploi et des notes. Si vous glissez ce dossier, Netlify les publie aussi, et l'application affiche Page not found."
+    },
+    {
+      "type": "h2",
+      "text": "B3. Lire la vue d'ensemble du projet"
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_overview.png",
+      "width": 420,
+      "caption": "Figure 11. La vue d'ensemble du projet : l'adresse web, les réglages et la zone pour les mises à jour.",
+      "alt": "La Project overview avec l'adresse web, le bouton Project configuration et la zone de dépôt Already built it? marqués."
+    },
+    {
+      "type": "table",
+      "header": [
+        "#",
+        "Élément",
+        "À quoi il sert"
+      ],
+      "widths": [
+        1,
+        4,
+        8
+      ],
+      "rows": [
+        [
+          "1",
+          "Adresse web",
+          "L'adresse de votre application. Elle se termine par .netlify.app. Cliquez dessus pour ouvrir l'application."
+        ],
+        [
+          "2",
+          "Project configuration",
+          "Les réglages : le nom du projet (B4) et qui peut l'ouvrir (B5)."
+        ],
+        [
+          "3",
+          "Already built it?",
+          "Une zone de dépôt pour les mises à jour (B7)."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Une étiquette verte Public à côté du nom du projet signifie que tous ceux qui ont l'adresse peuvent ouvrir l'application."
+    },
+    {
+      "type": "h2",
+      "text": "B4. Donner une adresse claire à l'application"
+    },
+    {
+      "type": "p",
+      "text": "Netlify donne un nom au hasard à un nouveau projet. Un nom clair donne une adresse facile à taper, par exemple peeters-repas.netlify.app."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Dans la vue d'ensemble du projet, cliquez sur Project configuration.",
+        "Cliquez sur General (1).",
+        "Sous Project information, cliquez sur Change project name (2).",
+        "Tapez le nouveau nom (1 dans la figure 13).",
+        "Vérifiez la nouvelle adresse sous le champ (2).",
+        "Cliquez sur Save (3)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_config.png",
+      "width": 400,
+      "caption": "Figure 12. Project configuration, General : le bouton Change project name.",
+      "alt": "Les réglages General avec l'onglet General et le bouton Change project name marqués."
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_rename.png",
+      "width": 300,
+      "caption": "Figure 13. Tapez le nom, vérifiez l'adresse, puis cliquez sur Save.",
+      "alt": "La fenêtre Change project name avec le champ du nom, l'adresse obtenue et le bouton Save marqués."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Règles pour le nom",
+      "text": "Utilisez seulement des lettres, des chiffres et des traits d'union, 37 caractères au maximum. Si Netlify refuse le nom, quelqu'un d'autre l'utilise déjà : choisissez-en un autre."
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Renommez avant que la famille commence",
+      "text": "Chaque téléphone garde ses repas sous l'adresse web. Après un nouveau nom, les téléphones repartent à vide à la nouvelle adresse. Renommez d'abord, ou faites une sauvegarde sur chaque téléphone et importez-la à la nouvelle adresse (chapitre 8)."
+    },
+    {
+      "type": "h2",
+      "text": "B5. Rendre l'application publique"
+    },
+    {
+      "type": "p",
+      "text": "Les équipes Netlify créées depuis le 28 juillet 2026 rendent les nouveaux projets privés. Un projet privé demande aux visiteurs de se connecter à Netlify : les téléphones ne peuvent donc pas ouvrir l'application."
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Dans la vue d'ensemble du projet, cliquez sur Project configuration.",
+        "Cliquez sur Visitor access dans le menu de gauche (1).",
+        "Lisez Production visibility (2). S'il est écrit Public, c'est terminé.",
+        "S'il est écrit Private, cliquez sur Edit visibility (3), choisissez public et enregistrez."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_visibility.png",
+      "width": 420,
+      "caption": "Figure 14. Visitor access : Production visibility doit être Public.",
+      "alt": "Les réglages Visitor access avec l'élément de menu, la ligne Production visibility et le bouton Edit visibility marqués."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Un clic après le premier déploiement",
+      "text": "Juste après le premier déploiement, la vue d'ensemble du projet peut montrer un bouton Make public. Il fait la même chose en un clic."
+    },
+    {
+      "type": "h2",
+      "text": "B6. Ouvrir l'application sur les téléphones"
+    },
+    {
+      "type": "p",
+      "text": "Envoyez l'adresse web à chaque téléphone, par exemple dans un message. Suivez ensuite l'annexe A sur chaque téléphone."
+    },
+    {
+      "type": "h2",
+      "text": "B7. Publier une mise à jour"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Connectez-vous sur app.netlify.com.",
+        "Cliquez sur votre projet.",
+        "Cliquez sur Deploys dans le menu de gauche (1).",
+        "Glissez tout le dossier app sur la zone de dépôt Need to update your project? (3).",
+        "Attendez que le nouveau déploiement en haut de la liste indique Published (2).",
+        "Sur chaque téléphone, fermez l'application et rouvrez-la."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/netlify/fig_nf_deploys.png",
+      "width": 470,
+      "caption": "Figure 15. La page Deploys : déposez le dossier app en bas, puis attendez Published.",
+      "alt": "La page Deploys avec Deploys dans le menu, l'étiquette Published et la zone de dépôt marqués."
+    },
+    {
+      "type": "p",
+      "text": "Réussi : l'adresse web reste la même. Les repas, photos et réglages restent sur chaque téléphone."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Glissez le dossier, pas les fichiers qu'il contient",
+      "text": "Le dossier app contient ensemble la page, les images et les icônes. Sans eux, les images du chef et l'icône de l'application manquent."
+    },
+    {
+      "type": "h2",
+      "text": "B8. Si quelque chose ne va pas"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Si",
+        "Alors"
+      ],
+      "widths": [
+        2,
+        3
+      ],
+      "rows": [
+        [
+          "L'adresse demande de se connecter à Netlify",
+          "Le projet est privé. Rendez-le public (B5)."
+        ],
+        [
+          "L'adresse demande un mot de passe",
+          "Le dossier a été déposé sans être connecté. Connectez-vous ou inscrivez-vous pour récupérer le projet, puis rendez-le public (B5)."
+        ],
+        [
+          "Page not found",
+          "Un dossier autour du dossier app a été glissé. Glissez à nouveau le dossier app lui-même (B7)."
+        ],
+        [
+          "Les images du chef ou l'icône manquent",
+          "Seuls quelques fichiers ont été glissés. Glissez à nouveau tout le dossier app (B7)."
+        ],
+        [
+          "Le téléphone montre encore l'ancienne version",
+          "Fermez l'application et rouvrez-la. Dans Brave, tirez la page vers le bas pour la recharger."
+        ],
+        [
+          "Netlify refuse le nouveau nom du projet",
+          "Le nom est déjà pris ou contient d'autres caractères. Choisissez-en un autre (B4)."
+        ]
+      ]
+    },
+    {
+      "type": "pagebreak"
+    },
+    {
+      "type": "h1",
+      "text": "Annexe C. Obtenir une clé API pour le chef IA"
+    },
+    {
+      "type": "p",
+      "text": "But : obtenir la clé API qui permet à l'application d'utiliser l'IA. Choisissez un service : Claude, ChatGPT ou Grok. À faire une fois sur un ordinateur."
+    },
+    {
+      "type": "table",
+      "header": [
+        "Service",
+        "Entreprise",
+        "Clé à obtenir sur",
+        "La clé commence par"
+      ],
+      "widths": [
+        2,
+        2,
+        5,
+        3
+      ],
+      "rows": [
+        [
+          "Claude",
+          "Anthropic",
+          "platform.claude.com",
+          "sk-ant-"
+        ],
+        [
+          "ChatGPT",
+          "OpenAI",
+          "platform.openai.com",
+          "sk-"
+        ],
+        [
+          "Grok",
+          "xAI (aussi affiché SpaceXAI)",
+          "console.x.ai",
+          "(voir la console)"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Un abonnement de chat n'est pas du crédit API",
+      "text": "ChatGPT Plus et les abonnements de chat semblables ne paient pas l'API. L'utilisation de l'API se paie à part, avec du crédit dans la console du service."
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Ce que cela coûte",
+      "text": "Vous payez par demande. Une semaine planifiée ou une liste de courses coûte en général quelques centimes. Commencez avec un petit montant de crédit."
+    },
+    {
+      "type": "h2",
+      "text": "C1. Claude (Anthropic)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Ouvrez platform.claude.com et connectez-vous, ou créez un compte.",
+        "Ajoutez du crédit sur la page Billing, sous Settings.",
+        "Allez dans Settings, puis API keys.",
+        "Cliquez sur Create key.",
+        "Donnez un nom à la clé, par exemple Meal Planner, et choisissez une date d'expiration.",
+        "Copiez la clé. Elle commence par sk-ant-."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "C2. ChatGPT (OpenAI)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Ouvrez platform.openai.com et connectez-vous, ou créez un compte.",
+        "Ajoutez un moyen de paiement et du crédit dans les réglages de facturation (billing).",
+        "Ouvrez la page API keys de votre projet.",
+        "Cliquez sur + Create new secret key.",
+        "Donnez un nom à la clé, par exemple Meal Planner.",
+        "Copiez la clé."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "C3. Grok (xAI)"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Ouvrez console.x.ai et connectez-vous, ou créez un compte.",
+        "Achetez du crédit sous Billing, puis API spend management.",
+        "Ouvrez la page API Keys.",
+        "Créez une nouvelle clé et donnez-lui un nom, par exemple Meal Planner.",
+        "Copiez la clé."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "trap",
+      "title": "Copiez la clé tout de suite",
+      "text": "La console montre la clé complète seulement au moment de sa création. Si vous la perdez, créez une nouvelle clé."
+    },
+    {
+      "type": "h2",
+      "text": "C4. Mettre la clé dans l'application"
+    },
+    {
+      "type": "numbers",
+      "items": [
+        "Envoyez-vous la clé de façon sûre, par exemple dans un gestionnaire de mots de passe.",
+        "Sur le téléphone, ouvrez l'application et touchez ⋮.",
+        "Faites défiler jusqu'à Paramètres IA.",
+        "Touchez le service choisi : Claude, ChatGPT ou Grok (1).",
+        "Vérifiez d'où vient la clé (2).",
+        "Collez la clé dans le champ (3).",
+        "Touchez Enregistrer la clé API (4)."
+      ]
+    },
+    {
+      "type": "figure",
+      "path": "figures/fr/fig_aikey.png",
+      "width": 260,
+      "caption": "Figure 16. Paramètres IA : choisissez le service, collez sa clé, puis enregistrez.",
+      "alt": "Les paramètres IA du menu avec les boutons des services, l'adresse de la clé, le champ de la clé et le bouton Enregistrer la clé API marqués."
+    },
+    {
+      "type": "p",
+      "text": "Réussi : la ligne sous le bouton indique par exemple Claude : la clé API est configurée."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Changez de service quand vous voulez",
+      "text": "Chaque service garde sa propre clé sur le téléphone. Touchez un autre service pour l'utiliser ; sa clé est gardée."
+    },
+    {
+      "type": "h1",
+      "text": "Glossaire"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Terme",
+        "Signification"
+      ],
+      "widths": [
+        1,
+        3
+      ],
+      "rows": [
+        [
+          "Adresse web",
+          "L'adresse de l'application sur internet, par exemple …netlify.app."
+        ],
+        [
+          "Carte de jour",
+          "Le cadre d'un jour dans l'écran de la semaine."
+        ],
+        [
+          "Chef IA",
+          "La partie de l'application qui propose des repas et reconnaît des plats."
+        ],
+        [
+          "Clé API",
+          "Un code secret qui permet à l'application d'utiliser le chef IA."
+        ],
+        [
+          "Déploiement (deploy)",
+          "La mise en ligne d'une nouvelle version de l'application."
+        ],
+        [
+          "Exporter / Importer",
+          "Enregistrer un fichier de sauvegarde / charger un fichier de sauvegarde."
+        ],
+        [
+          "Fichier de sauvegarde",
+          "Un fichier avec tous vos repas, photos et listes."
+        ],
+        [
+          "Journée rapide",
+          "Une journée chargée qui reçoit des repas rapides."
+        ],
+        [
+          "Netlify",
+          "Le service qui garde l'application en ligne à une adresse web."
+        ],
+        [
+          "PIN",
+          "Le code à 4 chiffres que vous choisissez pour ouvrir l'application."
+        ],
+        [
+          "Projet (project)",
+          "Votre application sur Netlify, avec sa propre adresse web."
+        ],
+        [
+          "Service d'IA",
+          "Claude, ChatGPT ou Grok : l'IA que l'application utilise."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Historique : version 2.0, 12 octobre 2026, première édition française, pour Meal Planner v2.3.0 (même contenu que la version anglaise 2.0)."
+    }
+  ]
+}
