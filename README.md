@@ -4,6 +4,8 @@
 
 <p align="center">A family meal planner with an AI chef: plan the week, keep a shopping list per store, and turn a photo of a dish into a shopping list.</p>
 
+> Unofficial community project. Not affiliated with, endorsed by or sponsored by Anthropic, OpenAI or xAI. "Claude", "ChatGPT" and "Grok" are trademarks of their owners. You use your own API key with the AI service you choose.
+
 <p align="center"><img src="docs/screenshots.png" alt="The week view, an AI-suggested plan and the shopping list" width="760"></p>
 
 ## Why I built this
